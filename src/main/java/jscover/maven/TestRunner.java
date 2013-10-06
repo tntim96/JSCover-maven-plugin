@@ -53,36 +53,40 @@ public class TestRunner {
                 ioUtils = IoUtils.getInstance();
                 runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
             }
-
-
-            new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
-            webClient.findElement(By.id("storeTab")).click();
-
-            new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
-            webClient.findElement(By.id("storeButton")).click();
-            new WebDriverWait(webClient, 2).until(ExpectedConditions.textToBePresentInElement(By.id("storeDiv"), "Coverage data stored at"));
-
-            webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
-
-            if (reportLCOV || reportCoberturaXML) {
-                ConfigurationForReport configurationForReport = new ConfigurationForReport();
-                Main main = new Main();
-                main.initialize();
-                configurationForReport.setProperties(Main.properties);
-                configurationForReport.setJsonDirectory(config.getReportDir());
-                configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
-                main.setConfig(configurationForReport);
-                if (reportLCOV) {
-                    main.generateLCovDataFile();
-                }
-                if (reportCoberturaXML) {
-                    main.saveCoberturaXml();
-                }
-            }
-
+            saveCoverageData();
             verifyTotal(webClient, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum);
+            generateOtherReportFormats();
         } finally {
             stopWebClient();
+        }
+    }
+
+    private void saveCoverageData() {
+        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
+        webClient.findElement(By.id("storeTab")).click();
+
+        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
+        webClient.findElement(By.id("storeButton")).click();
+        new WebDriverWait(webClient, 2).until(ExpectedConditions.textToBePresentInElement(By.id("storeDiv"), "Coverage data stored at"));
+
+        webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
+    }
+
+    private void generateOtherReportFormats() throws IOException {
+        if (reportLCOV || reportCoberturaXML) {
+            ConfigurationForReport configurationForReport = new ConfigurationForReport();
+            Main main = new Main();
+            main.initialize();
+            configurationForReport.setProperties(Main.properties);
+            configurationForReport.setJsonDirectory(config.getReportDir());
+            configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
+            main.setConfig(configurationForReport);
+            if (reportLCOV) {
+                main.generateLCovDataFile();
+            }
+            if (reportCoberturaXML) {
+                main.saveCoberturaXml();
+            }
         }
     }
 
