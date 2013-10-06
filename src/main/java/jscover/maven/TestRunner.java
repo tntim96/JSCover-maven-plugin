@@ -55,6 +55,9 @@ public class TestRunner {
             new WebDriverWait(webClient, 2).until(ExpectedConditions.textToBePresentInElement(By.id("storeDiv"), "Coverage data stored at"));
 
             webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
+
+            //TODO Add conversion to LCOV and Cobertura XML
+
             verifyTotal(webClient, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum);
         } finally {
             stopWebClient();
