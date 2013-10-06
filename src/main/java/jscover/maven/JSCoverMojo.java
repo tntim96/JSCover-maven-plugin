@@ -16,8 +16,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static jscover.ConfigurationCommon.*;
 
@@ -64,13 +63,17 @@ public class JSCoverMojo extends AbstractMojo {
     private int functionCoverageMinimum;
     @Parameter
     private String webDriverClassName = PhantomJSDriver.class.getName();
+    @Parameter
+    private Properties systemProperties = new Properties();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        for (Object key : systemProperties.keySet()) {
+            System.setProperty((String)key, (String)systemProperties.get(key));
+        }
         final ConfigurationForServer config = getConfigurationForServer();
 
         try {
-
             Runnable jsCover = new Runnable() {
                 @Override
                 public void run() {
