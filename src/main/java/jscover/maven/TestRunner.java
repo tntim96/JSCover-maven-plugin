@@ -1,10 +1,12 @@
 package jscover.maven;
 
+import jscover.report.ConfigurationForReport;
+import jscover.report.Main;
+import jscover.report.ReportFormat;
 import jscover.server.ConfigurationForServer;
 import jscover.util.IoUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,6 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static java.lang.String.format;
+import static jscover.report.ReportFormat.COBERTURAXML;
+import static jscover.report.ReportFormat.LCOV;
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
@@ -24,15 +28,17 @@ public class TestRunner {
     private int lineCoverageMinimum;
     private int branchCoverageMinimum;
     private int functionCoverageMinimum;
+    private ReportFormat reportFormat;
     private IoUtils ioUtils;
 
-    public TestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum) {
+    public TestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, ReportFormat reportFormat) {
         this.webClient = webClient;
         this.webDriverRunner = webDriverRunner;
         this.config = config;
         this.lineCoverageMinimum = lineCoverageMinimum;
         this.branchCoverageMinimum = branchCoverageMinimum;
         this.functionCoverageMinimum = functionCoverageMinimum;
+        this.reportFormat = reportFormat;
     }
 
     public void runTests(List<File> testPages) throws Exception {
@@ -56,7 +62,20 @@ public class TestRunner {
 
             webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
 
-            //TODO Add conversion to LCOV and Cobertura XML
+            if (reportFormat != null) {
+                ConfigurationForReport configurationForReport = new ConfigurationForReport();
+                Main main = new Main();
+                main.initialize();
+                configurationForReport.setProperties(Main.properties);
+                configurationForReport.setJsonDirectory(config.getReportDir());
+                configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
+                main.setConfig(configurationForReport);
+                if (reportFormat == COBERTURAXML) {
+                    main.saveCoberturaXml();
+                } else if (reportFormat == LCOV) {
+                    main.generateLCovDataFile();
+                }
+            }
 
             verifyTotal(webClient, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum);
         } finally {

@@ -1,6 +1,7 @@
 package jscover.maven;
 
 import jscover.Main;
+import jscover.report.ReportFormat;
 import jscover.server.ConfigurationForServer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -48,12 +49,12 @@ public class JSCoverMojo extends AbstractMojo {
 
     //Test Parameters
     @Parameter(required = true)
-    private File testDirectory;
+    private File testDirectory = new File("src/test/javascript/spec");
     @Parameter(required = true)
-    private String testIncludes;
+    private String testIncludes = "*.html";
     @Parameter
     private String testExcludes;
-    @Parameter(required = true)
+    @Parameter
     private String testType = "Jasmine";
     @Parameter(required = true)
     private int lineCoverageMinimum;
@@ -65,9 +66,15 @@ public class JSCoverMojo extends AbstractMojo {
     private String webDriverClassName = PhantomJSDriver.class.getName();
     @Parameter
     private Properties systemProperties = new Properties();
+    @Parameter
+    private String reportFormat;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        ReportFormat extraReportFormat = null;
+        if (reportFormat != null)
+            extraReportFormat = ReportFormat.valueOf(reportFormat);
+
         for (Object key : systemProperties.keySet()) {
             System.setProperty((String)key, (String)systemProperties.get(key));
         }
@@ -90,7 +97,7 @@ public class JSCoverMojo extends AbstractMojo {
             jsCoverThread.start();
 
             List<File> testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum).runTests(testPages);
+            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, extraReportFormat).runTests(testPages);
         } catch (Exception e) {
             throw new MojoExecutionException("Error running JSCover", e);
         }
