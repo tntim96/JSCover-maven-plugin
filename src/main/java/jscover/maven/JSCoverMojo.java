@@ -9,16 +9,17 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
-import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
-import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
+import static jscover.ConfigurationCommon.*;
 
 @Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class JSCoverMojo extends AbstractMojo {
@@ -61,6 +62,8 @@ public class JSCoverMojo extends AbstractMojo {
     private int branchCoverageMinimum;
     @Parameter
     private int functionCoverageMinimum;
+    @Parameter
+    private String webDriverClassName = PhantomJSDriver.class.getName();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -84,9 +87,36 @@ public class JSCoverMojo extends AbstractMojo {
             jsCoverThread.start();
 
             List<File> testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-            new TestRunner(new FirefoxDriver(), getWebDriverRunner(), config,  lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum).runTests(testPages);
+            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum).runTests(testPages);
         } catch (Exception e) {
             throw new MojoExecutionException("Error running JSCover", e);
+        }
+    }
+
+    private WebDriver getWebClient() {
+        Class<WebDriver> webDriverClass = getWebDriverClass();
+        try {
+            try {
+                return webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
+            } catch (final NoSuchMethodException e) {
+                return webDriverClass.newInstance();
+            }
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Capabilities getDesiredCapabilities() {
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setJavascriptEnabled(true);
+        return desiredCapabilities;
+    }
+
+    private Class<WebDriver> getWebDriverClass() {
+        try {
+            return (Class<WebDriver>) Class.forName(webDriverClassName);
+        } catch (final ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
