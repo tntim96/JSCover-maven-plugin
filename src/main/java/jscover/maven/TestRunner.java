@@ -2,22 +2,19 @@ package jscover.maven;
 
 import jscover.report.ConfigurationForReport;
 import jscover.report.Main;
-import jscover.report.ReportFormat;
 import jscover.server.ConfigurationForServer;
 import jscover.util.IoUtils;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import static java.lang.String.format;
-import static jscover.report.ReportFormat.COBERTURAXML;
-import static jscover.report.ReportFormat.LCOV;
-import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
 public class TestRunner {
@@ -43,7 +40,7 @@ public class TestRunner {
         this.reportCoberturaXML = reportCoberturaXML;
     }
 
-    public void runTests(List<File> testPages) throws Exception {
+    public void runTests(List<File> testPages) throws MojoFailureException, MojoExecutionException {
         File jsonFile = new File(config.getReportDir() + "/jscoverage.json");
         if (jsonFile.exists())
             jsonFile.delete();
@@ -54,7 +51,7 @@ public class TestRunner {
                 runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
             }
             saveCoverageData();
-            verifyTotal(webClient, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum);
+            verifyTotal();
             generateOtherReportFormats();
         } finally {
             stopWebClient();
@@ -72,25 +69,29 @@ public class TestRunner {
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
 
-    private void generateOtherReportFormats() throws IOException {
-        if (reportLCOV || reportCoberturaXML) {
-            ConfigurationForReport configurationForReport = new ConfigurationForReport();
-            Main main = new Main();
-            main.initialize();
-            configurationForReport.setProperties(Main.properties);
-            configurationForReport.setJsonDirectory(config.getReportDir());
-            configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
-            main.setConfig(configurationForReport);
-            if (reportLCOV) {
-                main.generateLCovDataFile();
+    private void generateOtherReportFormats() throws MojoExecutionException {
+        try {
+            if (reportLCOV || reportCoberturaXML) {
+                ConfigurationForReport configurationForReport = new ConfigurationForReport();
+                Main main = new Main();
+                main.initialize();
+                configurationForReport.setProperties(Main.properties);
+                configurationForReport.setJsonDirectory(config.getReportDir());
+                configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
+                main.setConfig(configurationForReport);
+                if (reportLCOV) {
+                    main.generateLCovDataFile();
+                }
+                if (reportCoberturaXML) {
+                    main.saveCoberturaXml();
+                }
             }
-            if (reportCoberturaXML) {
-                main.saveCoberturaXml();
-            }
+        } catch (Throwable t) {
+            throw new MojoExecutionException("Error generating other report formats", t);
         }
     }
 
-    public void runTest(String testPage) throws Exception {
+    public void runTest(String testPage) throws MojoFailureException, MojoExecutionException {
         webClient.findElement(By.id("location")).clear();
         webClient.findElement(By.id("location")).sendKeys(String.format("http://localhost:%d/%s", config.getPort(), testPage));
         webClient.findElement(By.id("openInFrameButton")).click();
@@ -103,17 +104,24 @@ public class TestRunner {
         webClient.switchTo().window(handle);
     }
 
-    protected void verifyTotal(WebDriver webClient, int percentage, int branchPercentage, int functionPercentage) throws IOException {
+    protected void verifyTotal() throws MojoFailureException {
         webClient.findElement(By.id("summaryTab")).click();
+        new WebDriverWait(webClient, 1).until(textToBePresentInElement(By.id("summaryTotal"), "%"));
 
-        verifyTotals(webClient, percentage, branchPercentage, functionPercentage);
+        verifyField("Line", "summaryTotal", lineCoverageMinimum);
+        verifyField("Branch", "branchSummaryTotal", branchCoverageMinimum);
+        verifyField("Function", "functionSummaryTotal", functionCoverageMinimum);
     }
 
-    protected void verifyTotals(WebDriver webClient, int percentage, int branchPercentage, int functionPercentage) {
-        new WebDriverWait(webClient, 1).until(textToBePresentInElement(By.id("summaryTotal"), "%"));
-        assertEquals(percentage + "%", webClient.findElement(By.id("summaryTotal")).getText());
-        assertEquals(branchPercentage + "%", webClient.findElement(By.id("branchSummaryTotal")).getText());
-        assertEquals(functionPercentage + "%", webClient.findElement(By.id("functionSummaryTotal")).getText());
+    private void verifyField(String coverageName, String fieldName, int percentageMin) throws MojoFailureException {
+        int percentage = extractInt(webClient.findElement(By.id(fieldName)).getText());
+        if (percentage < percentageMin) {
+            throw new MojoFailureException(format("%s coverage %d less than %d", coverageName, percentage, percentageMin));
+        }
+    }
+
+    private int extractInt(String percentage) {
+        return Integer.parseInt(percentage.replaceAll("%", ""));
     }
 
     public void stopWebClient() {

@@ -74,31 +74,32 @@ public class JSCoverMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         for (Object key : systemProperties.keySet()) {
-            System.setProperty((String)key, (String)systemProperties.get(key));
+            System.setProperty((String) key, (String) systemProperties.get(key));
         }
         final ConfigurationForServer config = getConfigurationForServer();
 
-        try {
-            Runnable jsCover = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Main main = new Main();
-                        main.initialize();
-                        main.runServer(config);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+        Runnable jsCover = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main main = new Main();
+                    main.initialize();
+                    main.runServer(config);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            };
-            Thread jsCoverThread = new Thread(jsCover);
-            jsCoverThread.start();
+            }
+        };
+        Thread jsCoverThread = new Thread(jsCover);
+        jsCoverThread.start();
 
-            List<File> testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(testPages);
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error running JSCover", e);
+        List<File> testPages = null;
+        try {
+            testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Problem finding test pages", e);
         }
+        new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(testPages);
     }
 
     private WebDriver getWebClient() {
