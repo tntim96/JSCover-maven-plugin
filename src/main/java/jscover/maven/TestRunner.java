@@ -28,17 +28,19 @@ public class TestRunner {
     private int lineCoverageMinimum;
     private int branchCoverageMinimum;
     private int functionCoverageMinimum;
-    private ReportFormat reportFormat;
+    private final boolean reportLCOV;
+    private final boolean reportCoberturaXML;
     private IoUtils ioUtils;
 
-    public TestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, ReportFormat reportFormat) {
+    public TestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
         this.webClient = webClient;
         this.webDriverRunner = webDriverRunner;
         this.config = config;
         this.lineCoverageMinimum = lineCoverageMinimum;
         this.branchCoverageMinimum = branchCoverageMinimum;
         this.functionCoverageMinimum = functionCoverageMinimum;
-        this.reportFormat = reportFormat;
+        this.reportLCOV = reportLCOV;
+        this.reportCoberturaXML = reportCoberturaXML;
     }
 
     public void runTests(List<File> testPages) throws Exception {
@@ -62,7 +64,7 @@ public class TestRunner {
 
             webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
 
-            if (reportFormat != null) {
+            if (reportLCOV || reportCoberturaXML) {
                 ConfigurationForReport configurationForReport = new ConfigurationForReport();
                 Main main = new Main();
                 main.initialize();
@@ -70,10 +72,11 @@ public class TestRunner {
                 configurationForReport.setJsonDirectory(config.getReportDir());
                 configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
                 main.setConfig(configurationForReport);
-                if (reportFormat == COBERTURAXML) {
-                    main.saveCoberturaXml();
-                } else if (reportFormat == LCOV) {
+                if (reportLCOV) {
                     main.generateLCovDataFile();
+                }
+                if (reportCoberturaXML) {
+                    main.saveCoberturaXml();
                 }
             }
 

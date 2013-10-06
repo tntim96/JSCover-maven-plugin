@@ -67,14 +67,12 @@ public class JSCoverMojo extends AbstractMojo {
     @Parameter
     private Properties systemProperties = new Properties();
     @Parameter
-    private String reportFormat;
+    private boolean reportLCOV;
+    @Parameter
+    private boolean reportCoberturaXML;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        ReportFormat extraReportFormat = null;
-        if (reportFormat != null)
-            extraReportFormat = ReportFormat.valueOf(reportFormat);
-
         for (Object key : systemProperties.keySet()) {
             System.setProperty((String)key, (String)systemProperties.get(key));
         }
@@ -97,7 +95,7 @@ public class JSCoverMojo extends AbstractMojo {
             jsCoverThread.start();
 
             List<File> testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, extraReportFormat).runTests(testPages);
+            new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(testPages);
         } catch (Exception e) {
             throw new MojoExecutionException("Error running JSCover", e);
         }
