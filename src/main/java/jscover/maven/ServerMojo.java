@@ -21,8 +21,8 @@ import java.util.*;
 
 import static jscover.ConfigurationCommon.*;
 
-@Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
-public class JSCoverMojo extends AbstractMojo {
+@Mojo(name = "server", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
+public class ServerMojo extends AbstractMojo {
     private ConfigurationForServer defaults = new ConfigurationForServer();
 
     //JSCover Common Parameters
