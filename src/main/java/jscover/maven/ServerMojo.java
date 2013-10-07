@@ -1,7 +1,6 @@
 package jscover.maven;
 
 import jscover.Main;
-import jscover.report.ReportFormat;
 import jscover.server.ConfigurationForServer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -33,7 +32,7 @@ public class ServerMojo extends AbstractMojo {
     @Parameter
     private boolean localStorage = defaults.isLocalStorage();
     @Parameter
-    private final List<String> noInstrumentArgs = new ArrayList<String>();
+    private final List<String> instrumentPathArgs = new ArrayList<String>();
     @Parameter
     private File reportDir = new File("target/reports/jscover-maven");
     @Parameter
@@ -145,13 +144,13 @@ public class ServerMojo extends AbstractMojo {
         config.setLocalStorage(localStorage);
         config.setReportDir(reportDir);
         config.setJSVersion(JSVersion);
-        for (String noInstrumentArg : noInstrumentArgs) {
-            if (noInstrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
-                config.addNoInstrument(noInstrumentArg);
-            } else if (noInstrumentArg.startsWith(NO_INSTRUMENT_REG_PREFIX)) {
-                config.addNoInstrumentReg(noInstrumentArg);
-            } else if (noInstrumentArg.startsWith(ONLY_INSTRUMENT_REG_PREFIX)) {
-                config.addOnlyInstrumentReg(noInstrumentArg);
+        for (String instrumentArg : instrumentPathArgs) {
+            if (instrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
+                config.addNoInstrument(instrumentArg);
+            } else if (instrumentArg.startsWith(NO_INSTRUMENT_REG_PREFIX)) {
+                config.addNoInstrumentReg(instrumentArg);
+            } else if (instrumentArg.startsWith(ONLY_INSTRUMENT_REG_PREFIX)) {
+                config.addOnlyInstrumentReg(instrumentArg);
             }
         }
         //Server parameters
