@@ -1,5 +1,5 @@
-JSCover-maven-plugin
-================================
+JSCover-server-maven-plugin
+===========================
 
 Soon to be published, this will automatically run tests JavaScript tests and collect coverage.
 
