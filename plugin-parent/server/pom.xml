@@ -12,17 +12,16 @@
     <packaging>maven-plugin</packaging>
 
     <name>JSCover Server Maven Plugin</name>
-    <description>http://maven.apache.org</description>
-    <url>https://github.com/tntim96/JSCover-maven-plugin</url>
-
-    <!--
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    -->
+    <description>JSCover Server Maven Plugin</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.tntim96</groupId>
+            <artifactId>jscover-common-maven-plugin</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
