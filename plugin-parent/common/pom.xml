@@ -10,6 +10,6 @@
     </parent>
 
     <artifactId>jscover-common-maven-plugin</artifactId>
-
+    <packaging>jar</packaging>
 
 </project>
