@@ -1,5 +1,6 @@
 package jscover.maven;
 
+import jscover.Main;
 import jscover.filesystem.ConfigurationForFS;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -8,6 +9,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,17 @@ public class FileMojo extends JSCoverMojo {
     protected final List<String> excludeArgs = new ArrayList<String>();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        setSystemProperties();
+        final ConfigurationForFS config = getConfigurationForFS();
+
+        Main main = new Main();
+        try {
+            main.initialize();
+            main.runFileSystem(config);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Problem initialising JSCover", e);
+        }
+
     }
 
     private ConfigurationForFS getConfigurationForFS() {
@@ -38,7 +50,6 @@ public class FileMojo extends JSCoverMojo {
                 config.addExcludeReg(excludeArg);
             }
         }
-
         return config;
     }
 

@@ -33,9 +33,7 @@ public class ServerMojo extends JSCoverMojo {
     private File documentRoot = defaults.getDocumentRoot();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        for (Object key : systemProperties.keySet()) {
-            System.setProperty((String) key, (String) systemProperties.get(key));
-        }
+        setSystemProperties();
         final ConfigurationForServer config = getConfigurationForServer();
 
         Runnable jsCover = new Runnable() {
@@ -51,22 +49,7 @@ public class ServerMojo extends JSCoverMojo {
         };
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
-
-        List<File> testPages = null;
-        try {
-            testPages = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-        } catch (IOException e) {
-            throw new MojoExecutionException("Problem finding test pages", e);
-        }
-        new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(testPages);
-    }
-
-    protected WebDriverRunner getWebDriverRunner() {
-        WebDriverRunner webDriverRunner = new JasmineWebDriverRunner();
-        if ("QUnit".equalsIgnoreCase(testType)) {
-            webDriverRunner = new QUnitWebDriverRunner();
-        }
-        return webDriverRunner;
+        new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
     }
 
     private ConfigurationForServer getConfigurationForServer() {

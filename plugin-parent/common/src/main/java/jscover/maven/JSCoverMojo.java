@@ -1,14 +1,20 @@
 package jscover.maven;
 
 import jscover.ConfigurationCommon;
+import jscover.Main;
+import jscover.server.ConfigurationForServer;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.plexus.util.FileUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -57,6 +63,28 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected boolean reportLCOV;
     @Parameter
     protected boolean reportCoberturaXML;
+
+    protected void setSystemProperties() {
+        for (Object key : systemProperties.keySet()) {
+            System.setProperty((String) key, (String) systemProperties.get(key));
+        }
+    }
+
+    protected List<File> getTestFiles() throws MojoExecutionException {
+        try {
+            return FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Problem finding test pages", e);
+        }
+    }
+
+    protected WebDriverRunner getWebDriverRunner() {
+        WebDriverRunner webDriverRunner = new JasmineWebDriverRunner();
+        if ("QUnit".equalsIgnoreCase(testType)) {
+            webDriverRunner = new QUnitWebDriverRunner();
+        }
+        return webDriverRunner;
+    }
 
     protected WebDriver getWebClient() {
         Class<WebDriver> webDriverClass = getWebDriverClass();
