@@ -15,7 +15,7 @@ Run with `mvn jscover-server:server`
 ```XML
             <plugin>
                 <groupId>com.github.tntim96</groupId>
-                <artifactId>jscover-maven-plugin</artifactId>
+                <artifactId>jscover-server-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <configuration>
                     <testDirectory>./src/test/javascript/qunit/test</testDirectory>
