@@ -19,7 +19,7 @@ public class FileMojo extends JSCoverMojo {
     private ConfigurationForFS defaults = new ConfigurationForFS();
 
     @Parameter
-    private File destDir = defaults.getDestDir();
+    private File destDir = new File("target/jscover-instrumented");
     @Parameter
     protected final List<String> excludeArgs = new ArrayList<String>();
 
