@@ -16,8 +16,10 @@ import java.util.List;
 //@Mojo(name = "file", requiresDirectInvocation = true)
 @Mojo(name = "file", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class FileMojo extends JSCoverMojo {
-    private ConfigurationForFS defaults = new ConfigurationForFS();
+    //private ConfigurationForFS defaults = new ConfigurationForFS();
 
+    @Parameter
+    private File srcDir = new File("src");
     @Parameter
     private File destDir = new File("target/jscover-instrumented");
     @Parameter
@@ -42,6 +44,7 @@ public class FileMojo extends JSCoverMojo {
         //Common parameters
         setCommonConfiguration(config);
         //File-System parameters
+        config.setSrcDir(srcDir);
         config.setDestDir(destDir);
         for (String excludeArg : excludeArgs) {
             if (excludeArg.startsWith(ConfigurationForFS.EXLCUDE_PREFIX)) {
