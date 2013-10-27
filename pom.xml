@@ -10,8 +10,8 @@
         <version>7</version>
     </parent>
     <groupId>com.github.tntim96</groupId>
-    <artifactId>parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>jscover-maven-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JSCover Maven Plugin Parent Project</name>
     <modules>

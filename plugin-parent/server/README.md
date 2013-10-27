@@ -10,7 +10,7 @@ Currently supports:
 * Multiple report formats (HTML, LCOV, Cobertura XML)
 * Ant style test inclusion and exclusions
 
-Run with `mvn jscover:server`
+Run with `mvn jscover-server:server`
 
 ```XML
             <plugin>
