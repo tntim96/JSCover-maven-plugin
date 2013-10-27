@@ -1,5 +1,6 @@
 package jscover.maven;
 
+import jscover.ConfigurationCommon;
 import jscover.Main;
 import jscover.server.ConfigurationForServer;
 import org.apache.maven.plugin.AbstractMojo;
@@ -24,7 +25,6 @@ import static jscover.ConfigurationCommon.*;
 public class ServerMojo extends JSCoverMojo {
     private ConfigurationForServer defaults = new ConfigurationForServer();
 
-    //JSCover Server Parameters
     @Parameter
     private int port = defaults.getPort();
     @Parameter
@@ -72,24 +72,12 @@ public class ServerMojo extends JSCoverMojo {
     private ConfigurationForServer getConfigurationForServer() {
         ConfigurationForServer config = new ConfigurationForServer();
         //Common parameters
-        config.setIncludeBranch(includeBranch);
-        config.setIncludeFunction(includeFunction);
-        config.setLocalStorage(localStorage);
-        config.setReportDir(reportDir);
-        config.setJSVersion(JSVersion);
-        for (String instrumentArg : instrumentPathArgs) {
-            if (instrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
-                config.addNoInstrument(instrumentArg);
-            } else if (instrumentArg.startsWith(NO_INSTRUMENT_REG_PREFIX)) {
-                config.addNoInstrumentReg(instrumentArg);
-            } else if (instrumentArg.startsWith(ONLY_INSTRUMENT_REG_PREFIX)) {
-                config.addOnlyInstrumentReg(instrumentArg);
-            }
-        }
+        setCommonConfiguration(config);
         //Server parameters
         config.setDocumentRoot(documentRoot);
         config.setPort(port);
         config.setIncludeUnloadedJS(includeUnloadedJS);
+        config.setReportDir(reportDir);
         return config;
     }
 }

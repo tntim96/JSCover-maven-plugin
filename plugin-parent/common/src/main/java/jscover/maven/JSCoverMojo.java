@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
+import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
+import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
+
 public abstract class JSCoverMojo extends AbstractMojo {
     private ConfigurationCommon defaults = new ConfigurationCommon();
 
@@ -81,4 +85,19 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
+    protected void setCommonConfiguration(ConfigurationCommon config) {
+        config.setIncludeBranch(includeBranch);
+        config.setIncludeFunction(includeFunction);
+        config.setLocalStorage(localStorage);
+        config.setJSVersion(JSVersion);
+        for (String instrumentArg : instrumentPathArgs) {
+            if (instrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
+                config.addNoInstrument(instrumentArg);
+            } else if (instrumentArg.startsWith(NO_INSTRUMENT_REG_PREFIX)) {
+                config.addNoInstrumentReg(instrumentArg);
+            } else if (instrumentArg.startsWith(ONLY_INSTRUMENT_REG_PREFIX)) {
+                config.addOnlyInstrumentReg(instrumentArg);
+            }
+        }
+    }
 }
