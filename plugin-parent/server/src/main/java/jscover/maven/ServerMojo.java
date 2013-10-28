@@ -1,25 +1,15 @@
 package jscover.maven;
 
-import jscover.ConfigurationCommon;
 import jscover.Main;
 import jscover.server.ConfigurationForServer;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.codehaus.plexus.util.FileUtils;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
-
-import static jscover.ConfigurationCommon.*;
 
 @Mojo(name = "server", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class ServerMojo extends JSCoverMojo {
@@ -49,7 +39,7 @@ public class ServerMojo extends JSCoverMojo {
         };
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
-        new TestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
+        new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
     }
 
     private ConfigurationForServer getConfigurationForServer() {

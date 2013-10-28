@@ -2,6 +2,7 @@ package jscover.maven;
 
 import jscover.Main;
 import jscover.filesystem.ConfigurationForFS;
+import jscover.util.IoUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -36,7 +37,9 @@ public class FileMojo extends JSCoverMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Problem initialising JSCover", e);
         }
-
+        String relativeDirectory = IoUtils.getInstance().getRelativePath(testDirectory, srcDir);
+        File testDir = new File(destDir, relativeDirectory);
+        new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
     }
 
     private ConfigurationForFS getConfigurationForFS() {

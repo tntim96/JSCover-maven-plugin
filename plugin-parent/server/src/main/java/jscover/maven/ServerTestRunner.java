@@ -17,7 +17,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
-public class TestRunner {
+public class ServerTestRunner {
 
     protected WebDriver webClient;
     private ConfigurationForServer config;
@@ -29,7 +29,7 @@ public class TestRunner {
     private final boolean reportCoberturaXML;
     private IoUtils ioUtils;
 
-    public TestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
+    public ServerTestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
         this.webClient = webClient;
         this.webDriverRunner = webDriverRunner;
         this.config = config;
@@ -47,7 +47,6 @@ public class TestRunner {
         try {
             webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
             for (File testPage : testPages) {
-                ioUtils = IoUtils.getInstance();
                 runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
             }
             saveCoverageData();
