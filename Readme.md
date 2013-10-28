@@ -16,4 +16,4 @@ Currently supports:
 
 See the server configuration [here](https://github.com/tntim96/JSCover-maven-plugin/tree/master/plugin-parent/server).
 
-See the file configuration [here](https://github.com/tntim96/JSCover-maven-plugin/tree/master/plugin-parent/file).
+See the file configuration [here](https://github.com/tntim96/JSCover-maven-plugin/tree/master/plugin-parent/file-system).
