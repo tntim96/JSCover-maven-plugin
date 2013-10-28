@@ -39,7 +39,11 @@ public class ServerMojo extends JSCoverMojo {
         };
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
-        new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
+        try {
+            new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
+        } finally {
+            stopWebClient();
+        }
     }
 
     private ConfigurationForServer getConfigurationForServer() {

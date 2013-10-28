@@ -27,7 +27,7 @@ public class ServerTestRunner {
     private int functionCoverageMinimum;
     private final boolean reportLCOV;
     private final boolean reportCoberturaXML;
-    private IoUtils ioUtils;
+    private IoUtils ioUtils = IoUtils.getInstance();
 
     public ServerTestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
         this.webClient = webClient;
@@ -44,17 +44,13 @@ public class ServerTestRunner {
         File jsonFile = new File(config.getReportDir() + "/jscoverage.json");
         if (jsonFile.exists())
             jsonFile.delete();
-        try {
-            webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
-            for (File testPage : testPages) {
-                runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
-            }
-            saveCoverageData();
-            verifyTotal();
-            generateOtherReportFormats();
-        } finally {
-            stopWebClient();
+        webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
+        for (File testPage : testPages) {
+            runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
         }
+        saveCoverageData();
+        verifyTotal();
+        generateOtherReportFormats();
     }
 
     private void saveCoverageData() {
@@ -122,18 +118,4 @@ public class ServerTestRunner {
     private int extractInt(String percentage) {
         return Integer.parseInt(percentage.replaceAll("%", ""));
     }
-
-    public void stopWebClient() {
-        try {
-            webClient.close();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        try {
-            webClient.quit();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }
-
 }

@@ -39,7 +39,11 @@ public class FileMojo extends JSCoverMojo {
         }
         String relativeDirectory = IoUtils.getInstance().getRelativePath(testDirectory, srcDir);
         File testDir = new File(destDir, relativeDirectory);
-        new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
+        try {
+            new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
+        } finally {
+            stopWebClient();
+        }
     }
 
     private ConfigurationForFS getConfigurationForFS() {
@@ -58,5 +62,4 @@ public class FileMojo extends JSCoverMojo {
         }
         return config;
     }
-
 }

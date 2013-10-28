@@ -25,6 +25,7 @@ import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
 
 public abstract class JSCoverMojo extends AbstractMojo {
     private ConfigurationCommon defaults = new ConfigurationCommon();
+    protected WebDriver webClient;
 
     //JSCover Common Parameters
     @Parameter
@@ -94,9 +95,9 @@ public abstract class JSCoverMojo extends AbstractMojo {
         Class<WebDriver> webDriverClass = getWebDriverClass();
         try {
             try {
-                return webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
+                return webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
             } catch (final NoSuchMethodException e) {
-                return webDriverClass.newInstance();
+                return webClient = webDriverClass.newInstance();
             }
         } catch (final Exception e) {
             throw new RuntimeException(e);
@@ -114,6 +115,19 @@ public abstract class JSCoverMojo extends AbstractMojo {
             return (Class<WebDriver>) Class.forName(webDriverClassName);
         } catch (final ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void stopWebClient() {
+        try {
+            webClient.close();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        try {
+            webClient.quit();
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
     }
 
