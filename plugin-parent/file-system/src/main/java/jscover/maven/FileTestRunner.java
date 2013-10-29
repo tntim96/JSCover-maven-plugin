@@ -54,13 +54,16 @@ public class FileTestRunner {
     }
 
     private void saveCoverageData() {
+        String handle = webClient.getWindowHandle();
         new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
         String json = (String) ((JavascriptExecutor) webClient).executeScript("return jscoverage_serializeCoverageToJSON();");
         ioUtils.copy(json, new File(config.getDestDir(), "jscoverage.json"));
         File jscoverageJS = new File(config.getDestDir(), "jscoverage.js");
         String js = ioUtils.toString(jscoverageJS);
         ioUtils.copy(js + "\njscoverage_isReport = true;", jscoverageJS);
-        webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
+        webClient.switchTo().window(handle);
+        //Line below doesn't work with PhantomJS 1.9.2 even with "--web-security=false","--local-to-remote-url-access=yes"
+        //webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
     }
 
     private void generateOtherReportFormats() throws MojoExecutionException {
