@@ -19,6 +19,7 @@ import java.util.Properties;
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
 import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
+import static jscover.maven.TestType.JasmineHtmlReporter;
 
 public abstract class JSCoverMojo extends AbstractMojo {
     private ConfigurationCommon defaults = new ConfigurationCommon();
@@ -46,7 +47,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
     @Parameter
     protected String testExcludes;
     @Parameter
-    protected String testType = "Jasmine";
+    protected TestType testType = JasmineHtmlReporter;
     @Parameter(required = true)
     protected int lineCoverageMinimum;
     @Parameter
@@ -82,9 +83,9 @@ public abstract class JSCoverMojo extends AbstractMojo {
 
     protected WebDriverRunner getWebDriverRunner() {
         WebDriverRunner webDriverRunner = new JasmineHtmlReporterWebDriverRunner();
-        if ("QUnit".equalsIgnoreCase(testType)) {
+        if (TestType.QUnit == testType) {
             webDriverRunner = new QUnitWebDriverRunner();
-        } else if ("JasmineTrivialReporter".equalsIgnoreCase(testType)) {
+        } else if (TestType.JasmineTrivialReporter == testType) {
             webDriverRunner = new JasmineTrivialReporterWebDriverRunner();
         }
         return webDriverRunner;
