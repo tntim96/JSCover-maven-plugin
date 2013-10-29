@@ -22,7 +22,7 @@ public class FileMojo extends JSCoverMojo {
     @Parameter
     private File srcDir = new File("src");
     @Parameter
-    private File destDir = new File("target/jscover-instrumented");
+    private File destDir = new File("target/reports/jscover-maven");
     @Parameter
     protected final List<String> excludeArgs = new ArrayList<String>();
 
