@@ -1,11 +1,8 @@
 package jscover.maven;
 
 import jscover.ConfigurationCommon;
-import jscover.Main;
-import jscover.server.ConfigurationForServer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 import org.openqa.selenium.Capabilities;
@@ -84,9 +81,11 @@ public abstract class JSCoverMojo extends AbstractMojo {
     }
 
     protected WebDriverRunner getWebDriverRunner() {
-        WebDriverRunner webDriverRunner = new JasmineWebDriverRunner();
+        WebDriverRunner webDriverRunner = new JasmineHtmlReporterWebDriverRunner();
         if ("QUnit".equalsIgnoreCase(testType)) {
             webDriverRunner = new QUnitWebDriverRunner();
+        } else if ("JasmineTrivialReporter".equalsIgnoreCase(testType)) {
+            webDriverRunner = new JasmineTrivialReporterWebDriverRunner();
         }
         return webDriverRunner;
     }

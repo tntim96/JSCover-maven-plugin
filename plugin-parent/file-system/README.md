@@ -13,6 +13,10 @@ Run with `mvn jscover-file:file`
             <testDirectory>src/test/javascript</testDirectory>
             <testIncludes>qunit-*.html</testIncludes>
             <testType>QUnit</testType>
+            <!--
+            <testType>JasmineHtmlReporter</testType>
+            <testType>JasmineTrivialReporter</testType>
+            -->
             <lineCoverageMinimum>82</lineCoverageMinimum>
             <branchCoverageMinimum>48</branchCoverageMinimum>
             <functionCoverageMinimum>70</functionCoverageMinimum>
