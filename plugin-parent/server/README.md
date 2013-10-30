@@ -9,7 +9,7 @@ Run with `mvn jscover-server:server`
         <artifactId>jscover-server-maven-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
         <configuration>
-            <testDirectory>./src/test/javascript/qunit/test</testDirectory>
+            <testDirectory>./src/test/javascript</testDirectory>
             <testIncludes>index.html</testIncludes>
             <testType>QUnit</testType>
             <!--
@@ -22,6 +22,7 @@ Run with `mvn jscover-server:server`
             <instrumentPathArgs>
                 <arg>--no-instrument=target</arg>
             </instrumentPathArgs>
+            <includeUnloadedJS>true</includeUnloadedJS>
             <reportCoberturaXML>true</reportCoberturaXML>
             <reportLCOV>true</reportLCOV>
             <!--<webDriverClassName>org.openqa.selenium.firefox.FirefoxDriver</webDriverClassName>-->
