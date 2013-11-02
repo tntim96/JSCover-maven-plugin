@@ -3,7 +3,7 @@ JSCover-maven-plugin
 
 Maven plugins for [JSCover](http://tntim96.github.com/JSCover/).
 
-This will automatically run tests JavaScript tests and collect coverage.
+This will automatically run the JavaScript tests and generate JavaScript code coverage reports.
 
 Currently supports:
 * Server and file-mode plugins (yes, generate your coverage reports without ever running a server)
