@@ -21,10 +21,10 @@ See the file configuration
 
 ## Working examples
 
-See [JSCover-sample](https://github.com/tntim96/JSCover-Samples).
+See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 
 ## Snapshots
 
-Try the
+This plugin is currently available as
 [snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
