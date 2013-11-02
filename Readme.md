@@ -1,7 +1,7 @@
 JSCover-maven-plugin
 ====================
 
-Project for JSCover Maven plugins.
+Maven plugins for [JSCover](http://tntim96.github.com/JSCover/).
 
 This will automatically run tests JavaScript tests and collect coverage.
 
