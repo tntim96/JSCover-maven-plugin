@@ -24,7 +24,7 @@ public class QUnitWebDriverRunner implements WebDriverRunner {
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
-        int failingCount = webClient.findElements(By.className("failingAlert")).size();
+        int failingCount = webClient.findElements(By.className("fail")).size();
         if (failingCount != 0) {
             for (String failure : getFailures(webClient))
                 System.err.println(failure);

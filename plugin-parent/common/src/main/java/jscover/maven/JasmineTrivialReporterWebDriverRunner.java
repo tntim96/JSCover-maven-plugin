@@ -22,7 +22,7 @@ public class JasmineTrivialReporterWebDriverRunner extends JasmineWebDriverRunne
         if (webClient.findElements(By.className("failed")).size() != 0) {
             for (String failure : getFailures(webClient))
                 System.err.println(failure);
-            new MojoFailureException("Failing on test");
+            throw new MojoFailureException("Failing on test");
         }
     }
 }
