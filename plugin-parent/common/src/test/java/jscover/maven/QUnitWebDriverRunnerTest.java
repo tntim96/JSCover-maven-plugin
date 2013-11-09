@@ -1,26 +1,20 @@
 package jscover.maven;
 
 import org.apache.maven.plugin.MojoFailureException;
-import org.hamcrest.CustomMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
-public class QUnitWebDriverRunnerTest {
+public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
     private WebDriverRunner runner = new QUnitWebDriverRunner();
 
     @Test
-    public void shouldDetectFindErrorMessages() throws MojoFailureException {
-        WebDriver webDriver = new PhantomJSDriver();
-        webDriver.get("file:///" + new File("plugin-parent/common/data/qunit-fail.html").getAbsolutePath().replaceAll("\\\\", "/"));
+    public void shouldFindErrorMessages() throws MojoFailureException {
+        webDriver.get(getFilePath("data/qunit-fail.html"));
         List<String> failures = runner.getFailures(webDriver);
 //        for (String failure : failures) {
 //            System.out.println("failure = " + failure);

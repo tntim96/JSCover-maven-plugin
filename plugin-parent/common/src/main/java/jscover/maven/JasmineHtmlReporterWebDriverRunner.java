@@ -4,14 +4,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.lang.String.format;
 
 public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner implements WebDriverRunner {
 
@@ -19,13 +13,15 @@ public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner i
         try {
             new WebDriverWait(webClient, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
             new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElement(By.className("duration"), "finished"));
-        } catch(AssertionError e) {
+        } catch (AssertionError e) {
             throw new MojoExecutionException("Problem waiting for tests to complete", e);
         }
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
         if (webClient.findElements(By.className("failingAlert")).size() != 0) {
+            for (String failure : getFailures(webClient))
+                System.err.println(failure);
             new MojoFailureException("Failing on test");
         }
     }
