@@ -9,5 +9,5 @@ import java.util.List;
 public interface WebDriverRunner {
     void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException;
     void verifyTestsPassed(WebDriver webClient) throws MojoFailureException;
-    List<String> getFailures(WebDriver webClient) throws MojoFailureException;
+    List<String> getFailures(WebDriver webClient);
 }

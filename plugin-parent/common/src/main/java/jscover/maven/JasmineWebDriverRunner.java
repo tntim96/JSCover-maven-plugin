@@ -1,6 +1,5 @@
 package jscover.maven;
 
-import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +10,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 public abstract class JasmineWebDriverRunner implements WebDriverRunner {
-    public List<String> getFailures(WebDriver webClient) throws MojoFailureException {
+    public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
         List<WebElement> elements = webClient.findElements(By.className("failed"));
         for (WebElement element : elements) {

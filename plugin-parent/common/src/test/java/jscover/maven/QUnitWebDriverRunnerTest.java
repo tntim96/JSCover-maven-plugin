@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -19,6 +20,11 @@ public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
 //        for (String failure : failures) {
 //            System.out.println("failure = " + failure);
 //        }
+        try {
+            runner.verifyTestsPassed(webDriver);
+            fail("Expected exception");
+        } catch (MojoFailureException e) {
+        }
         assertThat(failures.size(), equalTo(6));
 
         assertThat(failures.get(0), containsString("should not add one - Source:"));

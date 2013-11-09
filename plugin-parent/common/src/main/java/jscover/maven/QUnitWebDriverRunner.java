@@ -32,7 +32,7 @@ public class QUnitWebDriverRunner implements WebDriverRunner {
         }
     }
 
-    public List<String> getFailures(WebDriver webClient) throws MojoFailureException {
+    public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
         List<WebElement> elements = webClient.findElements(By.className("fail"));
         for (WebElement element : elements) {
