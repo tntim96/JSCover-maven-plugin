@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class QUnitWebDriverRunner implements WebDriverRunner {
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
@@ -22,5 +24,9 @@ public class QUnitWebDriverRunner implements WebDriverRunner {
         if (failingCount != 0) {
             throw new MojoFailureException("Number of failing tests: " + failingCount);
         }
+    }
+
+    public List<String> getFailures(WebDriver webClient) throws MojoFailureException {
+        throw new UnsupportedOperationException();
     }
 }

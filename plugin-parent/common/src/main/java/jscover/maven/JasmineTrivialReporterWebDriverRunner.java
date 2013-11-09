@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class JasmineTrivialReporterWebDriverRunner implements WebDriverRunner {
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
@@ -22,5 +24,9 @@ public class JasmineTrivialReporterWebDriverRunner implements WebDriverRunner {
         if (webClient.findElements(By.className("failed")).size() != 0) {
             new MojoFailureException("Failing on test");
         }
+    }
+
+    public List<String> getFailures(WebDriver webClient) throws MojoFailureException {
+        throw new UnsupportedOperationException();
     }
 }

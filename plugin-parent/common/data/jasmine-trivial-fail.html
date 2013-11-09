@@ -1,0 +1,120 @@
+<html>​​​​​<head>
+    <title>Jasmine Test Suite</title>
+
+    <link rel="stylesheet" href="lib/jasmine/jasmine.css">
+    <!--
+    <script src="../../main/webapp/js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="lib/jasmine/jasmine.js"></script>
+    <script src="lib/jasmine/jasmine-html.js"></script>
+
+    <script type="text/javascript" src="../../main/webapp/js/code.js"></script>
+    <script type="text/javascript" src="spec/jasmine-code-fail-spec.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().execute();
+    });
+    </script>
+    //-->
+</head>
+<body>
+
+
+<div class="jasmine_reporter" id="TrivialReporter"><div class="banner"><div class="logo"><span class="title">Jasmine</span><span class="version">1.3.1 revision 1354556913</span></div><div class="options">Show <input id="__jasmine_TrivialReporter_showPassed__" type="checkbox"><label for="__jasmine_TrivialReporter_showPassed__"> passed </label><input id="__jasmine_TrivialReporter_showSkipped__" type="checkbox"><label for="__jasmine_TrivialReporter_showSkipped__"> skipped</label></div></div><div classname="runner failed" class="runner failed"><a href="?" class="run_spec">run all</a><span><a href="?" class="description">2 specs, 6 failures in 0.05s</a></span><span class="finished-at">Finished at Wed Oct 30 2013 07:17:45 GMT+1100 (AUS Eastern Standard Time)</span></div><div class="suite failed"><a href="?spec=Common" class="run_spec">run</a><a href="?spec=Common" class="description">Common</a><div class="spec failed"><a href="?spec=Common%20should%20not%20add%20one." class="run_spec">run</a><a title="Common should not add one." href="?spec=Common%20should%20not%20add%20one." class="description">should not add one</a><div class="messages"><div class="resultMessage fail">Expected 2 to equal 3.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:4
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Suite.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2521
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Runner.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2143
+jasmine.Env.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:802
+@file:///C:/java/JSCover-samples/src/test/javascript/jasmine-trivial-reporter-code-pass.html:16
+x.Callbacks/c@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+x.Callbacks/p.fireWith@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+.ready@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+q@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+</div><div class="resultMessage fail">Expected 4 to equal 5.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:5
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Suite.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2521
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Runner.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2143
+jasmine.Env.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:802
+@file:///C:/java/JSCover-samples/src/test/javascript/jasmine-trivial-reporter-code-pass.html:16
+x.Callbacks/c@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+x.Callbacks/p.fireWith@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+.ready@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+q@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+</div><div class="resultMessage fail">Expected 1000 to equal 1001.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:6
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Suite.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2521
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Runner.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2143
+jasmine.Env.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:802
+@file:///C:/java/JSCover-samples/src/test/javascript/jasmine-trivial-reporter-code-pass.html:16
+x.Callbacks/c@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+x.Callbacks/p.fireWith@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+.ready@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+q@file:///C:/java/JSCover-samples/src/main/webapp/js/vendor/jquery-1.10.2.min.js:4
+</div></div></div><div class="spec failed"><a href="?spec=Common%20should%20add%20one." class="run_spec">run</a><a title="Common should add one." href="?spec=Common%20should%20add%20one." class="description">should add one</a><div class="messages"><div class="resultMessage fail">Expected 2 to equal 1.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:10
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.next_/onComplete@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2092
+jasmine.Spec.prototype.finish@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2350
+jasmine.Spec.prototype.execute/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2377
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2106
+jasmine.Queue.prototype.next_/onComplete/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2086
+</div><div class="resultMessage fail">Expected 4 to equal 3.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:11
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.next_/onComplete@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2092
+jasmine.Spec.prototype.finish@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2350
+jasmine.Spec.prototype.execute/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2377
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2106
+jasmine.Queue.prototype.next_/onComplete/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2086
+</div><div class="resultMessage fail">Expected 1002 to equal 1001.</div><div class="stackTrace">jasmine.ExpectationResult@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:114
+jasmine.Matchers.matcherFn_/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1240
+@file:///C:/java/JSCover-samples/src/test/javascript/spec/jasmine-code-fail-spec.js:12
+jasmine.Block.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:1064
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.start@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2049
+jasmine.Spec.prototype.execute@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2376
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2096
+jasmine.Queue.prototype.next_/onComplete@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2092
+jasmine.Spec.prototype.finish@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2350
+jasmine.Spec.prototype.execute/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2377
+jasmine.Queue.prototype.next_@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2106
+jasmine.Queue.prototype.next_/onComplete/&lt;@file:///C:/java/JSCover-samples/src/test/javascript/lib/jasmine/jasmine.js:2086
+</div></div></div></div></div></body>​​​​​</html>
