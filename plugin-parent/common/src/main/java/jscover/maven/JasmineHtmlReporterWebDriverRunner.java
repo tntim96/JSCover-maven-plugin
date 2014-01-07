@@ -12,7 +12,7 @@ public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner i
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         try {
             new WebDriverWait(webClient, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
-            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElement(By.className("duration"), "finished"));
+            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.className("duration"), "finished"));
         } catch (AssertionError e) {
             throw new MojoExecutionException("Problem waiting for tests to complete", e);
         }

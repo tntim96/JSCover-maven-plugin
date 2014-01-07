@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
 public class ServerTestRunner {
 
@@ -59,7 +59,7 @@ public class ServerTestRunner {
 
         new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
         webClient.findElement(By.id("storeButton")).click();
-        new WebDriverWait(webClient, 2).until(ExpectedConditions.textToBePresentInElement(By.id("storeDiv"), "Coverage data stored at"));
+        new WebDriverWait(webClient, 2).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
@@ -101,7 +101,7 @@ public class ServerTestRunner {
 
     protected void verifyTotal() throws MojoFailureException {
         webClient.findElement(By.id("summaryTab")).click();
-        new WebDriverWait(webClient, 1).until(textToBePresentInElement(By.id("summaryTotal"), "%"));
+        new WebDriverWait(webClient, 1).until(textToBePresentInElementLocated(By.id("summaryTotal"), "%"));
 
         verifyField("Line", "summaryTotal", lineCoverageMinimum);
         verifyField("Branch", "branchSummaryTotal", branchCoverageMinimum);

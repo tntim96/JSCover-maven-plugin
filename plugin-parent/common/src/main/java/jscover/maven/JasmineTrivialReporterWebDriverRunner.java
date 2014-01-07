@@ -12,7 +12,7 @@ public class JasmineTrivialReporterWebDriverRunner extends JasmineWebDriverRunne
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         try {
             new WebDriverWait(webClient, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("finished-at")));
-            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElement(By.className("finished-at"), "Finished at "));
+            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.className("finished-at"), "Finished at "));
         } catch(AssertionError e) {
             throw new MojoExecutionException("Problem waiting for tests to complete", e);
         }
