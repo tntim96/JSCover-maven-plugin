@@ -110,6 +110,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         return desiredCapabilities;
     }
 
+    @SuppressWarnings("unchecked")
     protected Class<WebDriver> getWebDriverClass() {
         try {
             return (Class<WebDriver>) Class.forName(webDriverClassName);

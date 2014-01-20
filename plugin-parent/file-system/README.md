@@ -55,3 +55,5 @@ Run with `mvn jscover-file:file`
         </configuration>
     </plugin>
 ```
+
+Note: the `systemProperties` property is only required if the driver file is not on the executable path
