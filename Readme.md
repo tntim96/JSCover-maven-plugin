@@ -24,7 +24,11 @@ See the file configuration
 See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 
+## Releasing
+
+`mvn clean source:jar javadoc:jar deploy`
+
 ## Snapshots
 
-This plugin is currently available as
+Development snapshots available at
 [snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
