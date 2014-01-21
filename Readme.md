@@ -26,9 +26,22 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 ## Releasing
 
-`mvn clean source:jar javadoc:jar deploy`
+`mvn clean source:jar javadoc:jar package gpg:sign deploy`
 
 ## Snapshots
 
 Development snapshots available at
 [snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
+
+## Verifying signatures
+Generate signatures:
+
+`mvn clean source:jar javadoc:jar package gpg:sign`
+
+Verify:
+
+`find . -name "*.asc" -exec gpg -v --verify '{}' \;`
+
+Count signatures:
+
+`find . -name "*.asc" | wc -l`
