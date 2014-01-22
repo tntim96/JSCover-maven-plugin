@@ -26,7 +26,7 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 ## Releasing
 
-`mvn clean source:jar javadoc:jar package gpg:sign deploy`
+`mvn clean source:jar javadoc:jar deploy`
 
 ## Snapshots
 
@@ -36,7 +36,7 @@ Development snapshots available at
 ## Verifying signatures
 Generate signatures:
 
-`mvn clean source:jar javadoc:jar package gpg:sign`
+`mvn clean source:jar javadoc:jar install`
 
 Verify:
 
