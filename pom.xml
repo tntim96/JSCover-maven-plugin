@@ -11,8 +11,13 @@
     </parent>
     <groupId>com.github.tntim96</groupId>
     <artifactId>jscover-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <prerequisites>
+        <maven>2.2.1</maven>
+    </prerequisites>
+
     <name>JSCover Maven Plugin Parent Project</name>
     <modules>
         <module>plugin-parent</module>

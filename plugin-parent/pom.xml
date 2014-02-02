@@ -7,9 +7,10 @@
     <parent>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>jscover-parent-maven-plugin</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JSCover Plugin Parent Project</name>
 
@@ -38,7 +39,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>2.0</version>
+            <version>3.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -49,7 +50,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.0.15</version>
+            <version>3.0.17</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
