@@ -30,8 +30,7 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 ## Snapshots
 
-Development snapshots available at
-[snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
+[Development snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
 
 ## Verifying signatures
 Generate signatures:
@@ -45,3 +44,9 @@ Verify:
 Count signatures:
 
 `find . -name "*.asc" | wc -l`
+
+## Checking for dependency/plugin updates
+
+`mvn versions:display-dependency-updates`
+
+`mvn versions:display-plugin-updates`
