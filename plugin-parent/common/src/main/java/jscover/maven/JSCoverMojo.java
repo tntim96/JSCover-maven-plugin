@@ -103,7 +103,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
                 return webClient;
             } catch (final NoSuchMethodException e) {}
             try {
-                webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities(webDriverClass));
+                webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
                 return webClient;
             } catch (final NoSuchMethodException e) {
                 return webClient = webDriverClass.newInstance();
@@ -113,7 +113,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
-    protected Capabilities getDesiredCapabilities(Class<WebDriver> webDriverClass) {
+    protected Capabilities getDesiredCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setJavascriptEnabled(true);
         return capabilities;
