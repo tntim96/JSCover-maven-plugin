@@ -7,6 +7,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -95,7 +97,14 @@ public abstract class JSCoverMojo extends AbstractMojo {
         Class<WebDriver> webDriverClass = getWebDriverClass();
         try {
             try {
-                return webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--allow-file-access-from-files");
+                webClient = webDriverClass.getConstructor(ChromeOptions.class).newInstance(options);
+                return webClient;
+            } catch (final NoSuchMethodException e) {}
+            try {
+                webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities(webDriverClass));
+                return webClient;
             } catch (final NoSuchMethodException e) {
                 return webClient = webDriverClass.newInstance();
             }
@@ -104,10 +113,10 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
-    protected Capabilities getDesiredCapabilities() {
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setJavascriptEnabled(true);
-        return desiredCapabilities;
+    protected Capabilities getDesiredCapabilities(Class<WebDriver> webDriverClass) {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setJavascriptEnabled(true);
+        return capabilities;
     }
 
     @SuppressWarnings("unchecked")
