@@ -7,7 +7,16 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import java.io.File;
 
 public class WebDriverRunnerTest {
-    protected WebDriver webDriver = new PhantomJSDriver();
+    protected WebDriver webDriver = getWebDriver();
+
+    private WebDriver getWebDriver() {
+        try {
+            Class<WebDriver> webDriverClass = (Class<WebDriver>) Class.forName(System.getProperty("webDriverClass"));
+            return webDriverClass.newInstance();
+        } catch(Exception e) {
+            return new PhantomJSDriver();
+        }
+    }
 
     @After
     public void tearDown() {
