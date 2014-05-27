@@ -44,9 +44,15 @@ public class ServerTestRunner {
         File jsonFile = new File(config.getReportDir() + "/jscoverage.json");
         if (jsonFile.exists())
             jsonFile.delete();
-        webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
-        for (File testPage : testPages) {
-            runTest(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
+
+        if (config.isLocalStorage()) {
+            for (File testPage : testPages)
+                runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
+            webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
+        } else {
+            webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
+            for (File testPage : testPages)
+                runTestInFrames(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
         }
         saveCoverageData();
         verifyTotal();
@@ -86,7 +92,13 @@ public class ServerTestRunner {
         }
     }
 
-    public void runTest(String testPage) throws MojoFailureException, MojoExecutionException {
+    public void runTestLocalStorage(String testPage) throws MojoFailureException, MojoExecutionException {
+        webClient.get(String.format("http://localhost:%d/%s", config.getPort(), testPage));
+        webDriverRunner.waitForTestsToComplete(webClient);
+        webDriverRunner.verifyTestsPassed(webClient);
+    }
+
+    public void runTestInFrames(String testPage) throws MojoFailureException, MojoExecutionException {
         webClient.findElement(By.id("location")).clear();
         webClient.findElement(By.id("location")).sendKeys(String.format("http://localhost:%d/%s", config.getPort(), testPage));
         webClient.findElement(By.id("openInFrameButton")).click();

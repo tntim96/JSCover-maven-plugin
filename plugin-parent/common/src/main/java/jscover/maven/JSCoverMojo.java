@@ -33,7 +33,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
     @Parameter
     protected boolean includeFunction = defaults.isIncludeFunction();
     @Parameter
-    protected boolean localStorage = defaults.isLocalStorage();
+    protected boolean localStorage = true;
     @Parameter
     protected final List<String> instrumentPathArgs = new ArrayList<String>();
     @Parameter

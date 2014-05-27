@@ -44,11 +44,21 @@ public class FileTestRunner {
         File jsonFile = new File(config.getDestDir() + "/jscoverage.json");
         if (jsonFile.exists())
             jsonFile.delete();
-        webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
-        for (File testPage : testPages) {
-            runTest(ioUtils.getRelativePath(testPage, config.getDestDir()));
+        if (config.isLocalStorage()) {
+            for (File testPage : testPages)
+                runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDestDir()));
+            String json = (String)((JavascriptExecutor) webClient).executeScript("return jscoverage_serializeCoverageToJSON();");
+            ioUtils.copy(json, new File(config.getDestDir(), "jscoverage.json"));
+            String js = ioUtils.loadFromFileSystem(new File(config.getDestDir(), "jscoverage.js"));
+            ioUtils.copy(js + "\njscoverage_isReport = true;", new File(config.getDestDir(), "jscoverage.js"));
+            webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
+        } else {
+            webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
+            for (File testPage : testPages) {
+                runTestInFrames(ioUtils.getRelativePath(testPage, config.getDestDir()));
+            }
+            saveCoverageData();
         }
-        saveCoverageData();
         verifyTotal();
         generateOtherReportFormats();
     }
@@ -62,8 +72,6 @@ public class FileTestRunner {
         String js = ioUtils.toString(jscoverageJS);
         ioUtils.copy(js + "\njscoverage_isReport = true;", jscoverageJS);
         webClient.switchTo().window(handle);
-        //Line below doesn't work with PhantomJS 1.9.2 even with "--web-security=false","--local-to-remote-url-access=yes"
-        //webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\","/"));
     }
 
     private void generateOtherReportFormats() throws MojoExecutionException {
@@ -88,7 +96,13 @@ public class FileTestRunner {
         }
     }
 
-    public void runTest(String testPage) throws MojoFailureException, MojoExecutionException {
+    public void runTestLocalStorage(String testPage) throws MojoFailureException, MojoExecutionException {
+        webClient.get("file:///" + new File(config.getDestDir(), testPage).getAbsolutePath().replaceAll("\\\\","/"));
+        webDriverRunner.waitForTestsToComplete(webClient);
+        webDriverRunner.verifyTestsPassed(webClient);
+    }
+
+    public void runTestInFrames(String testPage) throws MojoFailureException, MojoExecutionException {
         webClient.findElement(By.id("location")).clear();
         webClient.findElement(By.id("location")).sendKeys(testPage);
         webClient.findElement(By.id("openInFrameButton")).click();

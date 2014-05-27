@@ -26,10 +26,10 @@ public class ServerMojo extends JSCoverMojo {
         setSystemProperties();
         final ConfigurationForServer config = getConfigurationForServer();
 
+        final Main main = new Main();
         Runnable jsCover = new Runnable() {
             public void run() {
                 try {
-                    Main main = new Main();
                     main.initialize();
                     main.runServer(config);
                 } catch (IOException e) {
@@ -40,9 +40,11 @@ public class ServerMojo extends JSCoverMojo {
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
         try {
-            new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles());
+            ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
+            serverTestRunner.runTests(getTestFiles());
         } finally {
             stopWebClient();
+            main.stop();
         }
     }
 
