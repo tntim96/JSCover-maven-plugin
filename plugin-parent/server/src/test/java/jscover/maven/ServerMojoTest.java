@@ -35,7 +35,6 @@ public class ServerMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "lineCoverageMinimum", 66);
         ReflectionUtils.setVariableValueInObject(mojo, "branchCoverageMinimum", 66);
         ReflectionUtils.setVariableValueInObject(mojo, "functionCoverageMinimum", 66);
-        ReflectionUtils.setVariableValueInObject(mojo, "webDriverClassName", "org.openqa.selenium.chrome.ChromeDriver");
         //ReflectionUtils.setVariableValueInObject(mojo, "webDriverClassName", "org.openqa.selenium.firefox.FirefoxDriver");
     }
 
