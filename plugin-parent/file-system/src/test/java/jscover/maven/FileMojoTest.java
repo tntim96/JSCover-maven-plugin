@@ -48,6 +48,7 @@ public class FileMojoTest {
                 file.delete();
             else
                 deleteDirectory(file);
+        dir.delete();
     }
 
     @Test

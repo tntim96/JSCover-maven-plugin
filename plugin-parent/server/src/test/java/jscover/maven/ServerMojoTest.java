@@ -47,6 +47,7 @@ public class ServerMojoTest {
                 file.delete();
             else
                 deleteDirectory(file);
+        dir.delete();
     }
 
     @Test
