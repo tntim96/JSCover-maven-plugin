@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FileMojoTest {
-    private FileMojo fileMojo = new FileMojo();
+    private FileMojo mojo = new FileMojo();
 
     protected File getFilePath(String pathname) {
         if (System.getProperty("user.dir").endsWith("JSCover-maven-plugin"))
@@ -25,35 +25,63 @@ public class FileMojoTest {
 
     @Before
     public void setUp() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "srcDir", getFilePath("../data/src"));
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testDirectory", getFilePath("../data/src/test/javascript"));
-        ReflectionUtils.setVariableValueInObject(fileMojo, "destDir", getFilePath("../data/target"));
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testIncludes", "jasmine-html-*pass.html");
-        ReflectionUtils.setVariableValueInObject(fileMojo, "instrumentPathArgs", Arrays.asList("--no-instrument=main/webapp/js/vendor/", "--no-instrument=test"));
-        ReflectionUtils.setVariableValueInObject(fileMojo, "excludeArgs", Arrays.asList("--exclude=main/java", "--exclude=main/resources", "--exclude-reg=test/java$"));
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testType", JasmineHtmlReporter);
-        ReflectionUtils.setVariableValueInObject(fileMojo, "lineCoverageMinimum", 100);
-        ReflectionUtils.setVariableValueInObject(fileMojo, "branchCoverageMinimum", 100);
-        ReflectionUtils.setVariableValueInObject(fileMojo, "functionCoverageMinimum", 100);
-        //ReflectionUtils.setVariableValueInObject(fileMojo, "webDriverClassName", "org.openqa.selenium.firefox.FirefoxDriver");
+        deleteDirectory(getFilePath("../data/target"));
+        ReflectionUtils.setVariableValueInObject(mojo, "srcDir", getFilePath("../data/src"));
+        ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
+        ReflectionUtils.setVariableValueInObject(mojo, "destDir", getFilePath("../data/target"));
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", Arrays.asList("--no-instrument=main/webapp/js/vendor/", "--no-instrument=test"));
+        ReflectionUtils.setVariableValueInObject(mojo, "excludeArgs", Arrays.asList("--exclude=main/java", "--exclude=main/resources", "--exclude-reg=test/java$"));
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineHtmlReporter);
+        ReflectionUtils.setVariableValueInObject(mojo, "lineCoverageMinimum", 100);
+        ReflectionUtils.setVariableValueInObject(mojo, "branchCoverageMinimum", 100);
+        ReflectionUtils.setVariableValueInObject(mojo, "functionCoverageMinimum", 100);
+        //ReflectionUtils.setVariableValueInObject(mojo, "webDriverClassName", "org.openqa.selenium.firefox.FirefoxDriver");
+    }
+
+    private void deleteDirectory(File dir) {
+        for (File file : dir.listFiles())
+            if (file.isFile())
+                file.delete();
+            else
+                deleteDirectory(file);
     }
 
     @Test
     public void shouldPassJasmine() throws Exception {
-        fileMojo.execute();
+        mojo.execute();
+        assertThat(new File(getFilePath("../data/target"), "jscoverage.json").exists(), equalTo(true));
+        assertThat(new File(getFilePath("../data/target"), "jscover.lcov").exists(), equalTo(false));
+        assertThat(new File(getFilePath("../data/target"), "cobertura.xml").exists(), equalTo(false));
     }
 
     @Test
     public void shouldPassJasmineWithoutLocalStorage() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "localStorage", false);
-        fileMojo.execute();
+        ReflectionUtils.setVariableValueInObject(mojo, "localStorage", false);
+        mojo.execute();
+    }
+
+    @Test
+    public void shouldGenerateLCOVReport() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "reportLCOV", true);
+        mojo.execute();
+
+        assertThat(new File(getFilePath("../data/target"), "jscover.lcov").exists(), equalTo(true));
+    }
+
+    @Test
+    public void shouldGenerateCoberturaXML() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "reportCoberturaXML", true);
+        mojo.execute();
+
+        assertThat(new File(getFilePath("../data/target"), "cobertura-coverage.xml").exists(), equalTo(true));
     }
 
     @Test
     public void shouldFailJasmineIfLineCoverageTooLow() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "lineCoverageMinimum", 101);
+        ReflectionUtils.setVariableValueInObject(mojo, "lineCoverageMinimum", 101);
         try {
-            fileMojo.execute();
+            mojo.execute();
             fail("Should have thrown exception");
         } catch(MojoFailureException e) {
             assertThat(e.getMessage(), equalTo("Line coverage 100 less than 101"));
@@ -62,9 +90,9 @@ public class FileMojoTest {
 
     @Test
     public void shouldFailJasmineIfBranchCoverageTooLow() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "branchCoverageMinimum", 101);
+        ReflectionUtils.setVariableValueInObject(mojo, "branchCoverageMinimum", 101);
         try {
-            fileMojo.execute();
+            mojo.execute();
             fail("Should have thrown exception");
         } catch(MojoFailureException e) {
             assertThat(e.getMessage(), equalTo("Branch coverage 100 less than 101"));
@@ -73,9 +101,9 @@ public class FileMojoTest {
 
     @Test
     public void shouldFailJasmineIfFunctionCoverageTooLow() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "functionCoverageMinimum", 101);
+        ReflectionUtils.setVariableValueInObject(mojo, "functionCoverageMinimum", 101);
         try {
-            fileMojo.execute();
+            mojo.execute();
             fail("Should have thrown exception");
         } catch(MojoFailureException e) {
             assertThat(e.getMessage(), equalTo("Function coverage 100 less than 101"));
@@ -84,21 +112,21 @@ public class FileMojoTest {
 
     @Test(expected = MojoFailureException.class)
     public void shouldFailJasmineIfTests() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testIncludes", "jasmine-html-*fail.html");
-        fileMojo.execute();
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*fail.html");
+        mojo.execute();
     }
 
     @Test
     public void shouldPassQUnit() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testIncludes", "qunit-*pass.html");
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testType", QUnit);
-        fileMojo.execute();
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "qunit-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
+        mojo.execute();
     }
 
     @Test(expected = MojoFailureException.class)
     public void shouldFailQUnit() throws Exception {
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testIncludes", "qunit-*fail.html");
-        ReflectionUtils.setVariableValueInObject(fileMojo, "testType", QUnit);
-        fileMojo.execute();
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "qunit-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
+        mojo.execute();
     }
 }
