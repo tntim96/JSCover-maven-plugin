@@ -43,6 +43,8 @@ public class FileMojoTest {
     }
 
     private void deleteDirectory(File dir) {
+        if (!dir.exists())
+            return;
         for (File file : dir.listFiles())
             if (file.isFile())
                 file.delete();

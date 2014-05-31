@@ -25,7 +25,7 @@ public class ServerMojoTest {
 
     @Before
     public void setUp() throws Exception {
-        deleteDirectory(getFilePath("../data/target"));
+        deleteDirectory(getFilePath("../data/target").getCanonicalFile());
         ReflectionUtils.setVariableValueInObject(mojo, "documentRoot", getFilePath("../data"));
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
         ReflectionUtils.setVariableValueInObject(mojo, "reportDir", getFilePath("../data/target"));
@@ -42,6 +42,8 @@ public class ServerMojoTest {
     }
 
     private void deleteDirectory(File dir) {
+        if (!dir.exists())
+            return;
         for (File file : dir.listFiles())
             if (file.isFile())
                 file.delete();
