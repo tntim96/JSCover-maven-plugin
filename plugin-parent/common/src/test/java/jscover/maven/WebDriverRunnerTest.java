@@ -11,6 +11,7 @@ public class WebDriverRunnerTest {
 
     private WebDriver getWebDriver() {
         try {
+            @SuppressWarnings(value = "unchecked")
             Class<WebDriver> webDriverClass = (Class<WebDriver>) Class.forName(System.getProperty("webDriverClass"));
             return webDriverClass.newInstance();
         } catch(Exception e) {
