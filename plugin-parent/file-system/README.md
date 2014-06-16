@@ -18,6 +18,8 @@ Run with `mvn jscover-file:file`
             <!--
             <testType>JasmineHtmlReporter</testType>
             <testType>JasmineTrivialReporter</testType>
+            <testType>Custom</testType>
+            <testRunnerClassName>org.your.class.WebDriverRunner</webDriverClassName>
             -->
             <lineCoverageMinimum>82</lineCoverageMinimum>
             <branchCoverageMinimum>48</branchCoverageMinimum>

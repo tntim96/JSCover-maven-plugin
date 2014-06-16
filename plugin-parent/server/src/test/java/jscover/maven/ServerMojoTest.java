@@ -1,5 +1,6 @@
 package jscover.maven;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
@@ -8,8 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 
-import static jscover.maven.TestType.JasmineHtmlReporter;
-import static jscover.maven.TestType.QUnit;
+import static jscover.maven.TestType.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -132,6 +132,34 @@ public class ServerMojoTest {
     public void shouldFailQUnit() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "qunit-*fail.html");
         ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
+        mojo.execute();
+    }
+
+    @Test
+    public void shouldPassJasmineTrivial() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
+        mojo.execute();
+    }
+
+    @Test(expected = MojoFailureException.class)
+    public void shouldFailJasmineTrivial() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
+        mojo.execute();
+    }
+
+    @Test
+    public void shouldPassJasmine2() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine2);
+        mojo.execute();
+    }
+
+    @Test(expected = MojoFailureException.class)
+    public void shouldFailJasmine2() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine2);
         mojo.execute();
     }
 }

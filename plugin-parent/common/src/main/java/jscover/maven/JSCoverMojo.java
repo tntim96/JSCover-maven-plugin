@@ -59,6 +59,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
     @Parameter
     protected String webDriverClassName = PhantomJSDriver.class.getName();
     @Parameter
+    protected String testRunnerClassName;
+    @Parameter
     protected Properties systemProperties = new Properties();
     @Parameter
     protected boolean reportLCOV;
@@ -83,14 +85,15 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
-    protected WebDriverRunner getWebDriverRunner() {
-        WebDriverRunner webDriverRunner = new JasmineHtmlReporterWebDriverRunner();
-        if (TestType.QUnit == testType) {
-            webDriverRunner = new QUnitWebDriverRunner();
-        } else if (TestType.JasmineTrivialReporter == testType) {
-            webDriverRunner = new JasmineTrivialReporterWebDriverRunner();
+    protected WebDriverRunner getWebDriverRunner() throws MojoExecutionException {
+        if (testRunnerClassName != null) {
+            try {
+                return ((Class<WebDriverRunner>) Class.forName(testRunnerClassName)).newInstance();
+            } catch (final Exception e) {
+                throw new MojoExecutionException(e.getMessage(), e);
+            }
         }
-        return webDriverRunner;
+        return testType.getWebDriverRunner();
     }
 
     protected WebDriver getWebClient() {
