@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
+import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
 import static jscover.maven.TestType.Custom;
 import static jscover.maven.TestType.QUnit;
 import static org.hamcrest.CoreMatchers.*;
@@ -71,6 +72,7 @@ public class JSCoverMojoTest {
         assertThat(config.getJSVersion(), equalTo(Context.VERSION_1_5));
         assertThat(config.isIncludeBranch(), equalTo(true));
         assertThat(config.isIncludeFunction(), equalTo(true));
+        assertThat(config.isLocalStorage(), equalTo(true));
     }
 
     @Test
@@ -78,30 +80,45 @@ public class JSCoverMojoTest {
         ConfigurationCommon config = new ConfigurationCommon();
         ReflectionUtils.setVariableValueInObject(mojo, "JSVersion", 180);
         ReflectionUtils.setVariableValueInObject(mojo, "includeBranch", false);
-        ReflectionUtils.setVariableValueInObject(mojo, "includeBranch", false);
         ReflectionUtils.setVariableValueInObject(mojo, "includeFunction", false);
+        ReflectionUtils.setVariableValueInObject(mojo, "localStorage", false);
 
         mojo.setCommonConfiguration(config);
 
         assertThat(config.getJSVersion(), equalTo(Context.VERSION_1_8));
         assertThat(config.isIncludeBranch(), equalTo(false));
         assertThat(config.isIncludeFunction(), equalTo(false));
+        assertThat(config.isLocalStorage(), equalTo(false));
         assertThat(config.skipInstrumentation("include.js"), equalTo(false));
         assertThat(config.skipInstrumentation("exclude/file.js"), equalTo(false));
         assertThat(config.skipInstrumentation("exclude-reg/file.js"), equalTo(false));
     }
 
     @Test
-    public void shouldInterpretCommonConfigurationPathsCorrectly() throws Exception {
+    public void shouldInterpretCommonConfigurationExcludePathsCorrectly() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
         List<String> instrumentPathArgs = new ArrayList<String>();
-        instrumentPathArgs.add(NO_INSTRUMENT_PREFIX+"/exclude/");
-        instrumentPathArgs.add(NO_INSTRUMENT_REG_PREFIX+"/exclude-.*/.*.js");
+        instrumentPathArgs.add(NO_INSTRUMENT_PREFIX + "/exclude/");
+        instrumentPathArgs.add(NO_INSTRUMENT_REG_PREFIX + "/exclude-.*/.*.js");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
 
         mojo.setCommonConfiguration(config);
 
         assertThat(config.skipInstrumentation("include.js"), equalTo(false));
+        assertThat(config.skipInstrumentation("exclude/file.js"), equalTo(true));
+        assertThat(config.skipInstrumentation("exclude-reg/file.js"), equalTo(true));
+    }
+
+    @Test
+    public void shouldInterpretCommonConfigurationIncludeOnyPathsCorrectly() throws Exception {
+        ConfigurationCommon config = new ConfigurationCommon();
+        List<String> instrumentPathArgs = new ArrayList<String>();
+        instrumentPathArgs.add(ONLY_INSTRUMENT_REG_PREFIX+"/include-.*/*.js");
+        ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
+
+        mojo.setCommonConfiguration(config);
+
+        assertThat(config.skipInstrumentation("include-reg/file.js"), equalTo(false));
         assertThat(config.skipInstrumentation("exclude/file.js"), equalTo(true));
         assertThat(config.skipInstrumentation("exclude-reg/file.js"), equalTo(true));
     }
