@@ -80,7 +80,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected List<File> getTestFiles(File testDirectory) throws MojoExecutionException {
         try {
             return FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new MojoExecutionException("Problem finding test pages", e);
         }
     }

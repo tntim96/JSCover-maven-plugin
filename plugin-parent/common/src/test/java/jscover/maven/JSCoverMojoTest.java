@@ -12,6 +12,7 @@ import static jscover.maven.TestType.Custom;
 import static jscover.maven.TestType.QUnit;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 public class JSCoverMojoTest {
     private JSCoverMojo mojo = new DummyMojo();
@@ -33,6 +34,18 @@ public class JSCoverMojoTest {
         assertThat(files.size(), equalTo(2));
         assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-pass.html")));
         assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-util-pass.html")));
+    }
+
+    @Test
+    public void shouldNotFindTestFiles() throws IllegalAccessException {
+        ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/not-there"));
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
+        try {
+            mojo.getTestFiles();
+            fail("Should throw exception");
+        } catch (MojoExecutionException e) {
+            assertThat(e.getMessage(), equalTo("Problem finding test pages"));
+        }
     }
 
     @Test
@@ -62,8 +75,9 @@ public class JSCoverMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*pass.html");
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         try {
-            mojo.execute();
-        } catch (RuntimeException e) {
+            mojo.getWebDriverRunner();
+            fail("Should throw exception");
+        } catch (MojoExecutionException e) {
             assertThat(e.getMessage(), equalTo("Please provide a custom test type class that implements jscover.maven.WebDriverRunner"));
         }
     }
@@ -74,7 +88,8 @@ public class JSCoverMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         ReflectionUtils.setVariableValueInObject(mojo, "testRunnerClassName", "java.lang.String");
         try {
-            mojo.execute();
+            mojo.getWebDriverRunner();
+            fail("Should throw exception");
         } catch (MojoExecutionException e) {
             assertThat(e.getMessage(), equalTo("java.lang.String cannot be cast to jscover.maven.WebDriverRunner"));
         }
