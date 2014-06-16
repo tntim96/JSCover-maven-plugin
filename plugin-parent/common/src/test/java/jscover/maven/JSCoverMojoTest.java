@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 import static jscover.maven.TestType.Custom;
 import static jscover.maven.TestType.QUnit;
@@ -32,6 +33,15 @@ public class JSCoverMojoTest {
         assertThat(files.size(), equalTo(2));
         assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-pass.html")));
         assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-util-pass.html")));
+    }
+
+    @Test
+    public void shouldSetSystemProperties() throws Exception {
+        Properties properties = new Properties();
+        properties.setProperty("a","b");
+        ReflectionUtils.setVariableValueInObject(mojo, "systemProperties", properties);
+        mojo.setSystemProperties();
+        assertThat(System.getProperty("a"), equalTo("b"));
     }
 
     @Test
