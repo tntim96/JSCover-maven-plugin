@@ -85,6 +85,17 @@ public class FileMojoTest {
     }
 
     @Test
+    public void shouldFailIfExcludePathArgumentInvalid() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "excludeArgs", Arrays.asList("exclude=main"));
+        try {
+            mojo.execute();
+            fail("Should have thrown exception");
+        } catch(MojoExecutionException e) {
+            assertThat(e.getMessage(), equalTo("Invalid exclude argument 'exclude=main'"));
+        }
+    }
+
+    @Test
     public void shouldFailJasmineIfLineCoverageTooLow() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "lineCoverageMinimum", 101);
         try {

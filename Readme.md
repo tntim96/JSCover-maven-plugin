@@ -51,3 +51,7 @@ Count signatures:
 `mvn versions:display-dependency-updates`
 
 `mvn versions:display-plugin-updates`
+
+## Running tests
+
+`mvn clean cobertura:cobertura -Dcobertura.aggregate=true && mvn surefire-report:report -DskipTests=true -Daggregate=true`

@@ -1,3 +1,8 @@
+1.0.6 / 2014-??-??
+==================
+  * Add Jasmine 2 support
+  * Add custom test runner support
+
 1.0.5 / 2014-06-05
 ==================
   * JSCover 1.0.11, Selenium 2.42.2

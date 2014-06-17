@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 //@Mojo(name = "file", requiresDirectInvocation = true)
 @Mojo(name = "file", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class FileMojo extends JSCoverMojo {
@@ -58,6 +60,8 @@ public class FileMojo extends JSCoverMojo {
                 config.addExclude(excludeArg);
             } else if (excludeArg.startsWith(ConfigurationForFS.EXLCUDE_REG_PREFIX)) {
                 config.addExcludeReg(excludeArg);
+            } else {
+                throw new MojoExecutionException(format("Invalid exclude argument '%s'", excludeArg));
             }
         }
         return config;
