@@ -110,7 +110,7 @@ public class JSCoverMojoTest {
     }
 
     @Test
-    public void shouldInterpretCommonConfigurationIncludeOnyPathsCorrectly() throws Exception {
+    public void shouldInterpretCommonConfigurationIncludeOnlyPathsCorrectly() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
         List<String> instrumentPathArgs = new ArrayList<String>();
         instrumentPathArgs.add(ONLY_INSTRUMENT_REG_PREFIX+"/include-.*/*.js");
@@ -122,6 +122,20 @@ public class JSCoverMojoTest {
         assertThat(config.skipInstrumentation("exclude/file.js"), equalTo(true));
         assertThat(config.skipInstrumentation("exclude-reg/file.js"), equalTo(true));
     }
+
+    @Test
+    public void shouldDetectIncorrectCommonConfigurationPath() throws Exception {
+        ConfigurationCommon config = new ConfigurationCommon();
+        List<String> instrumentPathArgs = new ArrayList<String>();
+        instrumentPathArgs.add("bad-option");
+        ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
+
+        try {
+            mojo.setCommonConfiguration(config);
+        } catch (MojoExecutionException e) {
+            assertThat(e.getMessage(), equalTo("Invalid instrument path option 'bad-option'"));
+        }
+   }
 
     @Test
     public void shouldProcessBuiltInTestType() throws Exception {

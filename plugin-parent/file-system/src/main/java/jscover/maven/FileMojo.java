@@ -46,7 +46,7 @@ public class FileMojo extends JSCoverMojo {
         }
     }
 
-    private ConfigurationForFS getConfigurationForFS() {
+    private ConfigurationForFS getConfigurationForFS() throws MojoExecutionException {
         ConfigurationForFS config = new ConfigurationForFS();
         //Common parameters
         setCommonConfiguration(config);

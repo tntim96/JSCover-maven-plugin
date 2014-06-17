@@ -48,7 +48,7 @@ public class ServerMojo extends JSCoverMojo {
         }
     }
 
-    private ConfigurationForServer getConfigurationForServer() {
+    private ConfigurationForServer getConfigurationForServer() throws MojoExecutionException {
         ConfigurationForServer config = new ConfigurationForServer();
         //Common parameters
         setCommonConfiguration(config);

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static java.lang.String.format;
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
 import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
 import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
@@ -85,6 +86,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected WebDriverRunner getWebDriverRunner() throws MojoExecutionException {
         if (testRunnerClassName != null) {
             try {
@@ -144,7 +146,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         }
     }
 
-    protected void setCommonConfiguration(ConfigurationCommon config) {
+    protected void setCommonConfiguration(ConfigurationCommon config) throws MojoExecutionException {
         config.setIncludeBranch(includeBranch);
         config.setIncludeFunction(includeFunction);
         config.setLocalStorage(localStorage);
@@ -156,6 +158,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
                 config.addNoInstrumentReg(instrumentArg);
             } else if (instrumentArg.startsWith(ONLY_INSTRUMENT_REG_PREFIX)) {
                 config.addOnlyInstrumentReg(instrumentArg);
+            } else {
+                throw new MojoExecutionException(format("Invalid instrument path option '%s'", instrumentArg));
             }
         }
     }
