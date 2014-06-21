@@ -8,13 +8,22 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
       <excludeFolder url="file://$MODULE_DIR$/target/surefire" />
       <excludeFolder url="file://$MODULE_DIR$/target/surefire-reports" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-java:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-api:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-htmlunit-driver:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-ie-driver:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-safari-driver:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-support:2.42.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.tntim96:JSCover:1.0.11" level="project" />
+    <orderEntry type="library" name="Maven: com.github.tntim96:rhino:1.7R5pre03" level="project" />
     <orderEntry type="module" module-name="jscover-common-maven-plugin" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-model:3.2.1" level="project" />
