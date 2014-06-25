@@ -46,6 +46,7 @@ public class ServerTestRunner {
             jsonFile.delete();
 
         if (config.isLocalStorage()) {
+            webClient.get(String.format("http://localhost:%d/jscoverage-clear-local-storage.html", config.getPort()));
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
             webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
