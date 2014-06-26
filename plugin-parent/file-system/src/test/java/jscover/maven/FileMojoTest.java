@@ -8,12 +8,13 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import static jscover.maven.TestType.*;
-import static jscover.maven.TestType.Custom;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class FileMojoTest {
     private FileMojo mojo = new FileMojo();
@@ -52,6 +53,18 @@ public class FileMojoTest {
             else
                 deleteDirectory(file);
         dir.delete();
+    }
+
+    @Test
+    public void shouldFailIfTestDirectoryNotSubDirectory() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/target"));
+        try {
+            mojo.execute();
+            fail("Should have thrown exception");
+        } catch(MojoExecutionException e) {
+            Pattern pattern = Pattern.compile("'testDirectory' '.*/data/target' should be a sub-directory of 'srcDir' '.*/data/src'");
+            assertThat(pattern.matcher(e.getMessage()).matches(), is(true));
+        }
     }
 
     @Test

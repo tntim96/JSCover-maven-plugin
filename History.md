@@ -2,6 +2,8 @@
 ==================
   * Add Jasmine 2 support
   * Add custom test runner support
+  * Add clear message if `testDirectory` is not a sub-directory of `srcDir` (https://github.com/tntim96/JSCover/issues/146)
+  * Clear localStorage before each run if using it (issue for PhantomJS)
 
 1.0.5 / 2014-06-05
 ==================

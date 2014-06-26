@@ -20,6 +20,7 @@ import static java.lang.String.format;
 @Mojo(name = "file", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class FileMojo extends JSCoverMojo {
     //private ConfigurationForFS defaults = new ConfigurationForFS();
+    IoUtils ioUtils = IoUtils.getInstance();
 
     @Parameter
     private File srcDir = new File("src");
@@ -39,7 +40,9 @@ public class FileMojo extends JSCoverMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Problem initialising JSCover", e);
         }
-        String relativeDirectory = IoUtils.getInstance().getRelativePath(testDirectory, srcDir);
+        if (!ioUtils.isSubDirectory(testDirectory, srcDir))
+            throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
+        String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);
         File testDir = new File(destDir, relativeDirectory);
         try {
             new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
