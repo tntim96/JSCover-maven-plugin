@@ -1,5 +1,6 @@
 package jscover.maven;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,12 +16,10 @@ public class JasmineTrivialReporterWebDriverRunnerTest extends WebDriverRunnerTe
     private WebDriverRunner runner = new JasmineTrivialReporterWebDriverRunner();
 
     @Test
-    public void shouldFindErrorMessages() throws MojoFailureException {
-        webDriver.get(getFilePath("data/jasmine-trivial-fail.html"));
+    public void shouldFindErrorMessages() throws MojoExecutionException {
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-trivial-reporter-code-fail.html"));
         List<String> failures = runner.getFailures(webDriver);
-//        for (String failure : failures) {
-//            System.out.println("failure = " + failure);
-//        }
+        runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);
             fail("Expected exception");

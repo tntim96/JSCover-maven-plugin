@@ -1,5 +1,6 @@
 package jscover.maven;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Test;
 
@@ -14,12 +15,10 @@ public class JasmineHtmlReporterWebDriverRunnerTest extends WebDriverRunnerTest 
     private WebDriverRunner runner = new JasmineHtmlReporterWebDriverRunner();
 
     @Test
-    public void shouldFindErrorMessages() {
-        webDriver.get(getFilePath("data/jasmine-html-fail.html"));
+    public void shouldFindErrorMessages() throws MojoExecutionException {
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-fail.html"));
         List<String> failures = runner.getFailures(webDriver);
-//        for (String failure : failures) {
-//            System.out.println("failure = " + failure);
-//        }
+        runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);
             fail("Expected exception");
