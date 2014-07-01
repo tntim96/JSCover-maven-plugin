@@ -41,8 +41,6 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected File reportDir = new File("target/reports/jscover-maven");
     @Parameter
     protected int JSVersion = defaults.getJSVersion();
-    @Parameter
-    protected int timeOutSeconds = 10;
 
     //Test Parameters
     @Parameter(required = true)
@@ -69,6 +67,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected boolean reportLCOV;
     @Parameter
     protected boolean reportCoberturaXML;
+    @Parameter
+    protected int timeOutSeconds = 10;
 
     protected void setSystemProperties() {
         for (Object key : systemProperties.keySet()) {

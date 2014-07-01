@@ -144,6 +144,23 @@ public class JSCoverMojoTest {
     }
 
     @Test
+    public void shouldSetTimeoutForJasmine() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "timeOutSeconds", 123);
+        JasmineHtmlReporterWebDriverRunner webDriverRunner = (JasmineHtmlReporterWebDriverRunner) mojo.getWebDriverRunner();
+        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", JasmineHtmlReporterWebDriverRunner.class).getInt(webDriverRunner);
+        assertThat(timeOutSeconds, equalTo(123));
+    }
+
+    @Test
+    public void shouldSetTimeoutForQUnit() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
+        ReflectionUtils.setVariableValueInObject(mojo, "timeOutSeconds", 123);
+        QUnitWebDriverRunner webDriverRunner = (QUnitWebDriverRunner) mojo.getWebDriverRunner();
+        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", QUnitWebDriverRunner.class).getInt(webDriverRunner);
+        assertThat(timeOutSeconds, equalTo(123));
+    }
+
+    @Test
     public void shouldProcessCustomTestType() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         ReflectionUtils.setVariableValueInObject(mojo, "testRunnerClassName", "jscover.maven.QUnitWebDriverRunner");
