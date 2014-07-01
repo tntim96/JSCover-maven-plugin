@@ -15,6 +15,13 @@ public class JasmineHtmlReporterWebDriverRunnerTest extends WebDriverRunnerTest 
     private WebDriverRunner runner = new JasmineHtmlReporterWebDriverRunner();
 
     @Test
+    public void shouldPass() throws MojoExecutionException, MojoFailureException {
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-pass.html"));
+        runner.waitForTestsToComplete(webDriver);
+        runner.verifyTestsPassed(webDriver);
+    }
+
+    @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
         webDriver.get(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-fail.html"));
         List<String> failures = runner.getFailures(webDriver);

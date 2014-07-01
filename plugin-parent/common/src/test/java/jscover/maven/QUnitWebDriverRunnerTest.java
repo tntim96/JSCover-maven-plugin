@@ -15,6 +15,13 @@ public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
     private WebDriverRunner runner = new QUnitWebDriverRunner();
 
     @Test
+    public void shouldPass() throws MojoExecutionException, MojoFailureException {
+        webDriver.get(getFilePath("../data/src/test/javascript/qunit-code-pass.html"));
+        runner.waitForTestsToComplete(webDriver);
+        runner.verifyTestsPassed(webDriver);
+    }
+
+    @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
         webDriver.get(getFilePath("../data/src/test/javascript/qunit-code-fail.html"));
         List<String> failures = runner.getFailures(webDriver);

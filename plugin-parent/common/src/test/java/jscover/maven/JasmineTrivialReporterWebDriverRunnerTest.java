@@ -16,6 +16,13 @@ public class JasmineTrivialReporterWebDriverRunnerTest extends WebDriverRunnerTe
     private WebDriverRunner runner = new JasmineTrivialReporterWebDriverRunner();
 
     @Test
+    public void shouldPass() throws MojoExecutionException, MojoFailureException {
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-trivial-reporter-code-pass.html"));
+        runner.waitForTestsToComplete(webDriver);
+        runner.verifyTestsPassed(webDriver);
+    }
+
+    @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
         webDriver.get(getFilePath("../data/src/test/javascript/jasmine-trivial-reporter-code-fail.html"));
         List<String> failures = runner.getFailures(webDriver);
