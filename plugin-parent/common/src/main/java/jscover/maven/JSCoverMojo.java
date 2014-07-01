@@ -41,6 +41,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected File reportDir = new File("target/reports/jscover-maven");
     @Parameter
     protected int JSVersion = defaults.getJSVersion();
+    @Parameter
+    protected int timeOutSeconds = 10;
 
     //Test Parameters
     @Parameter(required = true)
@@ -95,7 +97,9 @@ public abstract class JSCoverMojo extends AbstractMojo {
                 throw new MojoExecutionException(e.getMessage(), e);
             }
         }
-        return testType.getWebDriverRunner();
+        WebDriverRunner webDriverRunner = testType.getWebDriverRunner();
+        webDriverRunner.setTimeOutSeconds(timeOutSeconds);
+        return webDriverRunner;
     }
 
     protected WebDriver getWebClient() {

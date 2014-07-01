@@ -14,13 +14,14 @@ import java.util.List;
 import static java.lang.String.format;
 
 public class QUnitWebDriverRunner implements WebDriverRunner {
+    int timeOutSeconds;
+
+    public void setTimeOutSeconds(int timeOutSeconds) {
+        this.timeOutSeconds = timeOutSeconds;
+    }
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
-        try {
-            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "Tests completed"));
-        } catch(AssertionError e) {
-            throw new MojoExecutionException("Problem waiting for tests to complete", e);
-        }
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "Tests completed"));
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
@@ -39,7 +40,7 @@ public class QUnitWebDriverRunner implements WebDriverRunner {
             List<WebElement> descriptions = element.findElements(By.className("test-name"));
             if (descriptions.size() != 1)
                 continue;
-            for (WebElement message :element.findElements(By.className("test-source")))
+            for (WebElement message : element.findElements(By.className("test-source")))
                 failures.add(format("%s - %s", descriptions.get(0).getText(), message.getText()));
         }
         return failures;

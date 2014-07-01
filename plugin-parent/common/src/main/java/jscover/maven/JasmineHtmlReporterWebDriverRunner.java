@@ -10,12 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner implements WebDriverRunner {
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
-        try {
-            new WebDriverWait(webClient, 10).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
-            new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.className("duration"), "finished"));
-        } catch (AssertionError e) {
-            throw new MojoExecutionException("Problem waiting for tests to complete", e);
-        }
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("duration"), "finished"));
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
