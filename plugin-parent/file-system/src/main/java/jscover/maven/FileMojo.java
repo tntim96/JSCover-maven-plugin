@@ -34,12 +34,8 @@ public class FileMojo extends JSCoverMojo {
         final ConfigurationForFS config = getConfigurationForFS();
 
         Main main = new Main();
-        try {
-            main.initialize();
-            main.runFileSystem(config);
-        } catch (IOException e) {
-            throw new MojoExecutionException("Problem initialising JSCover", e);
-        }
+        main.initialize();
+        main.runFileSystem(config);
         if (!ioUtils.isSubDirectory(testDirectory, srcDir))
             throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
         String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);

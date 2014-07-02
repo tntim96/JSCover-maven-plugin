@@ -29,12 +29,8 @@ public class ServerMojo extends JSCoverMojo {
         final Main main = new Main();
         Runnable jsCover = new Runnable() {
             public void run() {
-                try {
-                    main.initialize();
-                    main.runServer(config);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                main.initialize();
+                main.runServer(config);
             }
         };
         Thread jsCoverThread = new Thread(jsCover);

@@ -1,10 +1,11 @@
-1.0.6 / 2014-??-??
+1.0.6 / 2014-07-02
 ==================
   * Add Jasmine 2 support
   * Add custom test runner support
   * Add clear message if `testDirectory` is not a sub-directory of `srcDir` (https://github.com/tntim96/JSCover/issues/146)
   * Clear localStorage before each run if using it (issue for PhantomJS)
   * Make test timeout configurable
+  * JSCover 1.0.12
 
 1.0.5 / 2014-06-05
 ==================
