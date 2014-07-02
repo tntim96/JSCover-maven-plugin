@@ -45,10 +45,7 @@ public class FileTestRunner {
         if (jsonFile.exists())
             jsonFile.delete();
         if (config.isLocalStorage()) {
-            //TODO Can remove below 2 lines when upgrading to JSCover 1.0.12
-            String resource = "jscoverage-clear-local-storage.html";
-            ioUtils.copy(getClass().getResourceAsStream("/" + resource), new File(config.getDestDir(), resource));
-            webClient.get("file:///" + new File(config.getDestDir(), resource).getAbsolutePath().replaceAll("\\\\","/"));
+            webClient.get("file:///" + new File(config.getDestDir(), "jscoverage-clear-local-storage.html").getAbsolutePath().replaceAll("\\\\","/"));
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDestDir()));
             String json = (String)((JavascriptExecutor) webClient).executeScript("return jscoverage_serializeCoverageToJSON();");
