@@ -62,8 +62,11 @@ public class FileMojoTest {
             mojo.execute();
             fail("Should have thrown exception");
         } catch(MojoExecutionException e) {
-            Pattern pattern = Pattern.compile("'testDirectory' '.*/data/target' should be a sub-directory of 'srcDir' '.*/data/src'");
-            assertThat(pattern.matcher(e.getMessage()).matches(), is(true));
+            String regex = "'testDirectory' '.*/data/target' should be a sub-directory of 'srcDir' '.*/data/src'";
+            if (File.separatorChar == '\\')
+                regex = regex.replaceAll("/", "\\\\\\\\");
+            Pattern pattern = Pattern.compile(regex);
+            assertThat(String.format("Message was: '%s'", e.getMessage()), pattern.matcher(e.getMessage()).matches(), is(true));
         }
     }
 
