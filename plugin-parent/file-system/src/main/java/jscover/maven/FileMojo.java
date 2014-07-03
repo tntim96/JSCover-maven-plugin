@@ -25,8 +25,6 @@ public class FileMojo extends JSCoverMojo {
     @Parameter
     private File srcDir = new File("src");
     @Parameter
-    private File destDir = new File("target/reports/jscover-maven");
-    @Parameter
     protected final List<String> excludeArgs = new ArrayList<String>();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -39,7 +37,7 @@ public class FileMojo extends JSCoverMojo {
         if (!ioUtils.isSubDirectory(testDirectory, srcDir))
             throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
         String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);
-        File testDir = new File(destDir, relativeDirectory);
+        File testDir = new File(reportDir, relativeDirectory);
         try {
             new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
         } finally {
@@ -53,7 +51,7 @@ public class FileMojo extends JSCoverMojo {
         setCommonConfiguration(config);
         //File-System parameters
         config.setSrcDir(srcDir);
-        config.setDestDir(destDir);
+        config.setDestDir(reportDir);
         for (String excludeArg : excludeArgs) {
             if (excludeArg.startsWith(ConfigurationForFS.EXLCUDE_PREFIX)) {
                 config.addExclude(excludeArg);

@@ -1,6 +1,7 @@
 1.0.7 / 2014-07-03
 ==================
-  * Change goal to 'jscover'
+  * Change goals to 'jscover'
+  * Replace FileMojo 'destDir' with existing 'reportDir'
 
 1.0.6 / 2014-07-02
 ==================

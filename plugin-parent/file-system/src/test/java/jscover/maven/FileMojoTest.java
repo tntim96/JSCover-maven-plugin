@@ -30,7 +30,7 @@ public class FileMojoTest {
         deleteDirectory(getFilePath("../data/target"));
         ReflectionUtils.setVariableValueInObject(mojo, "srcDir", getFilePath("../data/src"));
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
-        ReflectionUtils.setVariableValueInObject(mojo, "destDir", getFilePath("../data/target"));
+        ReflectionUtils.setVariableValueInObject(mojo, "reportDir", getFilePath("../data/target"));
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", Arrays.asList("--no-instrument=main/webapp/js/vendor/", "--no-instrument=test"));
         ReflectionUtils.setVariableValueInObject(mojo, "excludeArgs", Arrays.asList("--exclude=main/java", "--exclude=main/resources", "--exclude-reg=test/java$"));
