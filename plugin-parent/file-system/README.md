@@ -1,15 +1,20 @@
 JSCover-file-maven-plugin
 =========================
 
-**Note** JSCover File Maven Plugin generates your coverage reports _without ever running a server_.
+## Working examples
 
-Run with `mvn jscover-file:file`
+See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
+
+
+## Configuration
+
+Run with `mvn jscover-file:jscover`
 
 ```XML
     <plugin>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-file-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.7</version>
         <configuration>
             <srcDir>src</srcDir>
             <testDirectory>src/test/javascript</testDirectory>

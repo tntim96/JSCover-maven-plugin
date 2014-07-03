@@ -11,7 +11,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.io.IOException;
 
-@Mojo(name = "server", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
+@Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class ServerMojo extends JSCoverMojo {
     private ConfigurationForServer defaults = new ConfigurationForServer();
 

@@ -1,13 +1,20 @@
 JSCover-server-maven-plugin
 ===========================
 
-Run with `mvn jscover-server:server`
+## Working examples
+
+See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
+
+
+## Configuration
+
+Run with `mvn jscover-server:jscover`
 
 ```XML
     <plugin>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-server-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.7</version>
         <configuration>
             <testDirectory>./src/test/javascript</testDirectory>
             <testIncludes>index.html</testIncludes>

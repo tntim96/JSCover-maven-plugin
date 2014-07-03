@@ -17,7 +17,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 //@Mojo(name = "file", requiresDirectInvocation = true)
-@Mojo(name = "file", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
+@Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class FileMojo extends JSCoverMojo {
     //private ConfigurationForFS defaults = new ConfigurationForFS();
     IoUtils ioUtils = IoUtils.getInstance();
