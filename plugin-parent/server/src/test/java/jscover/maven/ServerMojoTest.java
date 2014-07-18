@@ -1,6 +1,5 @@
 package jscover.maven;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
