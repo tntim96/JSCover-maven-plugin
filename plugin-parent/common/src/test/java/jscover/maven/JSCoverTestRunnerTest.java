@@ -4,7 +4,6 @@ import jscover.report.Main;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -13,10 +12,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JSCoverTestRunnerTest {;
@@ -27,6 +29,7 @@ public class JSCoverTestRunnerTest {;
     @Mock private WebElement summaryTotalWebElement;
     @Mock private WebElement branchSummaryTotalWebElement;
     @Mock private WebElement functionSummaryTotalWebElement;
+    private File dir = new File(".");
     private int lineCoverageMinimum = 50;
     private int branchCoverageMinimum = 50;
     private int functionCoverageMinimum = 50;
@@ -83,7 +86,24 @@ public class JSCoverTestRunnerTest {;
     }
 
     @Test
-    @Ignore
-    public void testGenerateOtherReportFormats() throws Exception {
+    public void shouldNotGenerateLCOVReport() throws Exception {
+        runner.generateOtherReportFormats(dir);
+
+        verify(main, times(0)).generateLCovDataFile();
+        verify(main, times(0)).saveCoberturaXml();
+    }
+
+    @Test
+    public void shouldGenerateLCOVReport() throws Exception {
+        ReflectionUtils.setVariableValueInObject(runner, "reportLCOV", true);
+        runner.generateOtherReportFormats(dir);
+        verify(main).generateLCovDataFile();
+    }
+
+    @Test
+    public void shouldGenerateCoberturaReport() throws Exception {
+        ReflectionUtils.setVariableValueInObject(runner, "reportCoberturaXML", true);
+        runner.generateOtherReportFormats(dir);
+        verify(main).saveCoberturaXml();
     }
 }
