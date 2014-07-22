@@ -15,8 +15,9 @@ import java.io.File;
 import static java.lang.String.format;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
-abstract class JSCoverTestRunner {
+class JSCoverTestRunner {
     private Log log = new SystemStreamLog();
+    private Main main = new Main();
     protected final WebDriver webClient;
     protected final WebDriverRunner webDriverRunner;
     private final int lineCoverageMinimum;
@@ -39,7 +40,6 @@ abstract class JSCoverTestRunner {
     protected void generateOtherReportFormats(File dir) {
         if (reportLCOV || reportCoberturaXML) {
             ConfigurationForReport configurationForReport = new ConfigurationForReport();
-            Main main = new Main();
             main.initialize();
             configurationForReport.setProperties(Main.properties);
             configurationForReport.setJsonDirectory(dir);
