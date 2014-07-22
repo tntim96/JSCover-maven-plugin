@@ -1,8 +1,12 @@
 package jscover.maven;
 
+import jscover.report.ConfigurationForReport;
 import jscover.report.Main;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.ReflectionUtils;
+import org.hamcrest.Description;
+import org.hamcrest.Matchers;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +21,7 @@ import java.io.File;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -91,6 +96,7 @@ public class JSCoverTestRunnerTest {;
 
         verify(main, times(0)).generateLCovDataFile();
         verify(main, times(0)).saveCoberturaXml();
+        verify(main, times(0)).setConfig(argThat(Matchers.any(ConfigurationForReport.class)));
     }
 
     @Test
@@ -98,12 +104,33 @@ public class JSCoverTestRunnerTest {;
         ReflectionUtils.setVariableValueInObject(runner, "reportLCOV", true);
         runner.generateOtherReportFormats(dir);
         verify(main).generateLCovDataFile();
+        verify(main, times(0)).saveCoberturaXml();
     }
 
     @Test
     public void shouldGenerateCoberturaReport() throws Exception {
         ReflectionUtils.setVariableValueInObject(runner, "reportCoberturaXML", true);
         runner.generateOtherReportFormats(dir);
+        verify(main, times(0)).generateLCovDataFile();
         verify(main).saveCoberturaXml();
+    }
+
+    @Test
+    public void shouldGenerateBothReports() throws Exception {
+        ReflectionUtils.setVariableValueInObject(runner, "reportLCOV", true);
+        ReflectionUtils.setVariableValueInObject(runner, "reportCoberturaXML", true);
+        runner.generateOtherReportFormats(dir);
+        verify(main).generateLCovDataFile();
+        verify(main).saveCoberturaXml();
+        verify(main).setConfig(argThat(new TypeSafeMatcher<ConfigurationForReport>() {
+            @Override
+            protected boolean matchesSafely(ConfigurationForReport configurationForReport) {
+                return configurationForReport.getJsonDirectory().equals(dir)
+                        && configurationForReport.getSourceDirectory().getPath().endsWith(jscover.Main.reportSrcSubDir);
+            }
+
+            public void describeTo(Description description) {
+            }
+        }));
     }
 }
