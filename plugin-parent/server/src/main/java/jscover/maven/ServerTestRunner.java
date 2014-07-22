@@ -1,11 +1,10 @@
 package jscover.maven;
 
-import jscover.report.ConfigurationForReport;
-import jscover.report.Main;
 import jscover.server.ConfigurationForServer;
-import jscover.util.IoUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,29 +14,15 @@ import java.io.File;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
-public class ServerTestRunner {
+public class ServerTestRunner extends JSCoverTestRunner {
+    private Log log = new SystemStreamLog();
 
-    protected WebDriver webClient;
     private ConfigurationForServer config;
-    private WebDriverRunner webDriverRunner;
-    private int lineCoverageMinimum;
-    private int branchCoverageMinimum;
-    private int functionCoverageMinimum;
-    private final boolean reportLCOV;
-    private final boolean reportCoberturaXML;
-    private IoUtils ioUtils = IoUtils.getInstance();
 
     public ServerTestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
-        this.webClient = webClient;
-        this.webDriverRunner = webDriverRunner;
+        super(webClient, webDriverRunner, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
         this.config = config;
-        this.lineCoverageMinimum = lineCoverageMinimum;
-        this.branchCoverageMinimum = branchCoverageMinimum;
-        this.functionCoverageMinimum = functionCoverageMinimum;
-        this.reportLCOV = reportLCOV;
-        this.reportCoberturaXML = reportCoberturaXML;
     }
 
     public void runTests(List<File> testPages) throws MojoFailureException, MojoExecutionException {
@@ -57,7 +42,7 @@ public class ServerTestRunner {
         }
         saveCoverageData();
         verifyTotal();
-        generateOtherReportFormats();
+        generateOtherReportFormats(config.getReportDir());
     }
 
     private void saveCoverageData() {
@@ -71,35 +56,16 @@ public class ServerTestRunner {
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
 
-    private void generateOtherReportFormats() throws MojoExecutionException {
-        try {
-            if (reportLCOV || reportCoberturaXML) {
-                ConfigurationForReport configurationForReport = new ConfigurationForReport();
-                Main main = new Main();
-                main.initialize();
-                configurationForReport.setProperties(Main.properties);
-                configurationForReport.setJsonDirectory(config.getReportDir());
-                configurationForReport.setSourceDirectory(new File(config.getReportDir(), jscover.Main.reportSrcSubDir));
-                main.setConfig(configurationForReport);
-                if (reportLCOV) {
-                    main.generateLCovDataFile();
-                }
-                if (reportCoberturaXML) {
-                    main.saveCoberturaXml();
-                }
-            }
-        } catch (Throwable t) {
-            throw new MojoExecutionException("Error generating other report formats", t);
-        }
-    }
-
     public void runTestLocalStorage(String testPage) throws MojoFailureException, MojoExecutionException {
+        log.info("Testing " + testPage);
         webClient.get(String.format("http://localhost:%d/%s", config.getPort(), testPage));
         webDriverRunner.waitForTestsToComplete(webClient);
         webDriverRunner.verifyTestsPassed(webClient);
+        log.info("...passed");
     }
 
     public void runTestInFrames(String testPage) throws MojoFailureException, MojoExecutionException {
+        log.info("Testing (without localStorage) " + testPage);
         webClient.findElement(By.id("location")).clear();
         webClient.findElement(By.id("location")).sendKeys(String.format("http://localhost:%d/%s", config.getPort(), testPage));
         webClient.findElement(By.id("openInFrameButton")).click();
@@ -108,27 +74,8 @@ public class ServerTestRunner {
         new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
         webDriverRunner.waitForTestsToComplete(webClient);
         webDriverRunner.verifyTestsPassed(webClient);
+        log.info("...passed");
 
         webClient.switchTo().window(handle);
-    }
-
-    protected void verifyTotal() throws MojoFailureException {
-        webClient.findElement(By.id("summaryTab")).click();
-        new WebDriverWait(webClient, 1).until(textToBePresentInElementLocated(By.id("summaryTotal"), "%"));
-
-        verifyField("Line", "summaryTotal", lineCoverageMinimum);
-        verifyField("Branch", "branchSummaryTotal", branchCoverageMinimum);
-        verifyField("Function", "functionSummaryTotal", functionCoverageMinimum);
-    }
-
-    private void verifyField(String coverageName, String fieldName, int percentageMin) throws MojoFailureException {
-        int percentage = extractInt(webClient.findElement(By.id(fieldName)).getText());
-        if (percentage < percentageMin) {
-            throw new MojoFailureException(format("%s coverage %d less than %d", coverageName, percentage, percentageMin));
-        }
-    }
-
-    private int extractInt(String percentage) {
-        return Integer.parseInt(percentage.replaceAll("%", ""));
     }
 }

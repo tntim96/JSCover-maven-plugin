@@ -9,7 +9,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
-import java.io.IOException;
 
 @Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class ServerMojo extends JSCoverMojo {
@@ -35,12 +34,14 @@ public class ServerMojo extends JSCoverMojo {
         };
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
+        getLog().info("Started JSCover server");
         try {
             ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
             serverTestRunner.runTests(getTestFiles());
         } finally {
             stopWebClient();
             main.stop();
+            getLog().info("Stopped JSCover server");
         }
     }
 

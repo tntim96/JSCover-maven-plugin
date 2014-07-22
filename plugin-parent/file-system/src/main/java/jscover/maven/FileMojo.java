@@ -31,11 +31,12 @@ public class FileMojo extends JSCoverMojo {
         setSystemProperties();
         final ConfigurationForFS config = getConfigurationForFS();
 
+        if (!ioUtils.isSubDirectory(testDirectory, srcDir))
+            throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
         Main main = new Main();
         main.initialize();
         main.runFileSystem(config);
-        if (!ioUtils.isSubDirectory(testDirectory, srcDir))
-            throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
+        getLog().info("Ran JSCover instrumentation");
         String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);
         File testDir = new File(reportDir, relativeDirectory);
         try {

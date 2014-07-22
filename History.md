@@ -1,6 +1,8 @@
 1.0.8 / 2014-07-??
 ==================
   * JSCover 1.0.13
+  * Add logging
+  * Internal: Extract common test runner code
 
 1.0.7 / 2014-07-03
 ==================
