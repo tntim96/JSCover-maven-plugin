@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mozilla.javascript.Context;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -156,7 +157,9 @@ public class JSCoverMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
         ReflectionUtils.setVariableValueInObject(mojo, "timeOutSeconds", 123);
         QUnitWebDriverRunner webDriverRunner = (QUnitWebDriverRunner) mojo.getWebDriverRunner();
-        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", QUnitWebDriverRunner.class).getInt(webDriverRunner);
+        Field field = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", QUnitWebDriverRunner.class);
+        field.setAccessible(true);
+        int timeOutSeconds = field.getInt(webDriverRunner);
         assertThat(timeOutSeconds, equalTo(123));
     }
 

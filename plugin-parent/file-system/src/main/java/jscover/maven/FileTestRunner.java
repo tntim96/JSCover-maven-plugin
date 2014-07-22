@@ -32,31 +32,28 @@ public class FileTestRunner extends JSCoverTestRunner {
             webClient.get("file:///" + new File(config.getDestDir(), "jscoverage-clear-local-storage.html").getAbsolutePath().replaceAll("\\\\", "/"));
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDestDir()));
-            String json = (String) ((JavascriptExecutor) webClient).executeScript("return jscoverage_serializeCoverageToJSON();");
-            ioUtils.copy(json, new File(config.getDestDir(), "jscoverage.json"));
-            String js = ioUtils.loadFromFileSystem(new File(config.getDestDir(), "jscoverage.js"));
-            ioUtils.copy(js + "\njscoverage_isReport = true;", new File(config.getDestDir(), "jscoverage.js"));
+            saveCoverageData();
             webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\", "/"));
         } else {
             webClient.get("file:///" + new File(config.getDestDir(), "jscoverage.html").getAbsolutePath().replaceAll("\\\\", "/"));
             for (File testPage : testPages) {
                 runTestInFrames(ioUtils.getRelativePath(testPage, config.getDestDir()));
             }
+            String handle = webClient.getWindowHandle();
+            new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
             saveCoverageData();
+            webClient.switchTo().window(handle);
         }
         verifyTotal();
         generateOtherReportFormats(config.getDestDir());
     }
 
     private void saveCoverageData() {
-        String handle = webClient.getWindowHandle();
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
         String json = (String) ((JavascriptExecutor) webClient).executeScript("return jscoverage_serializeCoverageToJSON();");
         ioUtils.copy(json, new File(config.getDestDir(), "jscoverage.json"));
         File jscoverageJS = new File(config.getDestDir(), "jscoverage.js");
         String js = ioUtils.toString(jscoverageJS);
         ioUtils.copy(js + "\njscoverage_isReport = true;", jscoverageJS);
-        webClient.switchTo().window(handle);
     }
 
     public void runTestLocalStorage(String testPage) throws MojoFailureException, MojoExecutionException {

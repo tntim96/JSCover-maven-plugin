@@ -15,7 +15,7 @@ import java.io.File;
 import static java.lang.String.format;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
-public class JSCoverTestRunner {
+abstract class JSCoverTestRunner {
     private Log log = new SystemStreamLog();
     protected final WebDriver webClient;
     protected final WebDriverRunner webDriverRunner;
