@@ -2,8 +2,6 @@ package jscover.maven;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,13 +13,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class QUnitWebDriverRunner implements WebDriverRunner {
-    private Log log = new SystemStreamLog();
-    private int timeOutSeconds;
-
-    public void setTimeOutSeconds(int timeOutSeconds) {
-        this.timeOutSeconds = timeOutSeconds;
-    }
+public class QUnitWebDriverRunner extends WebDriverRunnerBase {
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "Tests completed"));

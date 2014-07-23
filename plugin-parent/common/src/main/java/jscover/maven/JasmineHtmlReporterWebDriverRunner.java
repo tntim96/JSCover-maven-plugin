@@ -2,16 +2,12 @@ package jscover.maven;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner implements WebDriverRunner {
-    private Log log = new SystemStreamLog();
-
+public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner {
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("duration"), "finished"));

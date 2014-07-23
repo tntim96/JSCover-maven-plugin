@@ -9,13 +9,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public abstract class JasmineWebDriverRunner implements WebDriverRunner {
-    protected int timeOutSeconds;
-
-    public void setTimeOutSeconds(int timeOutSeconds) {
-        this.timeOutSeconds = timeOutSeconds;
-    }
-
+public abstract class JasmineWebDriverRunner extends WebDriverRunnerBase {
     public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
         List<WebElement> elements = webClient.findElements(By.className("failed"));
