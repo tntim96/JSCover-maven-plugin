@@ -1,6 +1,7 @@
 JSCover-maven-plugin
 ====================
 [![Build Status](https://drone.io/github.com/tntim96/JSCover-maven-plugin/status.png)](https://drone.io/github.com/tntim96/JSCover-maven-plugin/latest)
+[![Dependency Status](https://www.versioneye.com/user/projects/540e9989b5f2466423000007/badge.svg?style=flat)](https://www.versioneye.com/user/projects/540e9989b5f2466423000007)
 
 Maven plugins for [JSCover](http://tntim96.github.com/JSCover/).
 
