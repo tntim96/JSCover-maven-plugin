@@ -1,4 +1,4 @@
-1.0.10 / 2014-??-??
+1.0.10 / 2014-10-16
 ==================
   * Selenium 2.43.1
   * Use existing timeout parameter for saving report (https://github.com/tntim96/JSCover-maven-plugin/issues/8)
