@@ -36,7 +36,7 @@ public class ServerMojo extends JSCoverMojo {
         jsCoverThread.start();
         getLog().info("Started JSCover server");
         try {
-            ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
+            ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML, timeOutSeconds);
             serverTestRunner.runTests(getTestFiles());
         } finally {
             stopWebClient();

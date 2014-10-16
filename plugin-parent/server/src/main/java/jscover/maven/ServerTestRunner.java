@@ -19,10 +19,12 @@ public class ServerTestRunner extends JSCoverTestRunner {
     private Log log = new SystemStreamLog();
 
     private ConfigurationForServer config;
+    private int timeOutSeconds;
 
-    public ServerTestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML) {
+    public ServerTestRunner(WebDriver webClient, WebDriverRunner webDriverRunner, ConfigurationForServer config, int lineCoverageMinimum, int branchCoverageMinimum, int functionCoverageMinimum, boolean reportLCOV, boolean reportCoberturaXML, int timeOutSeconds) {
         super(webClient, webDriverRunner, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
         this.config = config;
+        this.timeOutSeconds = timeOutSeconds;
     }
 
     public void runTests(List<File> testPages) throws MojoFailureException, MojoExecutionException {
@@ -52,7 +54,7 @@ public class ServerTestRunner extends JSCoverTestRunner {
         new WebDriverWait(webClient, 1).until(ExpectedConditions.textToBePresentInElementLocated(By.id("progressLabel"),"Done"));
         new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
         webClient.findElement(By.id("storeButton")).click();
-        new WebDriverWait(webClient, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
