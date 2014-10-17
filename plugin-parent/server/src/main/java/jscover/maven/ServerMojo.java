@@ -20,6 +20,8 @@ public class ServerMojo extends JSCoverMojo {
     private boolean includeUnloadedJS = defaults.isIncludeUnloadedJS();
     @Parameter
     private File documentRoot = defaults.getDocumentRoot();
+    @Parameter
+    protected int timeOutSecondsForSave = 15;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         setSystemProperties();
@@ -36,7 +38,7 @@ public class ServerMojo extends JSCoverMojo {
         jsCoverThread.start();
         getLog().info("Started JSCover server");
         try {
-            ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML, timeOutSeconds);
+            ServerTestRunner serverTestRunner = new ServerTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML, timeOutSecondsForSave);
             serverTestRunner.runTests(getTestFiles());
         } finally {
             stopWebClient();

@@ -29,7 +29,7 @@ Run with `mvn jscover-file:jscover`
             <lineCoverageMinimum>82</lineCoverageMinimum>
             <branchCoverageMinimum>48</branchCoverageMinimum>
             <functionCoverageMinimum>70</functionCoverageMinimum>
-            <timeOutSeconds>20</timeOutSeconds>
+            <timeOutSeconds>10</timeOutSeconds>
             <instrumentPathArgs>
                 <arg>--no-instrument=main/webapp/js/vendor/</arg>
                 <arg>--no-instrument=test</arg>

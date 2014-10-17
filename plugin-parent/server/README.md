@@ -28,7 +28,8 @@ Run with `mvn jscover-server:jscover`
             <lineCoverageMinimum>82</lineCoverageMinimum>
             <branchCoverageMinimum>48</branchCoverageMinimum>
             <functionCoverageMinimum>70</functionCoverageMinimum>
-            <timeOutSeconds>20</timeOutSeconds>
+            <timeOutSeconds>10</timeOutSeconds>
+            <timeOutSecondsForSave>20</timeOutSecondsForSave>
             <instrumentPathArgs>
                 <arg>--no-instrument=target</arg>
             </instrumentPathArgs>
