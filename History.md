@@ -3,7 +3,7 @@
   * Update PhantomJS 1.1.0->1.2.0
   * Update PlexusUtils 3.0.18->3.0.21
   * Update JUnit 4.11->4.12-beta-3
-  * Update Jasmine 2.0.3->2.1.1
+  * Update Jasmine 2.0.3->2.1.2
 
 1.0.11 / 2014-10-17
 ==================
