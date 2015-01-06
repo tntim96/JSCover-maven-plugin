@@ -41,6 +41,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
     protected File reportDir = new File("target/reports/jscover-maven");
     @Parameter
     protected int JSVersion = defaults.getJSVersion();
+    @Parameter
+    protected boolean detectCoalesce = defaults.isDetectCoalesce();
 
     //Test Parameters
     @Parameter(required = true)
@@ -155,6 +157,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         config.setIncludeFunction(includeFunction);
         config.setLocalStorage(localStorage);
         config.setJSVersion(JSVersion);
+        config.setDetectCoalesce(detectCoalesce);
         for (String instrumentArg : instrumentPathArgs) {
             if (instrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
                 config.addNoInstrument(instrumentArg);

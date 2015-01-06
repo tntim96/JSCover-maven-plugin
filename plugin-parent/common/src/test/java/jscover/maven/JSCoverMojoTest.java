@@ -74,6 +74,7 @@ public class JSCoverMojoTest {
         assertThat(config.isIncludeBranch(), equalTo(true));
         assertThat(config.isIncludeFunction(), equalTo(true));
         assertThat(config.isLocalStorage(), equalTo(true));
+        assertThat(config.isDetectCoalesce(), equalTo(false));
     }
 
     @Test
@@ -83,6 +84,7 @@ public class JSCoverMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "includeBranch", false);
         ReflectionUtils.setVariableValueInObject(mojo, "includeFunction", false);
         ReflectionUtils.setVariableValueInObject(mojo, "localStorage", false);
+        ReflectionUtils.setVariableValueInObject(mojo, "detectCoalesce", true);
 
         mojo.setCommonConfiguration(config);
 
@@ -90,6 +92,7 @@ public class JSCoverMojoTest {
         assertThat(config.isIncludeBranch(), equalTo(false));
         assertThat(config.isIncludeFunction(), equalTo(false));
         assertThat(config.isLocalStorage(), equalTo(false));
+        assertThat(config.isDetectCoalesce(), equalTo(true));
         assertThat(config.skipInstrumentation("include.js"), equalTo(false));
         assertThat(config.skipInstrumentation("exclude/file.js"), equalTo(false));
         assertThat(config.skipInstrumentation("exclude-reg/file.js"), equalTo(false));
