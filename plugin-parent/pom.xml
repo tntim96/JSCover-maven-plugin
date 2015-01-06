@@ -7,10 +7,10 @@
     <parent>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-maven-plugin</artifactId>
-        <version>1.0.12-SNAPSHOT</version>
+        <version>1.0.12</version>
     </parent>
     <artifactId>jscover-parent-maven-plugin</artifactId>
-    <version>1.0.12-SNAPSHOT</version>
+    <version>1.0.12</version>
     <packaging>pom</packaging>
     <name>JSCover Plugin Parent Project</name>
 
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.3</version>
+            <version>3.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.github.tntim96</groupId>
             <artifactId>JSCover</artifactId>
-            <version>1.0.15</version>
+            <version>1.0.16</version>
         </dependency>
         <!--
         <dependency>
@@ -111,7 +111,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.10.17</version>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

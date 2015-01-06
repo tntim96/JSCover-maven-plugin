@@ -1,6 +1,7 @@
-1.0.12 / 2014-??-??
+1.0.12 / 2015-01-06
 ==================
-  * Update PhantomJS 1.1.0->1.2.0
+  * JSCover 1.0.16
+  * Update PhantomJS 1.1.0->1.2.1
   * Update PlexusUtils 3.0.18->3.0.21
   * Update JUnit 4.11->4.12
   * Update Jasmine 2.0.3->2.1.3
