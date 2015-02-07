@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-parent-maven-plugin</artifactId>
-        <version>1.0.13</version>
+        <version>1.0.14-SNAPSHOT</version>
     </parent>
 
     <artifactId>jscover-server-maven-plugin</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.github.tntim96</groupId>
             <artifactId>jscover-common-maven-plugin</artifactId>
-            <version>1.0.13</version>
+            <version>1.0.14-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
