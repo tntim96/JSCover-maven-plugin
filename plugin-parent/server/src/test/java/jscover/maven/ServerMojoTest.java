@@ -26,6 +26,7 @@ public class ServerMojoTest {
     public void setUp() throws Exception {
         deleteDirectory(getFilePath("../data/target").getCanonicalFile());
         ReflectionUtils.setVariableValueInObject(mojo, "documentRoot", getFilePath("../data"));
+        ReflectionUtils.setVariableValueInObject(mojo, "port", 8081);
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
         ReflectionUtils.setVariableValueInObject(mojo, "reportDir", getFilePath("../data/target"));
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
