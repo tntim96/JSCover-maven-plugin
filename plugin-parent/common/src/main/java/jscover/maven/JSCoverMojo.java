@@ -36,6 +36,8 @@ public abstract class JSCoverMojo extends AbstractMojo {
     @Parameter
     protected boolean localStorage = true;
     @Parameter
+    private boolean includeUnloadedJS = defaults.isIncludeUnloadedJS();
+    @Parameter
     protected final List<String> instrumentPathArgs = new ArrayList<String>();
     @Parameter
     protected File reportDir = new File("target/reports/jscover-maven");
@@ -156,6 +158,7 @@ public abstract class JSCoverMojo extends AbstractMojo {
         config.setIncludeBranch(includeBranch);
         config.setIncludeFunction(includeFunction);
         config.setLocalStorage(localStorage);
+        config.setIncludeUnloadedJS(includeUnloadedJS);
         config.setJSVersion(JSVersion);
         config.setDetectCoalesce(detectCoalesce);
         for (String instrumentArg : instrumentPathArgs) {

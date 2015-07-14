@@ -17,8 +17,6 @@ public class ServerMojo extends JSCoverMojo {
     @Parameter
     private int port = defaults.getPort();
     @Parameter
-    private boolean includeUnloadedJS = defaults.isIncludeUnloadedJS();
-    @Parameter
     private File documentRoot = defaults.getDocumentRoot();
     @Parameter
     protected int timeOutSecondsForSave = 15;
@@ -54,7 +52,6 @@ public class ServerMojo extends JSCoverMojo {
         //Server parameters
         config.setDocumentRoot(documentRoot);
         config.setPort(port);
-        config.setIncludeUnloadedJS(includeUnloadedJS);
         config.setReportDir(reportDir);
         return config;
     }
