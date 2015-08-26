@@ -34,17 +34,17 @@ public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
         assertThat(failures.size(), equalTo(6));
 
         assertThat(failures.get(0), containsString("should not add one - Source:"));
-//        assertThat(failures.get(0), containsString("spec/qunit-code-fail-spec.js:3"));
+        assertThat(failures.get(0), containsString("spec/qunit-code-fail-spec.js:2"));
         assertThat(failures.get(1), containsString("should not add one - Source:"));
-//        assertThat(failures.get(1), containsString("spec/qunit-code-fail-spec.js:4"));
+        assertThat(failures.get(1), containsString("spec/qunit-code-fail-spec.js:3"));
         assertThat(failures.get(2), containsString("should not add one - Source:"));
-//        assertThat(failures.get(2), containsString("spec/qunit-code-fail-spec.js:5"));
+        assertThat(failures.get(2), containsString("spec/qunit-code-fail-spec.js:4"));
 
         assertThat(failures.get(3), containsString("should add one - Source:"));
-//        assertThat(failures.get(3), containsString("spec/qunit-code-fail-spec.js:9"));
+        assertThat(failures.get(3), containsString("spec/qunit-code-fail-spec.js:8"));
         assertThat(failures.get(4), containsString("should add one - Source:"));
-//        assertThat(failures.get(4), containsString("spec/qunit-code-fail-spec.js:10"));
+        assertThat(failures.get(4), containsString("spec/qunit-code-fail-spec.js:9"));
         assertThat(failures.get(5), containsString("should add one - Source:"));
-//        assertThat(failures.get(5), containsString("spec/qunit-code-fail-spec.js:11"));
+        assertThat(failures.get(5), containsString("spec/qunit-code-fail-spec.js:10"));
     }
 }
