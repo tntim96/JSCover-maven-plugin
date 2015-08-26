@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.fail;
 
 public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
     private WebDriverRunner runner = new QUnitWebDriverRunner();
@@ -24,13 +24,13 @@ public class QUnitWebDriverRunnerTest extends WebDriverRunnerTest {
     @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
         webDriver.get(getFilePath("../data/src/test/javascript/qunit-code-fail.html"));
-        List<String> failures = runner.getFailures(webDriver);
         runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);
             fail("Expected exception");
         } catch (MojoFailureException e) {
         }
+        List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(6));
 
         assertThat(failures.get(0), containsString("should not add one - Source:"));

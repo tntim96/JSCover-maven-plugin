@@ -24,13 +24,13 @@ public class Jasmine2DefaultReporterWebDriverRunnerTest extends WebDriverRunnerT
     @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
         webDriver.get(getFilePath("../data/src/test/javascript/jasmine2-code-fail.html"));
-        List<String> failures = runner.getFailures(webDriver);
         runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);
             fail("Expected exception");
         } catch (MojoFailureException e) {
         }
+        List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(6));
         assertThat(failures, contains(new String[]{
                 "Common should not add one - Expected 2 to equal 3.",
