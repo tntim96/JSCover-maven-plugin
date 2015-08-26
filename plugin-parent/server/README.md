@@ -20,6 +20,8 @@ Run with `mvn jscover-server:jscover`
             <testIncludes>index.html</testIncludes>
             <testType>QUnit</testType>
             <!--
+            <testType>Jasmine2</testType>
+            <testType>Mocha</testType>
             <testType>JasmineHtmlReporter</testType>
             <testType>JasmineTrivialReporter</testType>
             <testType>Custom</testType>
@@ -43,7 +45,7 @@ Run with `mvn jscover-server:jscover`
             <systemProperties>
                 <property>
                     <name>webdriver.chrome.driver</name>
-                    <value>C:/java/chromedriver_win32_2.0/chromedriver.exe</value>
+                    <value>C:/bin/chromedriver.exe</value>
                 </property>
             </systemProperties>
             -->

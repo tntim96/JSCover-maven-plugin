@@ -9,7 +9,7 @@ This will automatically run the JavaScript tests and generate JavaScript code co
 
 Currently supports:
 * Server and file-mode plugins (generate your coverage reports **without ever running a server**)
-* QUnit, Jasmine, Jasmine2 and custom test frameworks
+* QUnit, Jasmine, Jasmine2, Mocha and custom test frameworks
 * WebDriver drivers (e.g. PhantomJS, Firefox, Chrome, IE, etc...)
 * Coverage thresholds
 * Multiple report formats (JSCover HTML, LCOV, Cobertura XML)

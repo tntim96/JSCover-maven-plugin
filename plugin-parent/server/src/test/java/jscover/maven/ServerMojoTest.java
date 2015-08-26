@@ -136,6 +136,20 @@ public class ServerMojoTest {
     }
 
     @Test
+    public void shouldPassMocha() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "mocha-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Mocha);
+        mojo.execute();
+    }
+
+    @Test(expected = MojoFailureException.class)
+    public void shouldFailMocha() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "mocha-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Mocha);
+        mojo.execute();
+    }
+
+    @Test
     public void shouldPassJasmineTrivial() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*pass.html");
         ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);

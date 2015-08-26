@@ -3,7 +3,7 @@ package jscover.maven;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public enum TestType {
-    QUnit, JasmineHtmlReporter, JasmineTrivialReporter, Jasmine2, Custom;
+    QUnit, JasmineHtmlReporter, JasmineTrivialReporter, Jasmine2, Mocha, Custom;
 
     public WebDriverRunner getWebDriverRunner() throws MojoExecutionException {
         if (this == QUnit) {
@@ -14,6 +14,8 @@ public enum TestType {
             return new JasmineTrivialReporterWebDriverRunner();
         } else if (this == Jasmine2) {
             return new Jasmine2DefaultReporterWebDriverRunner();
+        } else if (this == Mocha) {
+            return new MochaDefaultReporterWebDriverRunner();
         }
         throw new MojoExecutionException("Please provide a custom test type class that implements "+WebDriverRunner.class.getName());
     }
