@@ -2,13 +2,16 @@ package jscover.maven;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.hamcrest.Description;
+import org.hamcrest.SelfDescribing;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.fail;
 
 
@@ -33,9 +36,25 @@ public class MochaDefaultReporterWebDriverRunnerTest extends WebDriverRunnerTest
         }
         List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(2));
-        assertThat(failures, contains(new String[]{
-                "should not add one - Error: expected 2 to equal 3",
-                "should add one - Error: expected 2 to equal 1",
-        }));
+        assertThat(failures, hasItem(getMatcher("should not add one - ", "expected 2 to equal 3")));
+        assertThat(failures, hasItem(getMatcher("should add one - ", "expected 2 to equal 1")));
+    }
+
+    private TypeSafeMatcher<String> getMatcher(final String s1, final String s2) {
+        return new TypeSafeMatcher<String>() {
+            @Override
+            protected boolean matchesSafely(String s) {
+                return s.startsWith(s1) && s.endsWith(s2);
+            }
+
+            public void describeTo(Description description) {
+                description.appendDescriptionOf(new SelfDescribing() {
+                    public void describeTo(Description description) {
+                        description.appendText("a string starting and ending with ");
+                    }
+                });
+                description.appendText("'" + s1 + "', '" + s2 + "'");
+            }
+        };
     }
 }
