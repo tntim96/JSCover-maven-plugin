@@ -1,3 +1,7 @@
+1.0.16 / 2015-??-??
+==================
+  * Add file-instrumentation only target `jscover-file:instrument` (https://github.com/tntim96/JSCover-maven-plugin/issues/14)
+
 1.0.15 / 2015-08-26
 ==================
   * JSCover 1.0.21

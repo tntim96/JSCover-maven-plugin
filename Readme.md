@@ -5,9 +5,12 @@ JSCover-maven-plugin
 
 Maven plugins for [JSCover](http://tntim96.github.com/JSCover/).
 
-This will automatically run the JavaScript tests and generate JavaScript code coverage reports.
+This plugin has the following goals:
+* `jscover-file:instrument` instrument the JavaScript on the file-system
+* `jscover-file:jscover` run the JavaScript tests and generate JavaScript code coverage using `file-mode`
+* `jscover-server:jscover` run the JavaScript tests and generate JavaScript code coverage using `server-mode`
 
-Currently supports:
+Automatic running of tests currently supports:
 * Server and file-mode plugins (generate your coverage reports **without ever running a server**)
 * QUnit, Jasmine, Jasmine2, Mocha and custom test frameworks
 * WebDriver drivers (e.g. PhantomJS, Firefox, Chrome, IE, etc...)

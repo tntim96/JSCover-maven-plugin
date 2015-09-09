@@ -14,7 +14,7 @@ Run with `mvn jscover-server:jscover`
     <plugin>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-server-maven-plugin</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.16</version>
         <configuration>
             <testDirectory>./src/test/javascript</testDirectory>
             <testIncludes>index.html</testIncludes>

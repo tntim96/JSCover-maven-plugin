@@ -13,11 +13,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Mojo(name = "file", requiresDirectInvocation = true)
-@Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
-public class FileMojo extends JSCoverMojo {
+@Mojo(name = "instrument", defaultPhase = LifecyclePhase.PROCESS_TEST_RESOURCES, threadSafe = true)
+public class FileInstrumentMojo extends JSCoverMojoBase {
     //private ConfigurationForFS defaults = new ConfigurationForFS();
-    private IoUtils ioUtils = IoUtils.getInstance();
+    IoUtils ioUtils = IoUtils.getInstance();
 
     @Parameter
     private File srcDir = new File("src");
@@ -25,7 +24,6 @@ public class FileMojo extends JSCoverMojo {
     protected final List<String> excludeArgs = new ArrayList<String>();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        setSystemProperties();
         final ConfigurationForFS config = getConfigurationForFS(srcDir, excludeArgs);
 
         if (!ioUtils.isSubDirectory(testDirectory, srcDir))
@@ -34,13 +32,6 @@ public class FileMojo extends JSCoverMojo {
         main.initialize();
         main.runFileSystem(config);
         getLog().info("Ran JSCover instrumentation");
-        String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);
-        File testDir = new File(reportDir, relativeDirectory);
-        try {
-            new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
-        } finally {
-            stopWebClient();
-        }
     }
 
 }
