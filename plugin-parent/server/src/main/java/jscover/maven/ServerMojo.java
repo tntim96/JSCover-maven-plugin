@@ -24,6 +24,9 @@ public class ServerMojo extends JSCoverMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         setSystemProperties();
         final ConfigurationForServer config = getConfigurationForServer();
+        config.validate();
+        if (config.isInvalid())
+            throw new MojoExecutionException("Invalid configuration");
 
         final Main main = new Main();
         Runnable jsCover = new Runnable() {

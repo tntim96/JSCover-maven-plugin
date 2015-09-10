@@ -27,6 +27,9 @@ public class FileMojo extends JSCoverMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         setSystemProperties();
         final ConfigurationForFS config = getConfigurationForFS(srcDir, excludeArgs);
+        config.validate();
+        if (config.isInvalid())
+            throw new MojoExecutionException("Invalid configuration");
 
         if (!ioUtils.isSubDirectory(testDirectory, srcDir))
             throw new MojoExecutionException(String.format("'testDirectory' '%s' should be a sub-directory of 'srcDir' '%s'", testDirectory, srcDir));
