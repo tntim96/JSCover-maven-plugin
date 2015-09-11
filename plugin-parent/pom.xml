@@ -18,6 +18,7 @@
         <module>common</module>
         <module>server</module>
         <module>file-system</module>
+        <module>report</module>
     </modules>
 
     <build>
