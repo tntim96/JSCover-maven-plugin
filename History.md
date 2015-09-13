@@ -2,6 +2,7 @@
 ==================
   * Add file-instrumentation only goal `jscover-file:instrument` (https://github.com/tntim96/JSCover-maven-plugin/issues/14)
   * Add merge goal `jscover-report:merge` (https://github.com/tntim96/JSCover-maven-plugin/issues/15)
+  * Add format goal `jscover-report:format` (https://github.com/tntim96/JSCover-maven-plugin/issues/15)
 
 1.0.15 / 2015-08-26
 ==================

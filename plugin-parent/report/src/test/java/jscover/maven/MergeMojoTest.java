@@ -13,12 +13,12 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class MergetMojoTest {
-    private MergetMojo mojo = new MergetMojo();
+public class MergeMojoTest {
+    private MergeMojo mojo = new MergeMojo();
 
     private IoUtils ioUtils = IoUtils.getInstance();
-    private String reportDir1 = "target/report1";
-    private String reportDir2 = "target/report2";
+    private String reportDir1 = getPath("target/report1");
+    private String reportDir2 = getPath("target/report2");
     private String reportDir12 = "target/report12";
     private String data1 = ioUtils.loadFromClassPath("/jscoverage-select-1.json");
     private String data2 = ioUtils.loadFromClassPath("/jscoverage-select-3.json");
@@ -37,10 +37,16 @@ public class MergetMojoTest {
     }
 
     protected File getFilePath(String pathname) {
+        return new File(getPath(pathname)).getAbsoluteFile();
+    }
+
+
+    private String getPath(String pathname) {
         if (System.getProperty("user.dir").endsWith("JSCover-maven-plugin"))
             pathname = "plugin-parent/report/" + pathname;
-        return new File(pathname).getAbsoluteFile();
+        return pathname;
     }
+
 
     private void deleteDirectory(File dir) {
         if (!dir.exists())
