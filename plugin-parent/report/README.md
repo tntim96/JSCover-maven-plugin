@@ -1,6 +1,10 @@
 JSCover-report-maven-plugin
 =========================
 
+## Working examples
+
+See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
+
 
 ## Configuration
 
