@@ -49,6 +49,7 @@ Run with `mvn jscover-report:format`
     </executions>
     <configuration>
         <reportDir>target/merged</reportDir>
+        <reportDir>src/main/webapp/js</reportDir>
         <coberturaXML>true</coberturaXML>
     </configuration>
 </plugin>

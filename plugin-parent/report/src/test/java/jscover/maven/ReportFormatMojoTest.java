@@ -16,6 +16,7 @@ public class ReportFormatMojoTest {
     private ReportFormatMojo mojo = new ReportFormatMojo();
 
     private IoUtils ioUtils = IoUtils.getInstance();
+    private File srcDir = getFilePath("src/main/webapp/js");
     private File reportDir = getFilePath("target/reportFormat");
     private String data = ioUtils.loadFromClassPath("/jscoverage-select-1.json");
 
@@ -25,6 +26,7 @@ public class ReportFormatMojoTest {
         ioUtils.copy(data, new File(reportDir, "jscoverage.json"));
 
         ReflectionUtils.setVariableValueInObject(mojo, "reportDir", reportDir);
+        ReflectionUtils.setVariableValueInObject(mojo, "srcDir", srcDir);
     }
 
     protected File getFilePath(String pathname) {
@@ -67,6 +69,7 @@ public class ReportFormatMojoTest {
         File xmlFile = new File(reportDir, "jscover.lcov");
         assertThat(xmlFile.exists(), equalTo(true));
         assertThat(ioUtils.loadFromFileSystem(xmlFile), containsString("SF:"));
+        assertThat(ioUtils.loadFromFileSystem(xmlFile), containsString("src/main/webapp/js/script.js"));
         assertThat(new File(reportDir, "cobertura-coverage.xml").exists(), equalTo(false));
     }
 

@@ -20,6 +20,8 @@ public class ReportFormatMojo extends AbstractMojo {
   protected boolean coberturaXML = true;
   @Parameter(readonly = true)
   private File reportDir;
+  @Parameter(readonly = true)
+  private File srcDir;
 
   public void execute() throws MojoExecutionException, MojoFailureException {
     Main main = new Main();
@@ -35,7 +37,7 @@ public class ReportFormatMojo extends AbstractMojo {
   private ConfigurationForReport getConfigurationForReport() {
     ConfigurationForReport config = new ConfigurationForReport();
     config.setJsonDirectory(reportDir);
-    config.setSourceDirectory(reportDir);
+    config.setSourceDirectory(srcDir);
     return config;
   }
 
