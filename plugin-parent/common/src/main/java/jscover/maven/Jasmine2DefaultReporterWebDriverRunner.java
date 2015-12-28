@@ -12,7 +12,7 @@ import static java.lang.String.format;
 
 public class Jasmine2DefaultReporterWebDriverRunner extends JasmineHtmlReporterWebDriverRunner {
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
-        if (webClient.findElements(By.className("failed")).size() != 0) {
+        if (webClient.findElements(By.className("jasmine-failed")).size() != 0) {
             for (String failure : getFailures(webClient))
                 log.error(failure);
             throw new MojoFailureException("Failing on test");
@@ -22,12 +22,12 @@ public class Jasmine2DefaultReporterWebDriverRunner extends JasmineHtmlReporterW
     @Override
     public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
-        List<WebElement> elements = webClient.findElements(By.className("failed"));
+        List<WebElement> elements = webClient.findElements(By.className("jasmine-failed"));
         for (WebElement element : elements) {
-            List<WebElement> descriptions = element.findElements(By.className("description"));
+            List<WebElement> descriptions = element.findElements(By.className("jasmine-description"));
             if (descriptions.size() != 1)
                 continue;
-            for (WebElement message :element.findElements(By.className("result-message")))
+            for (WebElement message :element.findElements(By.className("jasmine-result-message")))
                 failures.add(format("%s - %s", descriptions.get(0).getText(), message.getText()));
         }
         return failures;
