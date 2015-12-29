@@ -13,7 +13,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class Jasmine2DefaultReporterWebDriverRunner extends JasmineWebDriverRunner {
+public class Jasmine2DefaultReporterWebDriverRunner extends WebDriverRunnerBase {
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("jasmine-duration")));
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("jasmine-duration"), "finished"));
@@ -27,7 +27,6 @@ public class Jasmine2DefaultReporterWebDriverRunner extends JasmineWebDriverRunn
         }
     }
 
-    @Override
     public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
         List<WebElement> elements = webClient.findElements(By.className("jasmine-failed"));
