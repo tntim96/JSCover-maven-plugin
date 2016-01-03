@@ -1,9 +1,13 @@
+1.0.17 / 2016-01-04
+==================
+  * JSCover 1.0.23, Upgrade Jasmine 2.3.4->2.4.1
+
 1.0.16 / 2015-09-15
 ==================
   * Add file-instrumentation only goal `jscover-file:instrument` (https://github.com/tntim96/JSCover-maven-plugin/issues/14)
   * Add merge goal `jscover-report:merge` (https://github.com/tntim96/JSCover-maven-plugin/issues/15)
   * Add format goal `jscover-report:format` (https://github.com/tntim96/JSCover-maven-plugin/issues/15)
-  * JSCover 1.0.22, Upgrade Jasmine 2.3.4->2.4.1
+  * JSCover 1.0.22
 
 1.0.15 / 2015-08-26
 ==================

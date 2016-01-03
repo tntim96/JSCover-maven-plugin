@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.github.tntim96</groupId>
     <artifactId>jscover-maven-plugin</artifactId>
-    <version>1.0.17-SNAPSHOT</version>
+    <version>1.0.17</version>
     <packaging>pom</packaging>
 
     <prerequisites>
