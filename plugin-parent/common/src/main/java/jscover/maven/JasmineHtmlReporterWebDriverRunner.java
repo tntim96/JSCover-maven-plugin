@@ -9,15 +9,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class JasmineHtmlReporterWebDriverRunner extends JasmineWebDriverRunner {
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
-        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("duration")));
-        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("duration"), "finished"));
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("jasmine-duration")));
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("jasmine-duration"), "finished"));
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
-        if (webClient.findElements(By.className("failingAlert")).size() != 0) {
-            for (String failure : getFailures(webClient))
-                log.error(failure);
-            throw new MojoFailureException("Failing on test");
+        if (webClient.findElements(By.cssSelector(".jasmine-bar.jasmine-passed")).size() != 0) {
+            return;
         }
+        for (String failure : getFailures(webClient)) {
+            log.error(failure);
+        }
+        throw new MojoFailureException("Failing on test");
     }
 }

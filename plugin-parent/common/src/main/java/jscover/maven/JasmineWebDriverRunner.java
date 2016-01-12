@@ -12,12 +12,12 @@ import static java.lang.String.format;
 public abstract class JasmineWebDriverRunner extends WebDriverRunnerBase {
     public List<String> getFailures(WebDriver webClient) {
         List<String> failures = new ArrayList<String>();
-        List<WebElement> elements = webClient.findElements(By.className("failed"));
+        List<WebElement> elements = webClient.findElements(By.className("jasmine-failed"));
         for (WebElement element : elements) {
-            List<WebElement> descriptions = element.findElements(By.className("description"));
+            List<WebElement> descriptions = element.findElements(By.className("jasmine-description"));
             if (descriptions.size() != 1)
                 continue;
-            for (WebElement message :element.findElements(By.className("resultMessage")))
+            for (WebElement message :element.findElements(By.className("jasmine-result-message")))
                 failures.add(format("%s - %s", descriptions.get(0).getText(), message.getText()));
         }
         return failures;
