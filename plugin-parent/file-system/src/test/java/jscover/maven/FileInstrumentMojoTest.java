@@ -55,7 +55,7 @@ public class FileInstrumentMojoTest {
         verifyFileInstrumentation(new File(getFilePath("../data/target/main/webapp/js"), "code.js"), true);
         verifyFileInstrumentation(new File(getFilePath("../data/target/main/webapp/js/vendor"), "jquery-2.1.4.min.js"), false);
         verifyFileInstrumentation(new File(getFilePath("../data/target/test/javascript/lib/PhantomJS"), "run-jscover-jasmine.js"), false);
-        verifyFileInstrumentation(new File(getFilePath("../data/target/test/javascript/spec"), "jasmine2-code-pass-spec.js"), false);
+        verifyFileInstrumentation(new File(getFilePath("../data/target/test/javascript/spec"), "jasmine-code-pass-spec.js"), false);
     }
 
     private void verifyFileInstrumentation(File file, boolean instrumented) throws IOException {

@@ -13,18 +13,20 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class Jasmine2DefaultReporterWebDriverRunner extends WebDriverRunnerBase {
+public class JasmineDefaultReporterWebDriverRunner extends WebDriverRunnerBase {
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfElementLocated(By.className("jasmine-duration")));
         new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.className("jasmine-duration"), "finished"));
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
-        if (webClient.findElements(By.className("jasmine-failed")).size() != 0) {
-            for (String failure : getFailures(webClient))
-                log.error(failure);
-            throw new MojoFailureException("Failing on test");
+        if (webClient.findElements(By.cssSelector(".jasmine-bar.jasmine-passed")).size() != 0) {
+            return;
         }
+        for (String failure : getFailures(webClient)) {
+            log.error(failure);
+        }
+        throw new MojoFailureException("Failing on test");
     }
 
     public List<String> getFailures(WebDriver webClient) {

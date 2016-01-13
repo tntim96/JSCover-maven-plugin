@@ -33,14 +33,13 @@ public class JSCoverMojoTest {
     @Test
     public void shouldFindTestFiles() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-code-*pass.html");
         List<File> files = mojo.getTestFiles();
         for (File file : files) {
             System.out.println("file = " + file);
         }
-        assertThat(files.size(), equalTo(2));
-        assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-code-pass.html")));
-        assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-html-reporter-util-pass.html")));
+        assertThat(files.size(), equalTo(1));
+        assertThat(files, hasItem(getFilePath("../data/src/test/javascript/jasmine-code-pass.html")));
     }
 
     @Test
@@ -150,8 +149,8 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetTimeoutForJasmine() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "timeOutSeconds", 123);
-        JasmineHtmlReporterWebDriverRunner webDriverRunner = (JasmineHtmlReporterWebDriverRunner) mojo.getWebDriverRunner();
-        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", JasmineHtmlReporterWebDriverRunner.class).getInt(webDriverRunner);
+        JasmineDefaultReporterWebDriverRunner webDriverRunner = (JasmineDefaultReporterWebDriverRunner) mojo.getWebDriverRunner();
+        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", JasmineDefaultReporterWebDriverRunner.class).getInt(webDriverRunner);
         assertThat(timeOutSeconds, equalTo(123));
     }
 
@@ -175,7 +174,7 @@ public class JSCoverMojoTest {
 
     @Test
     public void shouldFailCustomTestTypeIfNotSpecified() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-*pass.html");
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         try {
             mojo.getWebDriverRunner();

@@ -11,19 +11,19 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.fail;
 
-public class Jasmine2DefaultReporterWebDriverRunnerTest extends WebDriverRunnerTest {
-    private WebDriverRunner runner = new Jasmine2DefaultReporterWebDriverRunner();
+public class JasmineDefaultReporterWebDriverRunnerTest extends WebDriverRunnerTest {
+    private WebDriverRunner runner = new JasmineDefaultReporterWebDriverRunner();
 
     @Test
     public void shouldPass() throws MojoExecutionException, MojoFailureException {
-        webDriver.get(getFilePath("../data/src/test/javascript/jasmine2-code-pass.html"));
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-code-pass.html"));
         runner.waitForTestsToComplete(webDriver);
         runner.verifyTestsPassed(webDriver);
     }
 
     @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
-        webDriver.get(getFilePath("../data/src/test/javascript/jasmine2-code-fail.html"));
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-code-fail.html"));
         runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);

@@ -1,9 +1,15 @@
 package jscover.maven;
 
+import static java.lang.String.format;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,5 +25,18 @@ public class JasmineTrivialReporterWebDriverRunner extends JasmineWebDriverRunne
                 log.error(failure);
             throw new MojoFailureException("Failing on test");
         }
+    }
+    
+    public List<String> getFailures(WebDriver webClient) {
+        List<String> failures = new ArrayList<String>();
+        List<WebElement> elements = webClient.findElements(By.className("failed"));
+        for (WebElement element : elements) {
+            List<WebElement> descriptions = element.findElements(By.className("description"));
+            if (descriptions.size() != 1)
+                continue;
+            for (WebElement message :element.findElements(By.className("resultMessage")))
+                failures.add(format("%s - %s", descriptions.get(0).getText(), message.getText()));
+        }
+        return failures;
     }
 }
