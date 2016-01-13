@@ -12,7 +12,6 @@ import static org.junit.Assert.fail;
 public class TestTypeTest {
     @Test
     public void shouldReturnCorrectRunner() throws MojoExecutionException {
-        assertThat((JasmineTrivialReporterWebDriverRunner)JasmineTrivialReporter.getWebDriverRunner(), isA(JasmineTrivialReporterWebDriverRunner.class));
         assertThat((QUnitWebDriverRunner)QUnit.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
         assertThat((JasmineDefaultReporterWebDriverRunner)Jasmine.getWebDriverRunner(), isA(JasmineDefaultReporterWebDriverRunner.class));
     }

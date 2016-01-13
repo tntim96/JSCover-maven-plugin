@@ -158,20 +158,6 @@ public class FileMojoTest {
         mojo.execute();
     }
 
-    @Test
-    public void shouldPassJasmineTrivial() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*pass.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
-        mojo.execute();
-    }
-
-    @Test(expected = MojoFailureException.class)
-    public void shouldFailJasmineTrivial() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*fail.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
-        mojo.execute();
-    }
-
     @Test(expected = MojoFailureException.class)
     public void shouldFailJasmine() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-*fail.html");
