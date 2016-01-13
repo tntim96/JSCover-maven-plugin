@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Properties;
 
-import static jscover.maven.TestType.JasmineHtmlReporter;
+import static jscover.maven.TestType.Jasmine;
 
 public abstract class JSCoverMojo extends JSCoverMojoBase {
     protected WebDriver webClient;
@@ -24,7 +24,7 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
     @Parameter
     protected String testExcludes;
     @Parameter
-    protected TestType testType = JasmineHtmlReporter;
+    protected TestType testType = Jasmine;
     @Parameter
     protected int lineCoverageMinimum;
     @Parameter

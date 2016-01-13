@@ -15,8 +15,8 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.fail;
 
 
-public class MochaDefaultReporterWebDriverRunnerTest extends WebDriverRunnerTest {
-    private WebDriverRunner runner = new MochaDefaultReporterWebDriverRunner();
+public class MochaWebDriverRunnerTest extends WebDriverRunnerTest {
+    private WebDriverRunner runner = new MochaWebDriverRunner();
 
     @Test
     public void shouldPass() throws MojoExecutionException, MojoFailureException {

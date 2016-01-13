@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MochaDefaultReporterWebDriverRunner extends WebDriverRunnerBase {
+public class MochaWebDriverRunner extends WebDriverRunnerBase {
 
   public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
     new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("duration")));

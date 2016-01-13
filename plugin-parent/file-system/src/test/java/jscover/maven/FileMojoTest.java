@@ -31,10 +31,10 @@ public class FileMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "srcDir", getFilePath("../data/src"));
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
         ReflectionUtils.setVariableValueInObject(mojo, "reportDir", getFilePath("../data/target"));
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-code-*pass.html");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", Arrays.asList("--no-instrument=main/webapp/js/vendor/", "--no-instrument=test"));
         ReflectionUtils.setVariableValueInObject(mojo, "excludeArgs", Arrays.asList("--exclude=main/java", "--exclude=main/resources", "--exclude-reg=test/java$"));
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineHtmlReporter);
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine);
         ReflectionUtils.setVariableValueInObject(mojo, "lineCoverageMinimum", 100);
         ReflectionUtils.setVariableValueInObject(mojo, "branchCoverageMinimum", 100);
         ReflectionUtils.setVariableValueInObject(mojo, "functionCoverageMinimum", 100);
@@ -144,12 +144,6 @@ public class FileMojoTest {
         }
     }
 
-    @Test(expected = MojoFailureException.class)
-    public void shouldFailJasmineIfTests() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*fail.html");
-        mojo.execute();
-    }
-
     @Test
     public void shouldPassQUnit() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "qunit-*pass.html");
@@ -164,31 +158,10 @@ public class FileMojoTest {
         mojo.execute();
     }
 
-    @Test
-    public void shouldPassJasmineTrivial() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*pass.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
-        mojo.execute();
-    }
-
     @Test(expected = MojoFailureException.class)
-    public void shouldFailJasmineTrivial() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-trivial-*fail.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", JasmineTrivialReporter);
-        mojo.execute();
-    }
-
-    @Test
-    public void shouldPassJasmine2() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*pass.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine2);
-        mojo.execute();
-    }
-
-    @Test(expected = MojoFailureException.class)
-    public void shouldFailJasmine2() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*fail.html");
-        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine2);
+    public void shouldFailJasmine() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine);
         mojo.execute();
     }
 }

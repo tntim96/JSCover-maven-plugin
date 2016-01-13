@@ -20,10 +20,8 @@ Run with `mvn jscover-server:jscover`
             <testIncludes>index.html</testIncludes>
             <testType>QUnit</testType>
             <!--
-            <testType>Jasmine2</testType>
+            <testType>Jasmine</testType>
             <testType>Mocha</testType>
-            <testType>JasmineHtmlReporter</testType>
-            <testType>JasmineTrivialReporter</testType>
             <testType>Custom</testType>
             <testRunnerClassName>org.your.class.WebDriverRunner</webDriverClassName>
             -->

@@ -11,19 +11,19 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.fail;
 
-public class Jasmine2DefaultReporterWebDriverRunnerTest extends WebDriverRunnerTest {
-    private WebDriverRunner runner = new Jasmine2DefaultReporterWebDriverRunner();
+public class JasmineWebDriverRunnerTest extends WebDriverRunnerTest {
+    private WebDriverRunner runner = new JasmineWebDriverRunner();
 
     @Test
     public void shouldPass() throws MojoExecutionException, MojoFailureException {
-        webDriver.get(getFilePath("../data/src/test/javascript/jasmine2-code-pass.html"));
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-code-pass.html"));
         runner.waitForTestsToComplete(webDriver);
         runner.verifyTestsPassed(webDriver);
     }
 
     @Test
     public void shouldFindErrorMessages() throws MojoExecutionException {
-        webDriver.get(getFilePath("../data/src/test/javascript/jasmine2-code-fail.html"));
+        webDriver.get(getFilePath("../data/src/test/javascript/jasmine-code-fail.html"));
         runner.waitForTestsToComplete(webDriver);
         try {
             runner.verifyTestsPassed(webDriver);
@@ -32,13 +32,13 @@ public class Jasmine2DefaultReporterWebDriverRunnerTest extends WebDriverRunnerT
         }
         List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(6));
-        assertThat(failures, contains(new String[]{
+        assertThat(failures, contains(
                 "Common should not add one - Expected 2 to equal 3.",
                 "Common should not add one - Expected 4 to equal 5.",
                 "Common should not add one - Expected 1000 to equal 1001.",
                 "Common should add one - Expected 2 to equal 1.",
                 "Common should add one - Expected 4 to equal 3.",
                 "Common should add one - Expected 1002 to equal 1001."
-        }));
+        ));
     }
 }
