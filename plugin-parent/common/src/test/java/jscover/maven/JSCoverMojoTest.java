@@ -149,8 +149,8 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetTimeoutForJasmine() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "timeOutSeconds", 123);
-        JasmineDefaultReporterWebDriverRunner webDriverRunner = (JasmineDefaultReporterWebDriverRunner) mojo.getWebDriverRunner();
-        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", JasmineDefaultReporterWebDriverRunner.class).getInt(webDriverRunner);
+        JasmineWebDriverRunner webDriverRunner = (JasmineWebDriverRunner) mojo.getWebDriverRunner();
+        int timeOutSeconds = ReflectionUtils.getFieldByNameIncludingSuperclasses("timeOutSeconds", JasmineWebDriverRunner.class).getInt(webDriverRunner);
         assertThat(timeOutSeconds, equalTo(123));
     }
 
@@ -186,7 +186,7 @@ public class JSCoverMojoTest {
 
     @Test
     public void shouldFailCustomTestTypeIfWrongType() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine2-*fail.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-*fail.html");
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         ReflectionUtils.setVariableValueInObject(mojo, "testRunnerClassName", "java.lang.String");
         try {

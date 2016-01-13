@@ -13,7 +13,7 @@ public class TestTypeTest {
     @Test
     public void shouldReturnCorrectRunner() throws MojoExecutionException {
         assertThat((QUnitWebDriverRunner)QUnit.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
-        assertThat((JasmineDefaultReporterWebDriverRunner)Jasmine.getWebDriverRunner(), isA(JasmineDefaultReporterWebDriverRunner.class));
+        assertThat((JasmineWebDriverRunner)Jasmine.getWebDriverRunner(), isA(JasmineWebDriverRunner.class));
     }
 
     @Test

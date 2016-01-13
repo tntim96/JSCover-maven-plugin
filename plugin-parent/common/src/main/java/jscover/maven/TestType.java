@@ -9,9 +9,9 @@ public enum TestType {
         if (this == QUnit) {
             return new QUnitWebDriverRunner();
         } else if (this == Jasmine) {
-            return new JasmineDefaultReporterWebDriverRunner();
+            return new JasmineWebDriverRunner();
         } else if (this == Mocha) {
-            return new MochaDefaultReporterWebDriverRunner();
+            return new MochaWebDriverRunner();
         }
         throw new MojoExecutionException("Please provide a custom test type class that implements "+WebDriverRunner.class.getName());
     }
