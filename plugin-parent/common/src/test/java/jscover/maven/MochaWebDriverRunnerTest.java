@@ -36,24 +36,24 @@ public class MochaWebDriverRunnerTest extends WebDriverRunnerTest {
         }
         List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(2));
-        assertThat(failures, hasItem(getMatcher("should not add one - ", "expected 2 to equal 3")));
-        assertThat(failures, hasItem(getMatcher("should add one - ", "expected 2 to equal 1")));
+        assertThat(failures, hasItem(getMatcher("should not add one - Error: expected 2 to equal 3")));
+        assertThat(failures, hasItem(getMatcher("should add one - Error: expected 2 to equal 1")));
     }
 
-    private TypeSafeMatcher<String> getMatcher(final String s1, final String s2) {
+    private TypeSafeMatcher<String> getMatcher(final String s) {
         return new TypeSafeMatcher<String>() {
             @Override
             protected boolean matchesSafely(String s) {
-                return s.startsWith(s1) && s.endsWith(s2);
+                return s.contains(s);
             }
 
             public void describeTo(Description description) {
                 description.appendDescriptionOf(new SelfDescribing() {
                     public void describeTo(Description description) {
-                        description.appendText("a string starting and ending with ");
+                        description.appendText("a string containing ");
                     }
                 });
-                description.appendText("'" + s1 + "', '" + s2 + "'");
+                description.appendText("'" + s + "'");
             }
         };
     }
