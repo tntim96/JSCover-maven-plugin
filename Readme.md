@@ -31,7 +31,7 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 ## Releasing
 
-`mvn clean source:jar javadoc:jar deploy`
+`mvn clean deploy`
 
 ## Snapshots
 
@@ -40,7 +40,7 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 ## Verifying signatures
 Generate signatures:
 
-`mvn clean source:jar javadoc:jar install`
+`mvn clean install`
 
 Verify:
 
