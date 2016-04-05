@@ -1,7 +1,11 @@
 1.0.18 / 2016-??-??
 ==================
+  * Set JVM level to 1.6
+  * Upgrade JSCover 1.0.23->1.0.24
   * Remove Jasmine 1 support
   * Upgrade Selenium 2.48.2->2.53.0
+  * Upgrade JQuery 2.1.4->2.2.2, QUnit 1.20.0->1.23.0
+  * Upgrade Mocha 2.2.5->2.4.5
 
 1.0.17 / 2016-01-04
 ==================
