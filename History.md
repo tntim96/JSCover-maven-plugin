@@ -1,6 +1,7 @@
 1.0.18 / 2016-??-??
 ==================
   * Upgrade phantomjsdriver 1.2.1->1.3.0
+  * Cannot specify proxy for webclient (https://github.com/tntim96/JSCover-maven-plugin/issues/17)
 
 1.0.18 / 2016-04-05
 ==================

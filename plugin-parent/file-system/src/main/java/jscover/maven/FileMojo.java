@@ -40,7 +40,7 @@ public class FileMojo extends JSCoverMojo {
         String relativeDirectory = ioUtils.getRelativePath(testDirectory, srcDir);
         File testDir = new File(reportDir, relativeDirectory);
         try {
-            new FileTestRunner(getWebClient(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
+            new FileTestRunner(getWebDriver(), getWebDriverRunner(), config, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML).runTests(getTestFiles(testDir));
         } finally {
             stopWebClient();
         }

@@ -5,6 +5,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Test;
 import org.mozilla.javascript.Context;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -116,7 +118,7 @@ public class JSCoverMojoTest {
     public void shouldInterpretCommonConfigurationIncludeOnlyPathsCorrectly() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
         List<String> instrumentPathArgs = new ArrayList<String>();
-        instrumentPathArgs.add(ONLY_INSTRUMENT_REG_PREFIX+"/include-.*/*.js");
+        instrumentPathArgs.add(ONLY_INSTRUMENT_REG_PREFIX + "/include-.*/*.js");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
 
         mojo.setCommonConfiguration(config);
@@ -138,12 +140,12 @@ public class JSCoverMojoTest {
         } catch (MojoExecutionException e) {
             assertThat(e.getMessage(), equalTo("Invalid instrument path option 'bad-option'"));
         }
-   }
+    }
 
     @Test
     public void shouldProcessBuiltInTestType() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", QUnit);
-        assertThat((QUnitWebDriverRunner)mojo.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
+        assertThat((QUnitWebDriverRunner) mojo.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
     }
 
     @Test
@@ -169,7 +171,7 @@ public class JSCoverMojoTest {
     public void shouldProcessCustomTestType() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Custom);
         ReflectionUtils.setVariableValueInObject(mojo, "testRunnerClassName", "jscover.maven.QUnitWebDriverRunner");
-        assertThat((QUnitWebDriverRunner)mojo.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
+        assertThat((QUnitWebDriverRunner) mojo.getWebDriverRunner(), isA(QUnitWebDriverRunner.class));
     }
 
     @Test
@@ -195,5 +197,15 @@ public class JSCoverMojoTest {
         } catch (MojoExecutionException e) {
             assertThat(e.getMessage(), equalTo("java.lang.String cannot be cast to jscover.maven.WebDriverRunner"));
         }
+    }
+
+    @Test
+    public void shouldSetWebClientProxy() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "httpProxy", "localhost:3128");
+
+        Object capability = mojo.getDesiredCapabilities().getCapability(CapabilityType.PROXY);
+        System.out.println("capability = " + capability);
+        assertThat(capability, notNullValue());
+        assertThat(((Proxy)capability).getHttpProxy(), equalTo("localhost:3128"));
     }
 }

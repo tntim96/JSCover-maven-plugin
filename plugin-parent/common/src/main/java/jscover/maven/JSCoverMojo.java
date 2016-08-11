@@ -4,9 +4,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -16,7 +18,7 @@ import java.util.Properties;
 import static jscover.maven.TestType.Jasmine;
 
 public abstract class JSCoverMojo extends JSCoverMojoBase {
-    protected WebDriver webClient;
+    protected WebDriver webDriver;
 
     //Test Parameters
     @Parameter
@@ -43,6 +45,8 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
     protected boolean reportCoberturaXML;
     @Parameter
     protected int timeOutSeconds = 10;
+    @Parameter
+    protected String httpProxy;
 
     protected void setSystemProperties() {
         for (Object key : systemProperties.keySet()) {
@@ -76,29 +80,29 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
         return webDriverRunner;
     }
 
-    protected WebDriver getWebClient() {
+    protected WebDriver getWebDriver() {
         Class<WebDriver> webDriverClass = getWebDriverClass();
+        DesiredCapabilities desiredCapabilities = getDesiredCapabilities();
         try {
-            try {
+            if (webDriverClassName.contains("Chrome")) {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--allow-file-access-from-files");
-                webClient = webDriverClass.getConstructor(ChromeOptions.class).newInstance(options);
-                return webClient;
-            } catch (final NoSuchMethodException e) {}
-            try {
-                webClient = webDriverClass.getConstructor(Capabilities.class).newInstance(getDesiredCapabilities());
-                return webClient;
-            } catch (final NoSuchMethodException e) {
-                return webClient = webDriverClass.newInstance();
+                desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
             }
+            webDriver = webDriverClass.getConstructor(Capabilities.class).newInstance(desiredCapabilities);
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
+        return webDriver;
     }
 
-    protected Capabilities getDesiredCapabilities() {
+    protected DesiredCapabilities getDesiredCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setJavascriptEnabled(true);
+        if (httpProxy != null) {
+            Proxy proxy = new Proxy().setHttpProxy(httpProxy);
+            capabilities.setCapability(CapabilityType.PROXY, proxy);
+        }
         return capabilities;
     }
 
@@ -113,12 +117,12 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
 
     public void stopWebClient() {
         try {
-            webClient.close();
+            webDriver.close();
         } catch (Throwable t) {
             t.printStackTrace();
         }
         try {
-            webClient.quit();
+            webDriver.quit();
         } catch (Throwable t) {
             t.printStackTrace();
         }
