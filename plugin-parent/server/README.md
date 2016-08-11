@@ -36,7 +36,7 @@ Run with `mvn jscover-server:jscover`
             <includeUnloadedJS>true</includeUnloadedJS>
             <reportCoberturaXML>true</reportCoberturaXML>
             <reportLCOV>true</reportLCOV>
-            <!--<httpProxy>20</httpProxy>-->
+            <!--<httpProxy>localhost:3128</httpProxy>-->
             <!--<webDriverClassName>org.openqa.selenium.firefox.FirefoxDriver</webDriverClassName>-->
             <!--<webDriverClassName>org.openqa.selenium.htmlunit.HtmlUnitDriver</webDriverClassName>-->
             <!--
