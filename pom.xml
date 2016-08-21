@@ -9,6 +9,14 @@
     <version>1.0.19-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <licenses>
+        <license>
+            <name>GNU General Public License, version 2</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <prerequisites>
         <maven>2.2.1</maven>
     </prerequisites>
