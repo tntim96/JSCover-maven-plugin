@@ -5,7 +5,7 @@
 
 1.0.19 / 2016-09-25
 ==================
-  * Upgrade phantomjsdriver 1.2.1->1.3.0
+  * Upgrade phantomjsdriver 1.2.1->1.3.0, QUnit 1.23.0->2.0.1
   * Cannot specify proxy for webclient (https://github.com/tntim96/JSCover-maven-plugin/issues/17)
 
 1.0.18 / 2016-04-05
