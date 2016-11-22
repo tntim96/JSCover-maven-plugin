@@ -29,11 +29,15 @@ public class ServerTestRunner extends JSCoverTestRunner {
 
     public void runTests(List<File> testPages) throws MojoFailureException, MojoExecutionException {
         File jsonFile = new File(config.getReportDir() + "/jscoverage.json");
-        if (jsonFile.exists())
+        if (jsonFile.exists()) {
+            log.info("Deleting JSON file " + jsonFile.getAbsolutePath());
             jsonFile.delete();
+        }
 
         if (config.isLocalStorage()) {
-            webClient.get(String.format("http://localhost:%d/jscoverage-clear-local-storage.html", config.getPort()));
+            String localStorageUrl = String.format("http://localhost:%d/jscoverage-clear-local-storage.html", config.getPort());
+            log.info("Clearing local storage: " + localStorageUrl);
+            webClient.get(localStorageUrl);
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
             webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));

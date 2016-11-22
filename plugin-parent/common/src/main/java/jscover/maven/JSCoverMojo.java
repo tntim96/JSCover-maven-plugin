@@ -12,6 +12,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
@@ -60,8 +61,12 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
 
     protected List<File> getTestFiles(File testDirectory) throws MojoExecutionException {
         try {
-            return FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
-        } catch (Exception e) {
+            List<File> files = FileUtils.getFiles(testDirectory, testIncludes, testExcludes);
+            if (files.isEmpty()) {
+                throw new MojoExecutionException("No tests found in " + testDirectory.getAbsolutePath() + ". Includes:" + testIncludes + ", Excludes:" + testExcludes);
+            }
+            return files;
+        } catch (IOException|IllegalStateException e) {
             throw new MojoExecutionException("Problem finding test pages", e);
         }
     }

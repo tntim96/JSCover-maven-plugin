@@ -26,10 +26,14 @@ public class FileTestRunner extends JSCoverTestRunner {
 
     public void runTests(List<File> testPages) throws MojoFailureException, MojoExecutionException {
         File jsonFile = new File(config.getDestDir() + "/jscoverage.json");
-        if (jsonFile.exists())
+        if (jsonFile.exists()) {
+            log.info("Deleting JSON file " + jsonFile.getAbsolutePath());
             jsonFile.delete();
+        }
         if (config.isLocalStorage()) {
-            webClient.get("file:///" + new File(config.getDestDir(), "jscoverage-clear-local-storage.html").getAbsolutePath().replaceAll("\\\\", "/"));
+            String localStorageUrl = "file:///" + new File(config.getDestDir(), "jscoverage-clear-local-storage.html").getAbsolutePath().replaceAll("\\\\", "/");
+            log.info("Clearing local storage: " + localStorageUrl);
+            webClient.get(localStorageUrl);
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDestDir()));
             saveCoverageData();

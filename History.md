@@ -1,5 +1,6 @@
 1.0.20 / 2016-??-??
 ==================
+  * Upgrade Selenium 2.53.0->3.0.1
   * Upgrade Jasmine 2.4.1->2.5.2
   * Upgrade Mocha 2.4.5->3.0.2
 

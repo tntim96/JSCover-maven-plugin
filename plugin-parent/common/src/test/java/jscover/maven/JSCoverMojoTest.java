@@ -45,7 +45,20 @@ public class JSCoverMojoTest {
     }
 
     @Test
-    public void shouldNotFindTestFiles() throws IllegalAccessException {
+    public void shouldNotFindTestFilesBadInclude() throws IllegalAccessException {
+        ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/javascript"));
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "not-there-*pass.html");
+        try {
+            mojo.getTestFiles();
+            fail("Should throw exception");
+        } catch (MojoExecutionException e) {
+            assertThat(e.getMessage(), startsWith("No tests found in "));
+            assertThat(e.getMessage(), endsWith("JSCover-maven-plugin/plugin-parent/common/../data/src/test/javascript. Includes:not-there-*pass.html, Excludes:null"));
+        }
+    }
+
+    @Test
+    public void shouldNotFindTestFilesBadDirectory() throws IllegalAccessException {
         ReflectionUtils.setVariableValueInObject(mojo, "testDirectory", getFilePath("../data/src/test/not-there"));
         ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "jasmine-html-*pass.html");
         try {

@@ -164,4 +164,11 @@ public class FileMojoTest {
         ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine);
         mojo.execute();
     }
+
+    @Test(expected = MojoExecutionException.class)
+    public void shouldFailNoTests() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "testIncludes", "not-found-*pass.html");
+        ReflectionUtils.setVariableValueInObject(mojo, "testType", Jasmine);
+        mojo.execute();
+    }
 }
