@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-parent-maven-plugin</artifactId>
-        <version>1.0.20-SNAPSHOT</version>
+        <version>1.0.20</version>
     </parent>
 
     <artifactId>jscover-common-maven-plugin</artifactId>

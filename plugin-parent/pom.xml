@@ -7,10 +7,10 @@
     <parent>
         <groupId>com.github.tntim96</groupId>
         <artifactId>jscover-maven-plugin</artifactId>
-        <version>1.0.20-SNAPSHOT</version>
+        <version>1.0.20</version>
     </parent>
     <artifactId>jscover-parent-maven-plugin</artifactId>
-    <version>1.0.20-SNAPSHOT</version>
+    <version>1.0.20</version>
     <packaging>pom</packaging>
     <name>JSCover Plugin Parent Project</name>
 
@@ -112,7 +112,7 @@
         <dependency>
             <groupId>com.github.tntim96</groupId>
             <artifactId>JSCover</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25</version>
         </dependency>
         <!--
         <dependency>
