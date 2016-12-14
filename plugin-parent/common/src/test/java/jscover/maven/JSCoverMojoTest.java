@@ -1,6 +1,7 @@
 package jscover.maven;
 
 import jscover.ConfigurationCommon;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Test;
@@ -14,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
-import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
-import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
+import static jscover.ConfigurationCommon.*;
 import static jscover.maven.TestType.Custom;
 import static jscover.maven.TestType.QUnit;
 import static org.hamcrest.CoreMatchers.*;
@@ -53,7 +52,8 @@ public class JSCoverMojoTest {
             fail("Should throw exception");
         } catch (MojoExecutionException e) {
             assertThat(e.getMessage(), startsWith("No tests found in "));
-            assertThat(e.getMessage(), endsWith("JSCover-maven-plugin/plugin-parent/common/../data/src/test/javascript. Includes:not-there-*pass.html, Excludes:null"));
+            String suffix = "JSCover-maven-plugin/plugin-parent/common/../data/src/test/javascript. Includes:not-there-*pass.html, Excludes:null";
+            assertThat(e.getMessage(), endsWith(StringUtils.replaceChars(suffix, "/", File.separator)));
         }
     }
 
@@ -219,6 +219,6 @@ public class JSCoverMojoTest {
         Object capability = mojo.getDesiredCapabilities().getCapability(CapabilityType.PROXY);
         System.out.println("capability = " + capability);
         assertThat(capability, notNullValue());
-        assertThat(((Proxy)capability).getHttpProxy(), equalTo("localhost:3128"));
+        assertThat(((Proxy) capability).getHttpProxy(), equalTo("localhost:3128"));
     }
 }
