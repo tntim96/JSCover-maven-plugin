@@ -42,21 +42,34 @@ public class ServerTestRunner extends JSCoverTestRunner {
             webClient.get(localStorageUrl);
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
+            saveCoverageDataJavaScript();
         } else {
             webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
             for (File testPage : testPages)
                 runTestInFrames(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
+            saveCoverageData();
         }
-        saveCoverageData();
         verifyTotal();
         generateOtherReportFormats(config.getReportDir());
     }
 
-    private void saveCoverageData() {
+    private void saveCoverageDataJavaScript() {
         ((JavascriptExecutor) webClient).executeScript("window.jscoverFinished = false;");
         ((JavascriptExecutor) webClient).executeScript("jscoverage_report('', function(){window.jscoverFinished=true;});");
         (new WebDriverWait(webClient, timeOutSeconds))
                 .until((ExpectedCondition<Boolean>) d -> (Boolean)((JavascriptExecutor) webClient).executeScript("return window.jscoverFinished;"));
+
+        webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
+    }
+
+    private void saveCoverageData() {
+        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
+        webClient.findElement(By.id("storeTab")).click();
+
+        new WebDriverWait(webClient, 1).until(ExpectedConditions.textToBePresentInElementLocated(By.id("progressLabel"),"Done"));
+        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
+        webClient.findElement(By.id("storeButton")).click();
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
