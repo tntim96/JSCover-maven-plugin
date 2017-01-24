@@ -6,7 +6,9 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,7 +42,6 @@ public class ServerTestRunner extends JSCoverTestRunner {
             webClient.get(localStorageUrl);
             for (File testPage : testPages)
                 runTestLocalStorage(ioUtils.getRelativePath(testPage, config.getDocumentRoot()));
-            webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
         } else {
             webClient.get(String.format("http://localhost:%d/jscoverage.html", config.getPort()));
             for (File testPage : testPages)
@@ -52,13 +53,10 @@ public class ServerTestRunner extends JSCoverTestRunner {
     }
 
     private void saveCoverageData() {
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
-        webClient.findElement(By.id("storeTab")).click();
-
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.textToBePresentInElementLocated(By.id("progressLabel"),"Done"));
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
-        webClient.findElement(By.id("storeButton")).click();
-        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
+        ((JavascriptExecutor) webClient).executeScript("window.jscoverFinished = false;");
+        ((JavascriptExecutor) webClient).executeScript("jscoverage_report('', function(){window.jscoverFinished=true;});");
+        (new WebDriverWait(webClient, timeOutSeconds))
+                .until((ExpectedCondition<Boolean>) d -> (Boolean)((JavascriptExecutor) webClient).executeScript("return window.jscoverFinished;"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
