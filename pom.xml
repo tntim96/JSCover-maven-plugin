@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.tntim96</groupId>
     <artifactId>jscover-maven-plugin</artifactId>
-    <version>1.0.21-SNAPSHOT</version>
+    <version>1.1.0</version>
     <description>Plugin to run web-tests (e.g. Jasmine, QUnit) with WebDriver and JSCover</description>
     <packaging>pom</packaging>
 
