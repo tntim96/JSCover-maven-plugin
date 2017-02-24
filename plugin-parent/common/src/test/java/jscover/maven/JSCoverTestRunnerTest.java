@@ -17,13 +17,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JSCoverTestRunnerTest {;
@@ -47,6 +48,7 @@ public class JSCoverTestRunnerTest {;
         runner = new JSCoverTestRunner(webClient, webDriverRunner, lineCoverageMinimum, branchCoverageMinimum, functionCoverageMinimum, reportLCOV, reportCoberturaXML);
         ReflectionUtils.setVariableValueInObject(runner, "main", main);
         given(webClient.findElement(By.id("summaryTab"))).willReturn(webElement);
+        given(webClient.findElements(By.id("summaryTotal"))).willReturn(Arrays.asList(summaryTotalWebElement));
         given(webClient.findElement(By.id("summaryTotal"))).willReturn(summaryTotalWebElement);
         given(webClient.findElement(By.id("branchSummaryTotal"))).willReturn(branchSummaryTotalWebElement);
         given(webClient.findElement(By.id("functionSummaryTotal"))).willReturn(functionSummaryTotalWebElement);
