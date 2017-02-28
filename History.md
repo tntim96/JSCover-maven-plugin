@@ -1,7 +1,7 @@
 1.1.1 / 2017-??-??
 ==================
   * Upgrade Selenium 3.0.1->3.2.0
-  * Upgrade phantomjsdriver 1.3.0->1.4.0
+  * Upgrade phantomjsdriver 1.3.0->1.4.1
 
 1.1.0 / 2017-02-14
 ==================
