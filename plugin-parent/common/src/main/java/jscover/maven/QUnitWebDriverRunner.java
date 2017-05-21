@@ -17,7 +17,7 @@ import static java.lang.String.format;
 public class QUnitWebDriverRunner extends WebDriverRunnerBase {
 
     public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
-        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "Tests completed"));
+        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "tests completed"));
     }
 
     public void verifyTestsPassed(WebDriver webClient) throws MojoFailureException {
