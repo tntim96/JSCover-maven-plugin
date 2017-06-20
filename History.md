@@ -1,7 +1,10 @@
 1.1.1 / 2017-??-??
 ==================
   * Upgrade Selenium 3.0.1->3.4.0
-  * Upgrade phantomjsdriver 1.3.0-> ghostdriver 2.0.0
+  * Upgrade phantomjsdriver 1.3.0-> ghostdriver 2.1.0
+  * Upgrade QUnit 2.1.1->2.3.@
+  * Upgrade Mocha 3.2.0->3.4.2
+  * Upgrade Jasmine 2.5.2->2.6.4
 
 1.1.0 / 2017-02-14
 ==================
