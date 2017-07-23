@@ -1,5 +1,6 @@
-1.1.1 / 2017-??-??
+2.0.0-SNAPSHOT / 2017-??-??
 ==================
+  * Upgrade JSCover 1.1.0->2.0.1
   * Upgrade Selenium 3.0.1->3.4.0
   * Upgrade phantomjsdriver 1.3.0-> ghostdriver 2.1.0
   * Upgrade QUnit 2.1.1->2.3.@

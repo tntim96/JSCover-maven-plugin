@@ -1,11 +1,11 @@
 package jscover.maven;
 
+import com.google.javascript.jscomp.parsing.Config;
 import jscover.ConfigurationCommon;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Test;
-import org.mozilla.javascript.Context;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 
@@ -84,7 +84,7 @@ public class JSCoverMojoTest {
 
         mojo.setCommonConfiguration(config);
 
-        assertThat(config.getJSVersion(), equalTo(Context.VERSION_1_5));
+        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ECMASCRIPT8));
         assertThat(config.isIncludeBranch(), equalTo(true));
         assertThat(config.isIncludeFunction(), equalTo(true));
         assertThat(config.isLocalStorage(), equalTo(true));
@@ -94,7 +94,7 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetCommonConfiguration() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
-        ReflectionUtils.setVariableValueInObject(mojo, "JSVersion", 180);
+        ReflectionUtils.setVariableValueInObject(mojo, "ECMAVersion", Config.LanguageMode.ECMASCRIPT6.name());
         ReflectionUtils.setVariableValueInObject(mojo, "includeBranch", false);
         ReflectionUtils.setVariableValueInObject(mojo, "includeFunction", false);
         ReflectionUtils.setVariableValueInObject(mojo, "localStorage", false);
@@ -102,7 +102,7 @@ public class JSCoverMojoTest {
 
         mojo.setCommonConfiguration(config);
 
-        assertThat(config.getJSVersion(), equalTo(Context.VERSION_1_8));
+        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ECMASCRIPT6));
         assertThat(config.isIncludeBranch(), equalTo(false));
         assertThat(config.isIncludeFunction(), equalTo(false));
         assertThat(config.isLocalStorage(), equalTo(false));
