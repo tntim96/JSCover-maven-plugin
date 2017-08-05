@@ -15,7 +15,7 @@ Run with `mvn jscover-report:merge`
 <plugin>
     <groupId>com.github.tntim96</groupId>
     <artifactId>jscover-report-maven-plugin</artifactId>
-    <version>1.0.16-SNAPSHOT</version>
+    <version>2.0.1</version>
     <executions>
         <execution>
             <phase>post-integration-test</phase>
