@@ -37,7 +37,7 @@
     </build>
 
     <properties>
-        <selenium.version>3.5.3</selenium.version>
+        <selenium.version>3.6.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -87,11 +87,13 @@
             <artifactId>selenium-ie-driver</artifactId>
             <version>${selenium.version}</version>
         </dependency>
+<!--
         <dependency>
             <groupId>com.github.detro</groupId>
             <artifactId>ghostdriver</artifactId>
             <version>2.1.0</version>
         </dependency>
+-->
         <dependency>
             <groupId>com.github.tntim96</groupId>
             <artifactId>JSCover</artifactId>
@@ -115,6 +117,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>2.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
