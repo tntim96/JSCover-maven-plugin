@@ -7,7 +7,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -35,7 +35,7 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
     @Parameter
     protected int functionCoverageMinimum;
     @Parameter
-    protected String webDriverClassName = PhantomJSDriver.class.getName();
+    protected String webDriverClassName = ChromeDriver.class.getName();
     @Parameter
     protected String testRunnerClassName;
     @Parameter

@@ -2,7 +2,7 @@ package jscover.maven;
 
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
@@ -15,7 +15,7 @@ public class WebDriverRunnerTest {
             Class<WebDriver> webDriverClass = (Class<WebDriver>) Class.forName(System.getProperty("webDriverClass"));
             return webDriverClass.newInstance();
         } catch(Exception e) {
-            return new PhantomJSDriver();
+            return new ChromeDriver();
         }
     }
 
