@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.tntim96:jscover-common-maven-plugin:2.0.1" level="project" />
+    <orderEntry type="module" module-name="jscover-common-maven-plugin" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-model:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
