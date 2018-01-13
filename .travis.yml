@@ -22,5 +22,5 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
-  - mvn clean cobertura:cobertura -Dcobertura.aggregate=true
-  - bash <(curl -s https://codecov.io/bash) -f target/cobertura/cobertura.ser
+  - mvn clean cobertura:cobertura -Dcobertura.aggregate=true -Dcobertura.report.format=xml
+  - bash <(curl -s https://codecov.io/bash)
