@@ -1,7 +1,7 @@
 JSCover-maven-plugin
 ====================
 [![Build Status](https://travis-ci.org/tntim96/JSCover-maven-plugin.svg?branch=master)](https://travis-ci.org/tntim96/JSCover-maven-plugin)
-[![Maven](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/tntim96/JSCover-maven-plugin/maven-metadata.xml.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.tntim96/JSCover-maven-plugin)
+[![Maven](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/tntim96/jscover-maven-plugin/maven-metadata.xml.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.tntim96/jscover-maven-plugin)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-green.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Dependency Status](https://www.versioneye.com/user/projects/540e9989b5f2466423000007/badge.svg?style=flat)](https://www.versioneye.com/user/projects/540e9989b5f2466423000007)
 
