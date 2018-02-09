@@ -47,11 +47,9 @@
         <module>plugin-parent</module>
     </modules>
 
-    <!--
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    -->
     <repositories>
         <repository>
             <id>jitpack.io</id>

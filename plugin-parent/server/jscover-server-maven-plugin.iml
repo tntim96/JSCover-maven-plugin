@@ -11,6 +11,19 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-api:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-java:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-edge-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-opera-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-remote-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-safari-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-support:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.7.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:23.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.0.18" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-ie-driver:3.8.1" level="project" />
     <orderEntry type="module" module-name="jscover-common-maven-plugin" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-model:3.5.2" level="project" />
