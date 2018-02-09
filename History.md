@@ -1,3 +1,8 @@
+2.0.3 / 2018-?-?
+==================
+  * Upgrade Jasmine 2.7.0->3.0.0
+  * Upgrade QUnit 2.4.0->2.5.0
+
 2.0.2 / 2017-11-14
 ==================
   * Upgrade JSCover 2.0.2->2.0.3
@@ -7,7 +12,7 @@
 2.0.1 / 2017-08-04
 ==================
   * Upgrade JSCover 2.0.1->2.0.2
-  * Upgrade QUnit 2.3.2->2.4.@
+  * Upgrade QUnit 2.3.2->2.4.0
   * Upgrade Mocha 3.4.2->3.5.0
   * Upgrade Jasmine 2.6.4->2.7.0
 
