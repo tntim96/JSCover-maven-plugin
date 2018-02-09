@@ -33,12 +33,12 @@ public class JasmineWebDriverRunnerTest extends WebDriverRunnerTest {
         List<String> failures = runner.getFailures(webDriver);
         assertThat(failures.size(), equalTo(6));
         assertThat(failures, contains(
-                "Common should not add one - Expected 2 to equal 3.",
-                "Common should not add one - Expected 4 to equal 5.",
-                "Common should not add one - Expected 1000 to equal 1001.",
-                "Common should add one - Expected 2 to equal 1.",
-                "Common should add one - Expected 4 to equal 3.",
-                "Common should add one - Expected 1002 to equal 1001."
+                "Common > should not add one - Expected 2 to equal 3.",
+                "Common > should not add one - Expected 4 to equal 5.",
+                "Common > should not add one - Expected 1000 to equal 1001.",
+                "Common > should add one - Expected 2 to equal 1.",
+                "Common > should add one - Expected 4 to equal 3.",
+                "Common > should add one - Expected 1002 to equal 1001."
         ));
     }
 }
