@@ -1,6 +1,6 @@
 2.0.3 / 2018-?-?
 ==================
-  * Upgrade Selenium 3.7.1->3.9.1
+  * Upgrade Selenium 3.7.1->3.8.1
   * Upgrade Jasmine 2.8.0->3.0.0
   * Upgrade QUnit 2.4.0->2.5.0
 
