@@ -84,7 +84,7 @@ public class JSCoverMojoTest {
 
         mojo.setCommonConfiguration(config);
 
-        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ECMASCRIPT8));
+        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ES_NEXT));
         assertThat(config.isIncludeBranch(), equalTo(true));
         assertThat(config.isIncludeFunction(), equalTo(true));
         assertThat(config.isLocalStorage(), equalTo(true));
