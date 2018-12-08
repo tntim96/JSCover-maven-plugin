@@ -1,6 +1,6 @@
 2.0.6 / 2018-??-??
 ==================
-  * Upgrade Selenium 3.13.0->3.141.0
+  * Upgrade Selenium 3.13.0->3.141.59
   * Upgrade Jasmine 3.1.0->3.2.1
   * Upgrade QUnit 2.6.1->2.8.0
   * Upgrade Mocha 3.5.0->5.2.0
