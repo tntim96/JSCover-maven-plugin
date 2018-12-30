@@ -29,11 +29,9 @@ public class ServerMojo extends JSCoverMojo {
             throw new MojoExecutionException("Invalid configuration");
 
         final Main main = new Main();
-        Runnable jsCover = new Runnable() {
-            public void run() {
-                main.initialize();
-                main.runServer(config);
-            }
+        Runnable jsCover = () -> {
+            main.initialize();
+            main.runServer(config);
         };
         Thread jsCoverThread = new Thread(jsCover);
         jsCoverThread.start();
