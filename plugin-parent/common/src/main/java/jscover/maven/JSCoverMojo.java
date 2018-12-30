@@ -95,7 +95,7 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
                 options.addArguments("--allow-file-access-from-files");
                 options.addArguments("headless");
                 desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-            } else if (webDriverClassName.contains("Firefoxy")) {
+            } else if (webDriverClassName.contains("Firefox")) {
                 FirefoxOptions options = new FirefoxOptions();
                 options.addArguments("-headless");
                 desiredCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, options);
