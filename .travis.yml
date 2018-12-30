@@ -19,8 +19,8 @@ before_install:
   - export PATH=$PWD/travis-bin:$PATH
 #  - ls -l $PWD/travis-bin
 #  - chromedriver --version
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+#  - export DISPLAY=:99.0
+#  - sh -e /etc/init.d/xvfb start
 script:
   - mvn clean cobertura:cobertura -Dcobertura.aggregate=true -Dcobertura.report.format=xml
   - bash <(curl -s https://codecov.io/bash)
