@@ -1,5 +1,6 @@
 2.0.6 / 2018-??-??
 ==================
+  * Make Chrome and Firefox run in headless mode 
   * Upgrade Selenium 3.13.0->3.141.59
   * Upgrade Jasmine 3.1.0->3.3.0
   * Upgrade QUnit 2.6.1->2.8.0
