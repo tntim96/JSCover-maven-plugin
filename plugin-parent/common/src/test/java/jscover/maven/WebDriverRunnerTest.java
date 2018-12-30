@@ -3,6 +3,7 @@ package jscover.maven;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 
@@ -15,7 +16,9 @@ public class WebDriverRunnerTest {
             Class<WebDriver> webDriverClass = (Class<WebDriver>) Class.forName(System.getProperty("webDriverClass"));
             return webDriverClass.newInstance();
         } catch(Exception e) {
-            return new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("headless");
+            return new ChromeDriver(options);
         }
     }
 

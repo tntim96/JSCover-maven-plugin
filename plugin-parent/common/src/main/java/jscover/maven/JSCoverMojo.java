@@ -8,6 +8,7 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -92,7 +93,12 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
             if (webDriverClassName.contains("Chrome")) {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--allow-file-access-from-files");
+                options.addArguments("headless");
                 desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+            } else if (webDriverClassName.contains("Firefoxy")) {
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments("-headless");
+                desiredCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, options);
             }
             webDriver = webDriverClass.getConstructor(Capabilities.class).newInstance(desiredCapabilities);
         } catch (final Exception e) {
