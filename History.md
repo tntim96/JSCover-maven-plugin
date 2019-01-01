@@ -1,5 +1,6 @@
-2.0.6 / 2018-??-??
+2.0.6 / 2019-01-01
 ==================
+  * Upgrade JSCover 2.0.6->2.0.7
   * Make Chrome and Firefox run in headless mode 
   * Upgrade Selenium 3.13.0->3.141.59
   * Upgrade Jasmine 3.1.0->3.3.0
