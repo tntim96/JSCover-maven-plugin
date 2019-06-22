@@ -14,7 +14,7 @@ addons:
       - google-chrome-stable
 before_install:
   - mkdir travis-bin
-  - wget https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
   - unzip $PWD/travis-bin/chromedriver_linux64.zip -d $PWD/travis-bin
   - export PATH=$PWD/travis-bin:$PATH
 #  - ls -l $PWD/travis-bin
