@@ -97,7 +97,7 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
                 desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
             } else if (webDriverClassName.contains("Firefox")) {
                 FirefoxOptions options = new FirefoxOptions();
-                options.addArguments("-headless");
+                options.setHeadless(true);
                 desiredCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, options);
             }
             webDriver = webDriverClass.getConstructor(Capabilities.class).newInstance(desiredCapabilities);
