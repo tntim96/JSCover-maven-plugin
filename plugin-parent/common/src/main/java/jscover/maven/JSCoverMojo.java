@@ -128,11 +128,6 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
 
     public void stopWebClient() {
         try {
-            webDriver.close();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        try {
             webDriver.quit();
         } catch (Throwable t) {
             t.printStackTrace();
