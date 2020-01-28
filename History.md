@@ -1,5 +1,6 @@
 2.0.8 / 2020-??-??
 ==================
+  * Upgrade JSCover 2.0.8->2.0.9
   * Upgrade Jasmine 3.4.0->3.5.0
   * Upgrade QUnit 2.8.0->2.9.2
   * Upgrade Mocha 5.2.0->6.2.2
