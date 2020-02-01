@@ -7,11 +7,7 @@ cache:
   directories:
   - $HOME/.m2
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 before_install:
   - mkdir travis-bin
   - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
