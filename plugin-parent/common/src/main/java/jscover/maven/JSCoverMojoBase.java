@@ -68,9 +68,9 @@ public abstract class JSCoverMojoBase extends AbstractMojo {
         config.setSrcDir(srcDir);
         config.setDestDir(reportDir);
         for (String excludeArg : excludeArgs) {
-            if (excludeArg.startsWith(ConfigurationForFS.EXLCUDE_PREFIX)) {
+            if (excludeArg.startsWith(ConfigurationForFS.EXCLUDE_PREFIX)) {
                 config.addExclude(excludeArg);
-            } else if (excludeArg.startsWith(ConfigurationForFS.EXLCUDE_REG_PREFIX)) {
+            } else if (excludeArg.startsWith(ConfigurationForFS.EXCLUDE_REG_PREFIX)) {
                 config.addExcludeReg(excludeArg);
             } else {
                 throw new MojoExecutionException(format("Invalid exclude argument '%s'", excludeArg));
