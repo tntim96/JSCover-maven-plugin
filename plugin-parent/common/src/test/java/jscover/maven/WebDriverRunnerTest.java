@@ -25,11 +25,6 @@ public class WebDriverRunnerTest {
     @After
     public void tearDown() {
         try {
-            webDriver.close();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        try {
             webDriver.quit();
         } catch (Throwable t) {
             t.printStackTrace();
