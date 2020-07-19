@@ -6,11 +6,19 @@ jdk:
 cache:
   directories:
   - $HOME/.m2
+apt:
+  packages:
+    - dpkg  # see https://github.com/travis-ci/travis-ci/issues/9361
 addons:
   chrome: stable
 before_install:
+  - sudo apt-get clean
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq postfix
+  - sudo apt-get install --reinstall dpkg
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - mkdir travis-bin
-  - wget https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
   - unzip $PWD/travis-bin/chromedriver_linux64.zip -d $PWD/travis-bin
   - export PATH=$PWD/travis-bin:$PATH
 #  - ls -l $PWD/travis-bin
