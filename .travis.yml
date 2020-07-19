@@ -17,6 +17,8 @@ before_install:
   - sudo apt-get install -y -qq postfix
   - sudo apt-get install --reinstall dpkg
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome-stable_current_amd64.deb
+  - google-chrome --version
   - mkdir travis-bin
   - wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip -O $PWD/travis-bin/chromedriver_linux64.zip
   - unzip $PWD/travis-bin/chromedriver_linux64.zip -d $PWD/travis-bin
