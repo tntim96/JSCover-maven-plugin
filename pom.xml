@@ -39,7 +39,7 @@
     </developers>
 
     <prerequisites>
-        <maven>3.0.5</maven>
+        <maven>3.1.0</maven>
     </prerequisites>
 
     <name>JSCover Maven Plugin Parent Project</name>
