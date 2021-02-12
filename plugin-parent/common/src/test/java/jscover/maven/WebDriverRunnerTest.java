@@ -17,7 +17,7 @@ public class WebDriverRunnerTest {
             return webDriverClass.newInstance();
         } catch(Exception e) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("headless");
+            options.setHeadless(true);
             return new ChromeDriver(options);
         }
     }
