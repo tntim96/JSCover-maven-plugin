@@ -5,7 +5,7 @@ JSCover-maven-plugin
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.tntim96/jscover-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.tntim96/jscover-maven-plugin)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-green.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
-Maven plugins for [JSCover](http://tntim96.github.com/JSCover/).
+Maven plugins for [JSCover](http://tntim96.github.io/JSCover/).
 
 This plugin has the following goals:
 * `jscover-file:instrument` instrument the JavaScript on the file-system
