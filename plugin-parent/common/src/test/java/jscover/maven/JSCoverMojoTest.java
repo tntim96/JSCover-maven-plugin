@@ -94,7 +94,7 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetCommonConfiguration() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
-        ReflectionUtils.setVariableValueInObject(mojo, "ECMAVersion", Config.LanguageMode.ECMASCRIPT6.name());
+        ReflectionUtils.setVariableValueInObject(mojo, "ECMAVersion", Config.LanguageMode.ES_NEXT.name());
         ReflectionUtils.setVariableValueInObject(mojo, "includeBranch", false);
         ReflectionUtils.setVariableValueInObject(mojo, "includeFunction", false);
         ReflectionUtils.setVariableValueInObject(mojo, "localStorage", false);
@@ -102,7 +102,7 @@ public class JSCoverMojoTest {
 
         mojo.setCommonConfiguration(config);
 
-        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ECMASCRIPT6));
+        assertThat(config.getECMAVersion(), equalTo(Config.LanguageMode.ES_NEXT));
         assertThat(config.isIncludeBranch(), equalTo(false));
         assertThat(config.isIncludeFunction(), equalTo(false));
         assertThat(config.isLocalStorage(), equalTo(false));
