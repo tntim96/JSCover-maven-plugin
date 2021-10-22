@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class MochaWebDriverRunner extends WebDriverRunnerBase {
 
   public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
-    new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("duration")));
+    new WebDriverWait(webClient, Duration.ofSeconds(timeOutSeconds)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("duration")));
   }
 
 

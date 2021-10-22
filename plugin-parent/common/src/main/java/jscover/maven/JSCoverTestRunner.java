@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
 
 import static java.lang.String.format;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
@@ -58,7 +59,7 @@ class JSCoverTestRunner {
 
     protected void verifyTotal() throws MojoFailureException {
         webClient.findElement(By.id("summaryTab")).click();
-        new WebDriverWait(webClient, 1).until(textToBePresentInElementLocated(By.id("summaryTotal"), "%"));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(textToBePresentInElementLocated(By.id("summaryTotal"), "%"));
 
         verifyField("Line", "summaryTotal", lineCoverageMinimum);
         verifyField("Branch", "branchSummaryTotal", branchCoverageMinimum);

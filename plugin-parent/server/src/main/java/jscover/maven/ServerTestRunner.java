@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -56,20 +57,20 @@ public class ServerTestRunner extends JSCoverTestRunner {
     private void saveCoverageDataJavaScript() {
         ((JavascriptExecutor) webClient).executeScript("window.jscoverFinished = false;");
         ((JavascriptExecutor) webClient).executeScript("jscoverage_report('', function(){window.jscoverFinished=true;});");
-        (new WebDriverWait(webClient, timeOutSeconds))
+        (new WebDriverWait(webClient, Duration.ofSeconds(timeOutSeconds)))
                 .until((ExpectedCondition<Boolean>) d -> (Boolean)((JavascriptExecutor) webClient).executeScript("return window.jscoverFinished;"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
 
     private void saveCoverageData() {
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(By.id("storeTab")));
         webClient.findElement(By.id("storeTab")).click();
 
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.textToBePresentInElementLocated(By.id("progressLabel"),"Done"));
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.textToBePresentInElementLocated(By.id("progressLabel"),"Done"));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(By.id("storeButton")));
         webClient.findElement(By.id("storeButton")).click();
-        new WebDriverWait(webClient, timeOutSeconds).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
+        new WebDriverWait(webClient, Duration.ofSeconds(timeOutSeconds)).until(ExpectedConditions.textToBePresentInElementLocated(By.id("storeDiv"), "Coverage data stored at"));
 
         webClient.get(format("http://localhost:%d/%s/jscoverage.html", config.getPort(), ioUtils.getRelativePath(config.getReportDir(), config.getDocumentRoot())));
     }
@@ -89,7 +90,7 @@ public class ServerTestRunner extends JSCoverTestRunner {
         webClient.findElement(By.id("openInFrameButton")).click();
 
         String handle = webClient.getWindowHandle();
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
         webDriverRunner.waitForTestsToComplete(webClient);
         webDriverRunner.verifyTestsPassed(webClient);
         log.info("...passed");

@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.List;
 
 public class FileTestRunner extends JSCoverTestRunner {
@@ -44,7 +45,7 @@ public class FileTestRunner extends JSCoverTestRunner {
                 runTestInFrames(ioUtils.getRelativePath(testPage, config.getDestDir()));
             }
             String handle = webClient.getWindowHandle();
-            new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
+            new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
             saveCoverageData();
             webClient.switchTo().window(handle);
         }
@@ -75,7 +76,7 @@ public class FileTestRunner extends JSCoverTestRunner {
         webClient.findElement(By.id("openInFrameButton")).click();
 
         String handle = webClient.getWindowHandle();
-        new WebDriverWait(webClient, 1).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
+        new WebDriverWait(webClient, Duration.ofSeconds(1)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("browserIframe"));
         webDriverRunner.waitForTestsToComplete(webClient);
         webDriverRunner.verifyTestsPassed(webClient);
 
