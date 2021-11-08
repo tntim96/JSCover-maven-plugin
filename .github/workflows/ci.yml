@@ -17,7 +17,7 @@ jobs:
       - name: Install Chromedriver
         run: |
           mkdir github-bin
-          wget https://chromedriver.storage.googleapis.com/92.0.4515.43/chromedriver_linux64.zip -O $PWD/github-bin/chromedriver_linux64.zip
+          wget https://chromedriver.storage.googleapis.com/95.0.4638.54/chromedriver_linux64.zip -O $PWD/github-bin/chromedriver_linux64.zip
           unzip $PWD/github-bin/chromedriver_linux64.zip -d $PWD/github-bin
           export PATH=$PWD/github-bin:$PATH
       - name: Test with Maven
