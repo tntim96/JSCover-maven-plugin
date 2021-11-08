@@ -1,6 +1,6 @@
 package jscover.maven;
 
-import com.google.javascript.jscomp.parsing.Config;
+import com.google.javascript.jscomp.CompilerOptions;
 import jscover.ConfigurationCommon;
 import jscover.filesystem.ConfigurationForFS;
 import org.apache.maven.plugin.AbstractMojo;
@@ -44,7 +44,7 @@ public abstract class JSCoverMojoBase extends AbstractMojo {
         config.setIncludeFunction(includeFunction);
         config.setLocalStorage(localStorage);
         config.setIncludeUnloadedJS(includeUnloadedJS);
-        config.setECMAVersion(Config.LanguageMode.valueOf(ECMAVersion));
+        config.setECMAVersion(CompilerOptions.LanguageMode.valueOf(ECMAVersion));
         config.setDetectCoalesce(detectCoalesce);
         for (String instrumentArg : instrumentPathArgs) {
             if (instrumentArg.startsWith(NO_INSTRUMENT_PREFIX)) {
