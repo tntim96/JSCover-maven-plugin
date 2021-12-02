@@ -2,6 +2,7 @@
 ==================
   * Upgrade Selenium 4.0.0->4.1.0
   * Upgrade maven-plugin-api 3.8.3->3.8.4
+  * Upgrade maven-plugin-annotations 3.6.1->3.6.2
 
 2.0.12 / 2021-11-08
 ==================
