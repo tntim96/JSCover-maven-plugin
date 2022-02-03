@@ -1,7 +1,7 @@
 2.0.13 / 2022-01-25
 ==================
   * Upgrade JSCover 2.0.13->2.0.14
-  * Upgrade Selenium 4.0.0->4.1.1
+  * Upgrade Selenium 4.0.0->4.1.2
   * Upgrade maven-plugin-api 3.8.3->3.8.4
   * Upgrade maven-plugin-annotations 3.6.1->3.6.4
 
