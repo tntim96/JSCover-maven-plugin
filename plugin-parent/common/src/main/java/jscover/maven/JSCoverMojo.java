@@ -109,7 +109,6 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
 
     protected DesiredCapabilities getDesiredCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setJavascriptEnabled(true);
         if (httpProxy != null) {
             Proxy proxy = new Proxy().setHttpProxy(httpProxy);
             capabilities.setCapability(CapabilityType.PROXY, proxy);
