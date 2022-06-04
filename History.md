@@ -1,6 +1,6 @@
 2.0.15 / 2022-??-??
 ==================
-  * Upgrade Selenium 4.1.3->4.1.4
+  * Upgrade Selenium 4.1.3->4.2.1
   * Upgrade plexus-utils 3.4.1->3.4.2
 
 2.0.14 / 2022-04-27
