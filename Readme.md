@@ -15,7 +15,7 @@ This plugin has the following goals:
 Automatic running of tests currently supports:
 * Server and file-mode plugins (generate your coverage reports **without ever running a server**)
 * QUnit, Jasmine, Jasmine2, Mocha and custom test frameworks
-* WebDriver drivers (e.g. PhantomJS, Firefox, Chrome, IE, etc...)
+* WebDriver drivers (Firefox, Chrome)
 * Coverage thresholds
 * Multiple report formats (JSCover HTML, LCOV, Cobertura XML)
 * Ant style test inclusion and exclusions

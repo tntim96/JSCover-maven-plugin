@@ -19,11 +19,11 @@ public class FileInstrumentMojo extends JSCoverMojoBase {
     IoUtils ioUtils = IoUtils.getInstance();
 
     @Parameter
-    private File srcDir = new File("src");
+    private final File srcDir = new File("src");
     @Parameter
-    protected final List<String> excludeArgs = new ArrayList<String>();
+    protected final List<String> excludeArgs = new ArrayList<>();
 
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         final ConfigurationForFS config = getConfigurationForFS(srcDir, excludeArgs);
         config.validate();
         if (config.isInvalid())

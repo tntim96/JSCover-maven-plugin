@@ -14,14 +14,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MergeMojoTest {
-    private MergeMojo mojo = new MergeMojo();
+    private final MergeMojo mojo = new MergeMojo();
 
-    private IoUtils ioUtils = IoUtils.getInstance();
-    private String reportDir1 = getPath("target/report1");
-    private String reportDir2 = getPath("target/report2");
-    private String reportDir12 = "target/report12";
-    private String data1 = ioUtils.loadFromClassPath("/jscoverage-select-1.json");
-    private String data2 = ioUtils.loadFromClassPath("/jscoverage-select-3.json");
+    private final IoUtils ioUtils = IoUtils.getInstance();
+    private final String reportDir1 = getPath("target/report1");
+    private final String reportDir2 = getPath("target/report2");
+    private final String reportDir12 = "target/report12";
+    private final String data1 = ioUtils.loadFromClassPath("/jscoverage-select-1.json");
+    private final String data2 = ioUtils.loadFromClassPath("/jscoverage-select-3.json");
 
     @Before
     public void setUp() throws IOException, IllegalAccessException {
@@ -29,7 +29,7 @@ public class MergeMojoTest {
         ioUtils.copy(data1, new File(getFilePath(reportDir1), "jscoverage.json"));
         ioUtils.copy(data2, new File(getFilePath(reportDir2), "jscoverage.json"));
 
-        List<String> mergeDirStrings = new ArrayList<String>();
+        List<String> mergeDirStrings = new ArrayList<>();
         mergeDirStrings.add(reportDir1);
         mergeDirStrings.add(reportDir2);
         ReflectionUtils.setVariableValueInObject(mojo, "mergeDirStrings", mergeDirStrings);
@@ -60,7 +60,7 @@ public class MergeMojoTest {
     }
 
     @Test
-    public void shouldMergeReports() throws Exception {
+    public void shouldMergeReports() {
         mojo.execute();
         File jsonFile = new File(getFilePath(reportDir12), "jscoverage.json");
         assertThat(jsonFile.exists(), equalTo(true));

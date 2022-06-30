@@ -1,6 +1,7 @@
 package jscover.maven;
 
-import org.apache.maven.plugin.MojoExecutionException;
+import static java.lang.String.format;
+
 import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -13,11 +14,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.String.format;
-
 public class QUnitWebDriverRunner extends WebDriverRunnerBase {
 
-    public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
+    public void waitForTestsToComplete(WebDriver webClient) {
         new WebDriverWait(webClient, Duration.ofSeconds(timeOutSeconds)).until(ExpectedConditions.textToBePresentInElementLocated(By.id("qunit-testresult"), "tests completed"));
     }
 
@@ -31,7 +30,7 @@ public class QUnitWebDriverRunner extends WebDriverRunnerBase {
     }
 
     public List<String> getFailures(WebDriver webClient) {
-        List<String> failures = new ArrayList<String>();
+        List<String> failures = new ArrayList<>();
         List<WebElement> elements = webClient.findElements(By.className("fail"));
         for (WebElement element : elements) {
             List<WebElement> descriptions = element.findElements(By.className("test-name"));

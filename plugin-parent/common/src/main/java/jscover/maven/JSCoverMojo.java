@@ -1,23 +1,22 @@
 package jscover.maven;
 
+import static jscover.maven.TestType.Jasmine;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.AbstractDriverOptions;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-
-import static jscover.maven.TestType.Jasmine;
 
 public abstract class JSCoverMojo extends JSCoverMojoBase {
     protected WebDriver webDriver;
@@ -87,41 +86,29 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
     }
 
     protected WebDriver getWebDriver() {
-        Class<WebDriver> webDriverClass = getWebDriverClass();
-        DesiredCapabilities desiredCapabilities = getDesiredCapabilities();
         try {
             if (webDriverClassName.contains("Chrome")) {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--allow-file-access-from-files");
                 options.setHeadless(true);
-                desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+                setCommonOptions(options);
+                return new ChromeDriver(options);
             } else if (webDriverClassName.contains("Firefox")) {
                 FirefoxOptions options = new FirefoxOptions();
                 options.setHeadless(true);
-                desiredCapabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, options);
+                setCommonOptions(options);
+                return new FirefoxDriver(options);
             }
-            webDriver = webDriverClass.getConstructor(Capabilities.class).newInstance(desiredCapabilities);
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
-        return webDriver;
+        throw new IllegalStateException("Unsupported driver " + webDriverClassName);
     }
 
-    protected DesiredCapabilities getDesiredCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+    protected void setCommonOptions(AbstractDriverOptions options) {
         if (httpProxy != null) {
-            Proxy proxy = new Proxy().setHttpProxy(httpProxy);
-            capabilities.setCapability(CapabilityType.PROXY, proxy);
-        }
-        return capabilities;
-    }
-
-    @SuppressWarnings("unchecked")
-    protected Class<WebDriver> getWebDriverClass() {
-        try {
-            return (Class<WebDriver>) Class.forName(webDriverClassName);
-        } catch (final ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            options.setProxy(new Proxy().setHttpProxy(httpProxy));
         }
     }
 

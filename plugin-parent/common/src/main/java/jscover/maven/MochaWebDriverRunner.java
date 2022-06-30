@@ -2,7 +2,6 @@ package jscover.maven;
 
 import static java.lang.String.format;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class MochaWebDriverRunner extends WebDriverRunnerBase {
 
-  public void waitForTestsToComplete(WebDriver webClient) throws MojoExecutionException {
+  public void waitForTestsToComplete(WebDriver webClient) {
     new WebDriverWait(webClient, Duration.ofSeconds(timeOutSeconds)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("duration")));
   }
 
@@ -31,7 +30,7 @@ public class MochaWebDriverRunner extends WebDriverRunnerBase {
   }
 
   public List<String> getFailures(WebDriver webClient) {
-    List<String> failures = new ArrayList<String>();
+    List<String> failures = new ArrayList<>();
     List<WebElement> elements = webClient.findElements(By.className("fail"));
     for (WebElement element : elements) {
       List<WebElement> descriptions = element.findElements(By.tagName("h2"));

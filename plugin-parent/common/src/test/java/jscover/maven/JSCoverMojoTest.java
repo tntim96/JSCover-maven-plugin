@@ -1,5 +1,19 @@
 package jscover.maven;
 
+import static jscover.ConfigurationCommon.NO_INSTRUMENT_PREFIX;
+import static jscover.ConfigurationCommon.NO_INSTRUMENT_REG_PREFIX;
+import static jscover.ConfigurationCommon.ONLY_INSTRUMENT_REG_PREFIX;
+import static jscover.maven.TestType.Custom;
+import static jscover.maven.TestType.QUnit;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.isA;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.startsWith;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
+
 import com.google.javascript.jscomp.CompilerOptions;
 import jscover.ConfigurationCommon;
 import org.apache.commons.lang3.StringUtils;
@@ -7,6 +21,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Test;
 import org.openqa.selenium.Proxy;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.AbstractDriverOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
 import java.io.File;
@@ -15,15 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static jscover.ConfigurationCommon.*;
-import static jscover.maven.TestType.Custom;
-import static jscover.maven.TestType.QUnit;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
-
 public class JSCoverMojoTest {
-    private JSCoverMojo mojo = new DummyMojo();
+    private final JSCoverMojo mojo = new DummyMojo();
 
     protected File getFilePath(String pathname) {
         if (System.getProperty("user.dir").endsWith("JSCover-maven-plugin"))
@@ -115,7 +124,7 @@ public class JSCoverMojoTest {
     @Test
     public void shouldInterpretCommonConfigurationExcludePathsCorrectly() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
-        List<String> instrumentPathArgs = new ArrayList<String>();
+        List<String> instrumentPathArgs = new ArrayList<>();
         instrumentPathArgs.add(NO_INSTRUMENT_PREFIX + "/exclude/");
         instrumentPathArgs.add(NO_INSTRUMENT_REG_PREFIX + "/exclude-.*/.*.js");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
@@ -130,7 +139,7 @@ public class JSCoverMojoTest {
     @Test
     public void shouldInterpretCommonConfigurationIncludeOnlyPathsCorrectly() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
-        List<String> instrumentPathArgs = new ArrayList<String>();
+        List<String> instrumentPathArgs = new ArrayList<>();
         instrumentPathArgs.add(ONLY_INSTRUMENT_REG_PREFIX + "/include-.*/*.js");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
 
@@ -144,7 +153,7 @@ public class JSCoverMojoTest {
     @Test
     public void shouldDetectIncorrectCommonConfigurationPath() throws Exception {
         ConfigurationCommon config = new ConfigurationCommon();
-        List<String> instrumentPathArgs = new ArrayList<String>();
+        List<String> instrumentPathArgs = new ArrayList<>();
         instrumentPathArgs.add("bad-option");
         ReflectionUtils.setVariableValueInObject(mojo, "instrumentPathArgs", instrumentPathArgs);
 
@@ -215,8 +224,10 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetWebClientProxy() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "httpProxy", "localhost:3128");
+        AbstractDriverOptions options = new ChromeOptions();
 
-        Object capability = mojo.getDesiredCapabilities().getCapability(CapabilityType.PROXY);
+        mojo.setCommonOptions(options);
+        Object capability = options.getCapability(CapabilityType.PROXY);
         System.out.println("capability = " + capability);
         assertThat(capability, notNullValue());
         assertThat(((Proxy) capability).getHttpProxy(), equalTo("localhost:3128"));

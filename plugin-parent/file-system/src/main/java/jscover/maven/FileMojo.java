@@ -17,12 +17,12 @@ import java.util.List;
 @Mojo(name = "jscover", defaultPhase = LifecyclePhase.VERIFY, threadSafe = true)
 public class FileMojo extends JSCoverMojo {
     //private ConfigurationForFS defaults = new ConfigurationForFS();
-    private IoUtils ioUtils = IoUtils.getInstance();
+    private final IoUtils ioUtils = IoUtils.getInstance();
 
     @Parameter
-    private File srcDir = new File("src");
+    private final File srcDir = new File("src");
     @Parameter
-    protected final List<String> excludeArgs = new ArrayList<String>();
+    protected final List<String> excludeArgs = new ArrayList<>();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         setSystemProperties();

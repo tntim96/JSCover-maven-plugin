@@ -26,7 +26,7 @@ public abstract class JSCoverMojoBase extends AbstractMojo {
     @Parameter
     protected boolean includeUnloadedJS = defaults.isIncludeUnloadedJS();
     @Parameter
-    protected final List<String> instrumentPathArgs = new ArrayList<String>();
+    protected final List<String> instrumentPathArgs = new ArrayList<>();
     @Parameter
     protected File reportDir = new File("target/reports/jscover-maven");
     @Parameter
