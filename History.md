@@ -2,7 +2,7 @@
 ==================
   * Upgrade Selenium 4.1.3->4.5.2
   * Only support Chrome and Firefox web drivers
-  * Upgrade plexus-utils 3.4.1->3.4.2
+  * Upgrade plexus-utils 3.4.1->3.5.0
   * Upgrade maven-plugin-api 3.8.5->3.8.6
 
 2.0.14 / 2022-04-27
