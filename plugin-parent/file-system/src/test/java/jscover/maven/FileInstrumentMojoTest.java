@@ -61,7 +61,7 @@ public class FileInstrumentMojoTest {
     private void verifyFileInstrumentation(File file, boolean instrumented) throws IOException {
         assertThat(file.exists(), equalTo(true));
         String code = IOUtils.toString(file.toURI(), "UTF-8");
-        assertThat(code.contains("this._$jscoverage = {};"), equalTo(instrumented));
+        assertThat(code.contains("_$jscoverage = {};"), equalTo(instrumented));
     }
 
     @Test
