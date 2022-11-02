@@ -92,12 +92,12 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
                 options.addArguments("--allow-file-access-from-files");
                 options.setHeadless(true);
                 setCommonOptions(options);
-                return new ChromeDriver(options);
+                return webDriver = new ChromeDriver(options);
             } else if (webDriverClassName.contains("Firefox")) {
                 FirefoxOptions options = new FirefoxOptions();
                 options.setHeadless(true);
                 setCommonOptions(options);
-                return new FirefoxDriver(options);
+                return webDriver = new FirefoxDriver(options);
             }
         } catch (final Exception e) {
             throw new RuntimeException(e);
