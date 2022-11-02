@@ -37,6 +37,10 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 `mvn -DperformRelease=true clean deploy`
 
+In case of error 'gpg: signing failed: Inappropriate ioctl for device' run
+
+`export GPG_TTY=$(tty)`
+
 ## Snapshots
 
 [Development snapshots on sonatype](https://oss.sonatype.org/content/repositories/snapshots/com/github/tntim96/).
