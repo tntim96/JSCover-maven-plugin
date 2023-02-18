@@ -1,6 +1,7 @@
 2.0.16 / 202?-??-??
 ==================
-  * Upgrade Selenium 4.5.3->4.8.0
+  * Upgrade Selenium 4.5.3->4.8.1
+  * Swap IE Driver to MS Edge Driver
   * Upgrade maven-plugin-annotations 3.6.4->3.7.1
 
 2.0.15 / 2022-11-02

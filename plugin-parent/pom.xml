@@ -38,7 +38,7 @@
     </build>
 
     <properties>
-        <selenium.version>4.8.0</selenium.version>
+        <selenium.version>4.8.1</selenium.version>
     </properties>
 
     <dependencies>
@@ -103,7 +103,7 @@
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-ie-driver</artifactId>
+            <artifactId>selenium-edge-driver</artifactId>
             <version>${selenium.version}</version>
             <exclusions>
                 <exclusion>

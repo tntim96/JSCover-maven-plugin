@@ -77,11 +77,11 @@ Run with `mvn jscover-file:jscover`
             </systemProperties>
             -->
             <!--
-            <webDriverClassName>org.openqa.selenium.ie.InternetExplorerDriver</webDriverClassName>
+            <webDriverClassName>org.openqa.selenium.edge.EdgeDriver</webDriverClassName>
             <systemProperties>
                 <property>
-                    <name>webdriver.ie.driver</name>
-                    <value>C:/bin/IEDriverServer.exe</value>
+                    <name>webdriver.edge.driver</name>
+                    <value>C:/bin/msedgedriver.exe</value>
                 </property>
             </systemProperties>
             -->
