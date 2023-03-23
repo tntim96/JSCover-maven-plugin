@@ -224,7 +224,8 @@ public class JSCoverMojoTest {
     @Test
     public void shouldSetWebClientProxy() throws Exception {
         ReflectionUtils.setVariableValueInObject(mojo, "httpProxy", "localhost:3128");
-        AbstractDriverOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
 
         mojo.setCommonOptions(options);
         Object capability = options.getCapability(CapabilityType.PROXY);

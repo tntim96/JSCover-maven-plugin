@@ -90,12 +90,13 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
             if (webDriverClassName.contains("Chrome")) {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--allow-file-access-from-files");
-                options.setHeadless(true);
+                options.addArguments("--remote-allow-origins=*");
+                options.addArguments("--headless");
                 setCommonOptions(options);
                 return webDriver = new ChromeDriver(options);
             } else if (webDriverClassName.contains("Firefox")) {
                 FirefoxOptions options = new FirefoxOptions();
-                options.setHeadless(true);
+                options.addArguments("-headless");
                 setCommonOptions(options);
                 return webDriver = new FirefoxDriver(options);
             }

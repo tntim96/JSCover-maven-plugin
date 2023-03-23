@@ -17,7 +17,8 @@ public class WebDriverRunnerTest {
             return webDriverClass.newInstance();
         } catch(Exception e) {
             ChromeOptions options = new ChromeOptions();
-            options.setHeadless(true);
+            options.addArguments("--headless");
+            options.addArguments("--remote-allow-origins=*");
             return new ChromeDriver(options);
         }
     }
