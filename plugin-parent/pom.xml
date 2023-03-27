@@ -38,7 +38,7 @@
     </build>
 
     <properties>
-        <selenium.version>4.8.1</selenium.version>
+        <selenium.version>4.8.3</selenium.version>
     </properties>
 
     <dependencies>

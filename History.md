@@ -1,6 +1,6 @@
 2.0.16 / 202?-??-??
 ==================
-  * Upgrade Selenium 4.5.3->4.8.1
+  * Upgrade Selenium 4.5.3->4.8.3
   * Upgrade plexus-utils 3.5.0->3.5.1
   * Swap IE Driver to MS Edge Driver
   * Upgrade maven-plugin-annotations 3.6.4->3.8.1
