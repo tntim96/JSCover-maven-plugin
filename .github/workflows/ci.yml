@@ -23,6 +23,6 @@ jobs:
       - name: Test with Maven
         run: mvn clean test
       - name: Generate coverage with Maven
-        run: mvn clean todo
+        run: mvn clean verify surefire-report:report-only -Daggregate=true
       - name: Publish coverage
         run: bash <(curl -s https://codecov.io/bash) -f plugin-parent/coverage/target/site/jacoco-aggregate/jacoco.xml
