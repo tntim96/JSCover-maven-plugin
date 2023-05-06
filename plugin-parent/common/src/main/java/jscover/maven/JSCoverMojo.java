@@ -75,7 +75,7 @@ public abstract class JSCoverMojo extends JSCoverMojoBase {
     protected WebDriverRunner getWebDriverRunner() throws MojoExecutionException {
         if (testRunnerClassName != null) {
             try {
-                return ((Class<WebDriverRunner>) Class.forName(testRunnerClassName)).newInstance();
+                return ((Class<WebDriverRunner>) Class.forName(testRunnerClassName)).getDeclaredConstructor().newInstance();
             } catch (final Exception e) {
                 throw new MojoExecutionException(e.getMessage(), e);
             }

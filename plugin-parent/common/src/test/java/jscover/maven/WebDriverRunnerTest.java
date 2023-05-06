@@ -14,7 +14,7 @@ public class WebDriverRunnerTest {
         try {
             @SuppressWarnings(value = "unchecked")
             Class<WebDriver> webDriverClass = (Class<WebDriver>) Class.forName(System.getProperty("webDriverClass"));
-            return webDriverClass.newInstance();
+            return webDriverClass.getDeclaredConstructor().newInstance();
         } catch(Exception e) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
