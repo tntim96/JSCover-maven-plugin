@@ -1,5 +1,7 @@
-2.0.16 / 202?-??-??
+2.0.16 / 2023-05-06
 ==================
+  * Requires Java 11
+  * Upgrade JSCover 2.0.16->2.0.17
   * Upgrade Selenium 4.5.3->4.9.0
   * Upgrade plexus-utils 3.5.0->3.5.1
   * Swap IE Driver to MS Edge Driver

@@ -1,1 +1,1 @@
-mvn clean cobertura:cobertura -Dcobertura.aggregate=true surefire-report:report-only -Daggregate=true
+mvn clean verify surefire-report:report-only -Daggregate=true

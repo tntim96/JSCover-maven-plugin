@@ -217,7 +217,7 @@ public class JSCoverMojoTest {
             mojo.getWebDriverRunner();
             fail("Should throw exception");
         } catch (MojoExecutionException e) {
-            assertThat(e.getMessage(), equalTo("java.lang.String cannot be cast to jscover.maven.WebDriverRunner"));
+            assertThat(e.getMessage(), startsWith("class java.lang.String cannot be cast to class jscover.maven.WebDriverRunner"));
         }
     }
 
