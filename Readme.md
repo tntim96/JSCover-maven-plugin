@@ -66,4 +66,4 @@ Count signatures:
 
 ## Running tests
 
-`mvn clean cobertura:cobertura -Dcobertura.aggregate=true && mvn surefire-report:report -DskipTests=true -Daggregate=true`
+`mvn clean verify surefire-report:report-only -Daggregate=true`
