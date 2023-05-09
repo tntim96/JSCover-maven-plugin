@@ -1,3 +1,9 @@
+2.0.17 / 2023-??-??
+==================
+  * Requires Java 11
+  * Upgrade JSCover 2.0.17->2.0.18
+  * Upgrade Selenium 4.9.0->4.9.1
+
 2.0.16 / 2023-05-06
 ==================
   * Requires Java 11
