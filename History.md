@@ -1,11 +1,10 @@
 2.0.17 / 2023-??-??
 ==================
-  * Requires Java 11
   * Upgrade JSCover 2.0.17->2.0.18
-  * Upgrade Selenium 4.9.0->4.9.1
+  * Upgrade Selenium 4.9.0->4.10.0
   * Upgrade Jasmine 4.5.0->5.0.0
   * Upgrade maven-plugin-annotations 3.8.2->3.9.0
-  * Upgrade commons-io 2.11.0->2.12.0
+  * Upgrade commons-io 2.11.0->2.13.0
   * Upgrade plexus-utils 3.5.1->4.0.0
 
 2.0.16 / 2023-05-06
