@@ -6,6 +6,7 @@
   * Upgrade maven-plugin-annotations 3.8.2->3.9.0
   * Upgrade commons-io 2.11.0->2.13.0
   * Upgrade plexus-utils 3.5.1->4.0.0
+  * Upgrade maven-plugin-api 3.8.6->3.9.2
 
 2.0.16 / 2023-05-06
 ==================
