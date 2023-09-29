@@ -1,7 +1,7 @@
 2.0.17 / 2023-??-??
 ==================
   * Upgrade JSCover 2.0.17->2.0.18
-  * Upgrade Selenium 4.9.0->4.12.1
+  * Upgrade Selenium 4.9.0->4.13.0
   * Upgrade Jasmine 4.5.0->5.0.0
   * Upgrade maven-plugin-annotations 3.8.2->3.9.0
   * Upgrade commons-io 2.11.0->2.13.0
