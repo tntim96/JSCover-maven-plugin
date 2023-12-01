@@ -4,9 +4,9 @@
   * Upgrade Selenium 4.9.0->4.15.0
   * Upgrade Jasmine 4.5.0->5.0.0
   * Upgrade maven-plugin-annotations 3.8.2->3.10.2
-  * Upgrade maven-plugin-api 3.8.6->3.9.2
+  * Upgrade maven-plugin-api 3.8.6->3.9.5
   * Upgrade maven-plugin-plugin 3.9.0->3.10.2
-  * Upgrade commons-io 2.11.0->2.15.0
+  * Upgrade commons-io 2.11.0->2.15.1
   * Upgrade plexus-utils 3.5.1->4.0.0
 
 2.0.16 / 2023-05-06
