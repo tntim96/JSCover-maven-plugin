@@ -66,4 +66,4 @@ Count signatures:
 
 ## Running tests
 
-`mvn clean verify surefire-report:report-only -Daggregate=true`
+`mvn clean && mvn clean verify && mvn surefire-report:report-only -Daggregate=true`
