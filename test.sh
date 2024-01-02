@@ -1,1 +1,1 @@
-mvn clean verify surefire-report:report-only -Daggregate=true
+mvn clean verify && mvn surefire-report:report-only -Daggregate=true
