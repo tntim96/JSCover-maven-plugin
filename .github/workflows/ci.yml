@@ -21,6 +21,6 @@ jobs:
           unzip $PWD/github-bin/chromedriver_linux64.zip -d $PWD/github-bin
           export PATH=$PWD/github-bin:$PATH
       - name: Test and generate coverage with Maven
-        run: mvn clean verify surefire-report:report-only -Daggregate=true
+        run: mvn clean && mvn clean verify && mvn surefire-report:report-only -Daggregate=true
       - name: Publish coverage
         run: bash <(curl -s https://codecov.io/bash) -f plugin-parent/coverage/target/site/jacoco-aggregate/jacoco.xml
