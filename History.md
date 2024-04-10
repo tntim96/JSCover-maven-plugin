@@ -1,7 +1,8 @@
 2.0.18 / 2024-??-??
 ==================
-  * Upgrade maven-plugin-annotations 3.10.2->3.11.0
+  * Upgrade maven-plugin-annotations 3.10.2->3.12.0
   * Upgrade Selenium 4.16.1->4.19.1
+  * Upgrade maven-plugin-api 3.9.5->3.9.6
 
 2.0.17 / 2024-01-02
 ==================
