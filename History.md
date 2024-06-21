@@ -1,7 +1,7 @@
 2.0.18 / 2024-??-??
 ==================
   * Upgrade maven-plugin-annotations 3.10.2->3.13.1
-  * Upgrade Selenium 4.16.1->4.21.0
+  * Upgrade Selenium 4.16.1->4.22.0
   * Upgrade maven-plugin-api 3.9.5->3.9.6
   * Upgrade plexus-utils 4.0.0->4.0.1
 
