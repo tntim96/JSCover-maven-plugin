@@ -35,6 +35,10 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 
 ## Releasing
 
+### Update POM version
+`mvn versions:set -DnewVersion=2.0.18`
+
+### Release
 `mvn -DperformRelease=true clean deploy`
 
 In case of error 'gpg: signing failed: Inappropriate ioctl for device' run

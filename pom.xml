@@ -19,12 +19,12 @@
     </licenses>
     <url>https://github.com/tntim96/JSCover-maven-plugin</url>
     <scm>
-        <url>http://github.com/tntim96/JSCover-maven-plugin/</url>
+        <url>https://github.com/tntim96/JSCover-maven-plugin/</url>
         <connection>scm:git:git://github.com/tntim96/JSCover-maven-plugin.git</connection>
     </scm>
     <issueManagement>
         <system>github</system>
-        <url>http://github.com/tntim96/JSCover/issues</url>
+        <url>https://github.com/tntim96/JSCover/issues</url>
     </issueManagement>
     <developers>
         <developer>
