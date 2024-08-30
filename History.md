@@ -1,4 +1,4 @@
-2.0.18 / 2024-??-??
+2.0.18 / 2024-08-30
 ==================
   * UpgradeJSCover 2.0.19->2.0.20
   * Upgrade maven-plugin-annotations 3.10.2->3.13.1
