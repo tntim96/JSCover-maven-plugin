@@ -1,6 +1,11 @@
+2.0.19 / 202?-??-??
+==================
+ * Upgrade Selenium 4.24.1->4.25.0
+ * Upgrade plexus-utils 4.0.1->4.0.2
+
 2.0.18 / 2024-08-30
 ==================
-  * UpgradeJSCover 2.0.19->2.0.20
+  * Upgrade JSCover 2.0.19->2.0.20
   * Upgrade maven-plugin-annotations 3.10.2->3.13.1
   * Upgrade commons-lang3 3.14.0->3.17.0
   * Upgrade Selenium 4.16.1->4.24.0
