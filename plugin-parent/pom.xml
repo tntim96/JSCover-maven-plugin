@@ -39,7 +39,7 @@
     </build>
 
     <properties>
-        <selenium.version>4.25.0</selenium.version>
+        <selenium.version>4.26.0</selenium.version>
     </properties>
 
     <dependencies>

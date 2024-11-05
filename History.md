@@ -1,6 +1,6 @@
 2.0.19 / 202?-??-??
 ==================
- * Upgrade Selenium 4.24.1->4.25.0
+ * Upgrade Selenium 4.24.1->4.26.0
  * Upgrade plexus-utils 4.0.1->4.0.2
 
 2.0.18 / 2024-08-30
