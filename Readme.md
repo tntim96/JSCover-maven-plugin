@@ -20,7 +20,7 @@ Automatic running of tests currently supports:
 * Multiple report formats (JSCover HTML, LCOV, Cobertura XML)
 * Ant style test inclusion and exclusions
 
-Requires Java 11
+Requires Java 21
 
 See the server configuration
 [here](https://github.com/tntim96/JSCover-maven-plugin/tree/master/plugin-parent/server).
