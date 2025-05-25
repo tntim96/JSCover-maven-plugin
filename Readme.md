@@ -36,7 +36,7 @@ See [JSCover-Samples](https://github.com/tntim96/JSCover-Samples).
 ## Releasing
 
 ### Update POM version
-`mvn versions:set -DnewVersion=2.0.18`
+`mvn versions:set -DnewVersion=2.0.20`
 
 ### Release
 `mvn -DperformRelease=true clean deploy`
