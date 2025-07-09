@@ -39,7 +39,7 @@
     </build>
 
     <properties>
-        <selenium.version>4.33.0</selenium.version>
+        <selenium.version>4.34.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -154,7 +154,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.17.0</version>
+            <version>3.18.0</version>
         </dependency>
     </dependencies>
 </project>

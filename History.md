@@ -1,3 +1,8 @@
+2.0.20 / 2025-??-??
+==================
+ * Upgrade Selenium 4.33.0->4.34.0
+ * Upgrade commons-lang3 3.17.0->3.18.0
+ 
 2.0.19 / 2025-05-25
 ==================
  * Requires Java 21 to match closure-compiler
