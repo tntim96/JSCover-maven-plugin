@@ -48,6 +48,7 @@
     </modules>
 
     <properties>
+<!--        <argLine/>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.8.13</jacoco.version>
     </properties>
@@ -65,7 +66,30 @@
     </distributionManagement>
     <build>
         <plugins>
-            <plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.8.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>properties</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.3</version>
+            <configuration>
+              <argLine>
+                @{argLine}
+                -javaagent:${org.mockito:mockito-core:jar}
+              </argLine>
+            </configuration>
+          </plugin>
+          <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.7.0</version>
@@ -153,4 +177,12 @@
             </build>
         </profile>
     </profiles>
+  <dependencies>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.19.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
