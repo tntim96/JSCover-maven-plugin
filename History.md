@@ -1,6 +1,6 @@
 2.0.20 / 2025-??-??
 ==================
- * Upgrade Selenium 4.33.0->4.35.0
+ * Upgrade Selenium 4.33.0->4.37.0
  * Upgrade commons-lang3 3.17.0->3.18.0
  * Upgrade maven-plugin-api 3.9.9->3.9.11
  
