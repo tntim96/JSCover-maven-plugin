@@ -1,6 +1,7 @@
 2.0.20 / 2025-??-??
 ==================
- * Upgrade Selenium 4.33.0->4.38.0
+ * Upgrade JSCover 2.0.22->2.0.23
+ * Upgrade Selenium 4.33.0->4.41.0
  * Upgrade commons-lang3 3.17.0->3.20.0
  * Upgrade maven-plugin-api 3.9.9->3.9.11
  
